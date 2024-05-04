@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        padding: 0 2vw 0 2vw;
+        overflow: hidden;
+      }
+
+      .highlighted {
+        background-color: yellow;
+      }
+
+      button {
+        /* padding: 10px; */
+        /* margin: 30px; */
+        font-size: 6vw;
+        width: 100%;
+        overflow: hidden;
+        /* transform: scaleX(1.5); */
+        font-stretch: expanded;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="mitigated" class="highlighted" onclick="mitigatedFunction()">
+      Mitigated
+    </button>
+    <button id="unmitigated" onclick="unmitigatedFunction()">
+      Unmitigated
+    </button>
+
+    <script>
+      function mitigatedFunction() {
+        var rp = window.parent.tour._getRootPlayer();
+        document.getElementById("mitigated").classList.add("highlighted");
+        document.getElementById("unmitigated").classList.remove("highlighted");
+        MySetVizByTags(["Noise_Unmitigated"], false);
+        MySetVizByTags(["Noise_Mitigated"], true, 300);
+      }
+
+      function unmitigatedFunction() {
+        var rp = window.parent.tour._getRootPlayer();
+        document.getElementById("unmitigated").classList.add("highlighted");
+        document.getElementById("mitigated").classList.remove("highlighted");
+        MySetVizByTags(["Noise_Mitigated"], false);
+        MySetVizByTags(["Noise_Unmitigated"], true, 300);
+      }
+
+      function MySetVizByTags(tags, visibility, delay) {
+        var rp = window.parent.tour._getRootPlayer();
+        rp.setOverlaysVisibilityByTags(
+          tags,
+          visibility,
+          rp.getMediaByName(),
+          "or",
+          delay
+        );
+      }
+    </script>
+  </body>
+</html>
