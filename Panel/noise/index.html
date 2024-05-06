@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        padding: 0 2vw 0 2vw;
+        overflow: hidden;
+      }
+
+      .highlighted {
+        background-color: yellow;
+      }
+
+      button {
+        /* padding: 10px; */
+        /* margin: 30px; */
+        font-size: 12vw;
+        width: 100%;
+        overflow: hidden;
+        /* transform: scaleX(1.8); */
+        outline: 5px solid black;
+        /* use hand cursor */
+        cursor: pointer;
+      }
+
+      #title {
+        font-size: 16vw;
+        margin: 0;
+        padding: 0;
+        /* transform: scaleX(1.8); */
+      }
+    </style>
+  </head>
+  <body>
+    <p id="title">Title</p>
+    <button id="mitigated" class="highlighted" onclick="mitigatedFunction()">
+      Mitigated
+    </button>
+    <button id="unmitigated" onclick="unmitigatedFunction()">
+      Unmitigated
+    </button>
+    <button
+      id="closeBtn"
+      onclick="closePanel()"
+      style="position: fixed; top: 0"
+    >
+      Close
+    </button>
+    <button id="testBtn" onclick="testApi()" style="position: fixed; bottom: 0">
+      test(don't click)
+    </button>
+
+    <script>
+      let rp = window.parent.tour._getRootPlayer();
+      //function to change the title according to the parameter passed in url as ?title=YourTitle
+      function changeTitle() {
+        // Get the parameter title from the url
+        const urlParams = new URLSearchParams(window.location.search);
+        const title = urlParams.get("title");
+        // If title is not null then change the title of the page
+        if (title) {
+          document.getElementById("title").textContent = title;
+        }
+      }
+
+      function mitigatedFunction() {
+        // var rp = window.parent.tour._getRootPlayer();
+        document.getElementById("mitigated").classList.add("highlighted");
+        document.getElementById("unmitigated").classList.remove("highlighted");
+        MySetVizByTags(["Noise_Unmitigated"], false, 0);
+        MySetVizByTags(["Noise_Mitigated"], true, 300);
+      }
+
+      function unmitigatedFunction() {
+        // var rp = window.parent.tour._getRootPlayer();
+        document.getElementById("unmitigated").classList.add("highlighted");
+        document.getElementById("mitigated").classList.remove("highlighted");
+        MySetVizByTags(["Noise_Mitigated"], false, 0);
+        MySetVizByTags(["Noise_Unmitigated"], true, 300);
+      }
+
+      function closePanel() {
+        // var rp = window.parent.tour._getRootPlayer();
+        MySetVizByTags(["switch_state_noise"], false, 0);
+        MySetVizByTags(["switch_state_air"], false), 0;
+        console.log("closePanel");
+      }
+
+      function MySetVizByTags(tags, visibility, delay) {
+        // var rp = window.parent.tour._getRootPlayer();
+        rp.setOverlaysVisibilityByTags(
+          tags,
+          visibility,
+          rp.getMediaByName(),
+          "or",
+          delay
+        );
+      }
+
+      function testApi() {
+        // var rp = window.parent.tour._getRootPlayer();
+        rp.getComponentByName("NB_button").set("visible", false);
+        // rp.setComponentsVisibilityByTags("Noise_Barrier", false, 0);
+        // rp.getComponentsByTags("Noise_Barrier", "or").set("pressed", true);
+      }
+
+      changeTitle();
+    </script>
+  </body>
+</html>

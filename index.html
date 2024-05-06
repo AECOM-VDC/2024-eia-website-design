@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .image-selector {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 5px;
+        padding: 10px;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .image-selector button {
+        color: white;
+        background: none;
+        border: none;
+        font-size: 2em;
+        cursor: pointer;
+      }
+
+      #no-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 2em;
+        display: none;
+      }
+
+      #image-name {
+        font-size: 1.2em;
+        margin: 0 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets></a-assets>
+
+      <a-sky id="sky"></a-sky>
+
+      <a-entity camera look-controls="reverseMouseDrag: true"> </a-entity>
+    </a-scene>
+    <div id="no-image">No more images to display</div>
+    <div class="image-selector">
+      <button id="previous">&#8678;</button>
+      <span id="image-name">Loading...</span>
+      <button id="next">&#8680;</button>
+    </div>
+    <script>
+      let currentIndex = 0;
+      const assetFolder = "asset/";
+      const assetPrefix = "pano";
+      let extension = "";
+
+      window.onload = () => {
+        changeImage(0);
+        document
+          .getElementById("next")
+          .addEventListener("click", () => changeImage(currentIndex + 1));
+        document
+          .getElementById("previous")
+          .addEventListener("click", () => changeImage(currentIndex - 1));
+      };
+
+      function changeImage(index) {
+        if (index < 0) return;
+
+        const imgPathJPG = `${assetFolder}${assetPrefix}${index}.jpg`;
+        const imgPathPNG = `${assetFolder}${assetPrefix}${index}.png`;
+
+        fetch(imgPathJPG)
+          .then((res) => {
+            if (res.ok) {
+              extension = ".jpg";
+              updateImage(index, imgPathJPG);
+              //abort the fetch
+              throw new Error("Abort");
+            } else {
+              return fetch(imgPathPNG);
+            }
+          })
+          .then((res) => {
+            if (res && res.ok) {
+              extension = ".png";
+              updateImage(index, imgPathPNG);
+            } else {
+              document.getElementById("no-image").style.display = "block";
+              document.getElementById("image-name").textContent = "No Image";
+            }
+          })
+          .catch(console.error);
+      }
+
+      function updateImage(index, imgPath) {
+        let imgElement = document.querySelector(
+          `#${assetPrefix}${currentIndex}`
+        );
+        if (imgElement) {
+          imgElement.parentNode.removeChild(imgElement);
+        }
+
+        let assets = document.querySelector("a-assets");
+        let img = document.createElement("img");
+        img.setAttribute("id", `${assetPrefix}${index}`);
+        img.setAttribute("src", imgPath);
+        assets.appendChild(img);
+
+        document
+          .querySelector("#sky")
+          .setAttribute("src", `#${assetPrefix}${index}`);
+        currentIndex = index;
+
+        document.getElementById("no-image").style.display = "none";
+        document.getElementById(
+          "image-name"
+        ).textContent = `${assetPrefix}${index}${extension}`;
+      }
+    </script>
+  </body>
+</html>
