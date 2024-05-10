@@ -1,0 +1,81 @@
+{
+  "TEMPLATE": {
+    "vp0": {
+      "title": "Visual Impact VP10_",
+      "mapLocation": "View from Man Tin Cheung Park",
+      "description": "",
+      "type": "compare",
+      "options": [
+        "Existing Baseline Condition",
+        "Day 1 without mitigation (Operation Phase)",
+        "Day 1 with mitigation (Operation Phase)",
+        "Year 10 with mitigation (Operation Phase)"
+      ],
+      "fileName": [
+        "VP1_0712.jpeg",
+        "VP1-without_0712.jpg",
+        "VP1-day1_0712.jpg",
+        "VP1-years_0712.jpg"
+      ],
+      "preSelect": [0, 2],
+      "noteTitle": "Mitigation Measures:",
+      "note": [
+        {
+          "title": "",
+          "content": "For Construction Phase",
+          "color": 1
+        },
+        {
+          "title": "OM1",
+          "content": "example",
+          "color": 0
+        },
+        {
+          "title": "",
+          "content": "For Operation Phase",
+          "color": 1
+        },
+        {
+          "title": "OM1",
+          "content": "example",
+          "color": 0
+        }
+      ]
+    }
+  },
+  "DATA": {
+    "vp1": {
+      "title": "Visual Impact",
+      "mapLocation": "View from Jasper Court",
+      "description": "",
+      "type": "compare",
+      "options": ["Existing  Condition", "Future Condition"],
+      "fileName": ["v5_e.jpg", "v5.jpg"],
+      "preSelect": [0, 1],
+      "noteTitle": "Mitigation Measures:",
+      "note": []
+    },
+    "vp5": {
+      "title": "Visual Impact",
+      "mapLocation": "View from Jasper Court",
+      "description": "",
+      "type": "compare",
+      "options": ["Existing  Condition", "Future Condition"],
+      "fileName": ["v3_e.jpg", "v3_m.jpg"],
+      "preSelect": [0, 1],
+      "noteTitle": "Mitigation Measures:",
+      "note": []
+    },
+    "vp6": {
+      "title": "Visual Impact",
+      "mapLocation": "View from Jasper Court",
+      "description": "",
+      "type": "compare",
+      "options": ["Existing  Condition", "Future Condition"],
+      "fileName": ["v2_e.jpg", "v2_m.jpg"],
+      "preSelect": [0, 1],
+      "noteTitle": "Mitigation Measures:",
+      "note": []
+    }
+  }
+}

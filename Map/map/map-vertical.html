@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>map</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="./leaflet-hongkong-provider.js"></script>
+    <script src="./leaflet-rotate-src.js"></script>
+
+    <link rel="stylesheet" href="leaflet-legend.css" />
+
+    <style>
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100vw;
+        height: 100vh;
+        background-color: transparent !important;
+      }
+
+      .leaflet-container {
+        background: none !important;
+      }
+
+      #map {
+        width: 100%;
+        height: 100%;
+      }
+
+      .leaflet-marker-icon {
+        filter: hue-rotate(-40deg);
+      }
+
+      .divIcon {
+        margin: 0 !important;
+        padding: 0 !important;
+        color: #ffffff;
+        font-size: 50px;
+        font-weight: bold;
+        text-align: center;
+      }
+      .sr-tooltip {
+        /* background: transparent; */
+        border: 1px solid rgb(255, 255, 255);
+        box-shadow: none;
+        font-size: 18px;
+        padding: 0px 6px 0px 6px !important;
+        color: #000000;
+        /* text-shadow: 0em 0em 0.2em black, 0em 0em 0.2em black,
+          0em 0em 0.3em black; */
+        border-radius: 6px;
+      }
+
+      .vp-tooltip {
+        background: transparent;
+        border: 0px solid red;
+        box-shadow: none;
+        font-size: 22px;
+        color: #ffffff;
+        text-shadow: 0em 0em 0.2em black, 0em 0em 0.2em black,
+          0em 0em 0.3em black;
+      }
+
+      /* make tooltip arrow transparent */
+      .vp-tooltip::before {
+        border-top-color: transparent !important;
+        border-bottom-color: transparent !important;
+        border-left-color: transparent !important;
+        border-right-color: transparent !important;
+      }
+
+      #map_logo {
+        width: 20px;
+        height: 20px;
+        padding-left: 0px;
+      }
+
+      .Maplogo {
+        margin: 0 !important;
+        padding: 0 !important;
+        line-height: 0% !important;
+      }
+
+      .leaflet-control-attribution {
+        line-height: 20px !important;
+        margin-top: 0px !important;
+        float: right !important;
+        clear: none !important;
+        background: rgba(255, 255, 255, 0.72) !important;
+      }
+
+      .leaflet-control-rotate {
+        display: none !important;
+      }
+    </style>
+  </head>
+
+  <body id="body">
+    <div id="map"></div>
+    <script>
+      //SRs
+      var Uptown = L.marker([22.4338344, 114.0020243, 129], {
+        title: "vp3",
+      }).bindTooltip("Uptown", {
+        interactive: true,
+        permanent: true,
+        direction: "top",
+        className: "sr-tooltip",
+        offset: [-15, -10],
+        title: "vp3",
+      });
+      var TaiTaoTsuen = L.marker([22.433056, 114.002534], {
+        title: "vp4",
+      }).bindTooltip("Tai Tao Tsuen", {
+        interactive: true,
+        permanent: true,
+        direction: "left",
+        className: "sr-tooltip",
+        offset: [-25, 0],
+        title: "vp4",
+      });
+      var ParkVilla = L.marker([22.433909, 114.006303], {
+        title: "vp2",
+      }).bindTooltip("Park Villa", {
+        interactive: true,
+        permanent: true,
+        direction: "right",
+        className: "sr-tooltip",
+        offset: [-5, 0],
+        title: "vp2",
+      });
+      var JasperCourt = L.marker([22.438454, 114.011656], {
+        title: "vp1",
+      }).bindTooltip("Jasper Court", {
+        interactive: true,
+        permanent: true,
+        direction: "left",
+        className: "sr-tooltip",
+        offset: [-25, 0],
+        title: "vp1",
+      });
+      var TanKwaiTsuen = L.marker([22.424254, 113.998577], {
+        title: "vp6",
+      }).bindTooltip("Tan Kwai Tsuen", {
+        interactive: true,
+        permanent: true,
+        direction: "right",
+        className: "sr-tooltip",
+        offset: [-5, 0],
+        title: "vp6",
+      });
+      var PingShanSouth = L.marker([22.424906, 113.99658], {
+        title: "vp6",
+      }).bindTooltip("Ping Shan South", {
+        interactive: true,
+        permanent: true,
+        direction: "left",
+        className: "sr-tooltip",
+        offset: [-25, 0],
+        title: "vp6",
+      });
+      var CasaRegalia = L.marker([22.428316, 113.999005], {
+        title: "vp5",
+      }).bindTooltip("Casa Regalia", {
+        interactive: true,
+        permanent: true,
+        direction: "left",
+        className: "sr-tooltip",
+        offset: [-25, 0],
+        title: "vp5",
+      });
+      var ManorParc = L.marker([22.429451, 113.999643], {
+        title: "vp5",
+      }).bindTooltip("Manor Parc", {
+        interactive: true,
+        permanent: true,
+        direction: "left",
+        className: "sr-tooltip",
+        offset: [-25, 0],
+        title: "vp5",
+      });
+
+      var imageOverlay = L.imageOverlay(imageUrl, siteBounds, {
+        opacity: 0.8,
+        errorOverlayUrl: errorOverlayUrl,
+        alt: altText,
+        interactive: true,
+      });
+
+      let SrArray = [
+        Uptown,
+        TaiTaoTsuen,
+        ParkVilla,
+        JasperCourt,
+        TanKwaiTsuen,
+        PingShanSouth,
+        CasaRegalia,
+        ManorParc,
+      ];
+
+      SrArray.forEach((element) => {
+        element.on("click", onVpClick);
+      });
+
+      //group
+      var sr = L.layerGroup(SrArray);
+
+      //Tiles
+      var osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      });
+
+      var Esri_WorldImagery = L.tileLayer(
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        {
+          attribution:
+            "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community",
+        }
+      );
+
+      //add hongkong topography
+      var HkBase = L.layerGroup.hongKong("topography.tc");
+      var HkSate = L.tileLayer.hongKong("basemap.imagery");
+
+      var map = L.map("map", {
+        attributionControl: false,
+        layers: [sr],
+        minZoom: 13,
+        maxZoom: 18,
+        zoomControl: false,
+        // dragging: false,
+        // scrollWheelZoom: false,
+        // doubleClickZoom: false,
+        // boxZoom: false,
+        rotate: true,
+        rotateControl: {
+          // closeOnZeroBearing: false,
+          // position: 'bottomleft',
+          compassBearing: true,
+        },
+        bearing: 45,
+      });
+
+      var imageUrl = "./image/map2.png";
+      var errorOverlayUrl =
+        "https://cdn-icons-png.flaticon.com/512/110/110686.png";
+      var altText = "image";
+      var siteBounds = L.latLngBounds([
+        [22.42017, 113.990809],
+        [22.440534, 114.019986],
+      ]);
+
+      var circle = L.circle([22.441293, 114.020762], {
+        color: "red",
+        fillColor: "#f03",
+        fillOpacity: 0.5,
+        radius: 100,
+      }).addTo(map);
+
+      // zoom the map to the rectangle bounds
+
+      var imageOverlay = L.imageOverlay(imageUrl, siteBounds, {
+        opacity: 1,
+        errorOverlayUrl: errorOverlayUrl,
+        alt: altText,
+        interactive: true,
+      }).addTo(map);
+
+      L.control
+        .attribution({
+          prefix:
+            'Map base tiles from <a href="https://geodata.gov.hk/gs/imagery-map-api" target="_blank">Lands Department</a>',
+        })
+        .addTo(map);
+
+      map.attributionControl
+        .addAttribution
+        //add image tag
+        // '<a href="https://geodata.gov.hk/gs/imagery-map-api">Imagery Map API</a>'
+        ();
+
+      // define rectangle geographical bounds
+      // var bounds = [
+      //   [54.559322, -5.767822],
+      //   [56.1210604, -3.02124],
+      // ];
+
+      // create an orange rectangle
+      L.rectangle(siteBounds, { color: "#ff7800", weight: 1 }).addTo(map);
+
+
+      var baseMaps = {
+        "Satellite Map": HkSate,
+        "Base Map": HkBase,
+      };
+      var overlayMaps = {
+        SRs: sr,
+        "Image Overlay": imageOverlay,
+      };
+      var imageOverlayMaps = {
+        "Image Overlay": imageOverlay,
+      };
+
+      L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+      //custom marker
+      var VpIcon = L.icon({
+        iconUrl: "./image/vp_marker.png",
+        // shadowUrl: "leaf-shadow.png",
+        iconSize: [60, 60], // size of the icon
+        shadowSize: [50, 64], // size of the shadow
+        iconAnchor: [30, 30], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62], // the same for the shadow
+        popupAnchor: [0, 0], // point from which the popup should open relative to the iconAnchor
+      });
+
+      var vp1 = L.marker([22.437827, 114.011724], {
+        icon: VpIcon,
+        title: "vp1",
+      }).addTo(map);
+      vp1.on("click", onVpClick);
+      vp1.bindTooltip("View Point 1", {
+        // permanent: true,
+        direction: "bottom",
+        className: "vp-tooltip",
+        offset: [0, 5],
+      });
+
+      var vp2 = L.marker([22.434415, 114.005228], {
+        icon: VpIcon,
+        title: "vp2",
+      })
+        .addTo(map)
+        .on("click", onVpClick)
+        .bindTooltip("View Point 2", {
+          // permanent: true,
+          direction: "bottom",
+          className: "vp-tooltip",
+          offset: [0, 5],
+        });
+
+      var vp3 = L.marker([22.433845, 114.00342], {
+        icon: VpIcon,
+        title: "vp3",
+      })
+        .addTo(map)
+        .on("click", onVpClick)
+        .bindTooltip("View Point 3", {
+          // permanent: true,
+          direction: "bottom",
+          className: "vp-tooltip",
+          offset: [0, 5],
+        });
+
+      var vp4 = L.marker([22.432466, 114.002814], {
+        icon: VpIcon,
+        title: "vp4",
+      })
+        .addTo(map)
+        .on("click", onVpClick)
+        .bindTooltip("View Point 4", {
+          // permanent: true,
+          direction: "bottom",
+          className: "vp-tooltip",
+          offset: [0, 5],
+        });
+
+      var vp5 = L.marker([22.428738, 114.00017], {
+        icon: VpIcon,
+        title: "vp5",
+      })
+        .addTo(map)
+        .on("click", onVpClick)
+        .bindTooltip("View Point 5", {
+          // permanent: true,
+          direction: "bottom",
+          className: "vp-tooltip",
+          offset: [0, 5],
+        });
+
+      var vp6 = L.marker([22.424346, 113.997658], {
+        icon: VpIcon,
+        title: "vp6",
+      })
+        .addTo(map)
+        .on("click", onVpClick)
+        .bindTooltip("View Point 6", {
+          // permanent: true,
+          direction: "bottom",
+          className: "vp-tooltip",
+          offset: [0, 5],
+        });
+
+      function onVpClick() {
+        //get marker name
+        var markerName = this.options.title;
+        // alert("You clicked the map at " + markerName);
+
+        // create switch statement for each SR name
+        function onVpClick() {
+          //get marker name
+          var markerName = this.options.title;
+
+          switch (markerName) {
+            case "Uptown":
+              markerName = "vp3";
+              break;
+            case "Tai Tao Tsuen":
+              markerName = "vp4";
+              break;
+            case "Park Villa":
+              markerName = "vp2";
+              break;
+            case "Jasper Court":
+              markerName = "vp1";
+              break;
+            case "Tan Kwai Tsuen":
+              markerName = "vp6";
+              break;
+            case "Ping Shan South":
+              markerName = "vp6";
+              break;
+            case "Casa Regalia":
+              markerName = "vp5";
+              break;
+            case "Manor Parc":
+              markerName = "vp5";
+              break;
+            default:
+              // do something if markerName doesn't match any case
+              break;
+          }
+        }
+        console.log("entering " + markerName);
+
+        //trigger function in parent window
+        window.parent.tour
+          ._getRootPlayer()
+          .getComponentByName("trigger" + " " + markerName)
+          .trigger("click");
+      }
+
+      function onVpClickTest() {
+        //get marker name
+        alert("You clicked the map");
+      }
+
+      //add text to map
+      // var text = L.divIcon({
+      //   className: "divIcon",
+      //   html: "Uptown",
+      // });
+      // L.marker([22.426537, 114.002385], { icon: text }).addTo(map);
+
+      //pup-up
+      var popup = L.popup();
+
+      function onMapClick(e) {
+        popup.setLatLng(e.latlng).setContent(e.latlng.toString()).openOn(map);
+      }
+
+      map.on("click", onMapClick);
+      //
+
+      // zoom the map to the rectangle bounds
+      //delay 0.5s to call fitBounds
+      // setTimeout(function () {
+      //   setInitView();
+      // }, 100);
+
+      // function setInitView() {
+      //   map.invalidateSize();
+      //   map.fitBounds(siteBounds);
+      // }
+      // map.invalidateSize();
+      map.setView([22.430408, 114.00223], 18);
+      map.fitBounds(circle);
+
+
+      // function setDivSize(params) {
+      //   //set div height and width when window resize
+      //   var bodyDiv = document.getElementById("body");
+      //   var mapDiv = document.getElementById("map");
+      //   var mapDivWidth = bodyDiv.offsetWidth;
+      //   var mapDivHeight = bodyDiv.offsetHeight;
+      //   mapDiv.style.height = mapDivHeight + "px";
+      //   mapDiv.style.width = mapDivWidth + "px";
+      // }
+
+      //run setDivSize when page onload
+      // window.onload = function () {
+      //   setDivSize();
+      //   setInitView();
+      //   console.log("onload");
+      // };
+
+      //add a logo to map at bottom right
+      var logo = L.control({ position: "bottomright" });
+      logo.onAdd = function (map) {
+        var div = L.DomUtil.create("div", "Maplogo");
+        div.innerHTML =
+          '<img id="map_logo" src="./image/landsdlogo.jpg" alt="logo" />';
+        return div;
+      };
+      logo.addTo(map);
+    </script>
+    <!-- <script src="leaflet-legend.js"></script> -->
+  </body>
+</html>

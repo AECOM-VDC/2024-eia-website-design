@@ -1,0 +1,11 @@
+query {
+  viewer {
+    zones(filter: {zoneTag: "ec463e97a395f715f7b07df7d6fc08d3"}) {
+      httpRequestsOverviewAdaptiveGroups(limit: 100, filter: {date_geq: "2022-05-17"}) {
+        sum {
+          visits
+        }
+      }
+    }
+  }
+}
