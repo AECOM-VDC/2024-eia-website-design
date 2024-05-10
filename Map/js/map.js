@@ -231,7 +231,7 @@ function onVpClick() {
   //trigger function in parent window
   window.parent.tour
     ._getRootPlayer()
-    .getComponentByName("trigger" + " " + markerName)
+    .getComponentByName("trigger" + "_" + markerName)
     .trigger("click");
 }
 
