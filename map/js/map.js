@@ -38,13 +38,13 @@ var map = L.map("map", {
   maxZoom: 18,
 });
 
-
-var imageUrl = "./image/map2.png";
+//>> Image Overlay
+var imageUrl = "./image/TYLL-map-compressed_240513.png";
 var errorOverlayUrl = "https://cdn-icons-png.flaticon.com/512/110/110686.png";
 var altText = "image";
 var siteBounds = L.latLngBounds([
-  [22.42017, 113.990809],
-  [22.440534, 114.019986],
+  [22.328045, 114.04403],
+  [22.363491, 114.094155],
 ]);
 
 // zoom the map to the rectangle bounds
@@ -56,8 +56,8 @@ var imageOverlay = L.imageOverlay(imageUrl, siteBounds, {
   interactive: true,
 }).addTo(map);
 
-// create an orange rectangle
-L.rectangle(siteBounds, { color: "#ff7800", weight: 1 }).addTo(map);
+//>> Overlay Rectangle
+L.rectangle(siteBounds, { color: "#0a0800", weight: 0}).addTo(map);
 
 L.control
   .attribution({
