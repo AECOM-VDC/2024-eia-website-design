@@ -80,15 +80,81 @@ var ManorParc = L.marker([22.429451, 113.999643], {
   title: "vp5",
 });
 
+//>> TYLL SRs
+
+var AdministrationBuilding = L.marker([22.346702, 114.086119], {
+  title: "vp1",
+}).bindTooltip("Administration Building of <br>Shell Tsing Yi Installation", {
+  interactive: true,
+  permanent: true,
+  direction: "right",
+  className: "sr-tooltip",
+  offset: [-5, 0],
+  title: "vp1",
+});
+
+var LantauLinkVisitorsCentre = L.marker([22.35851, 114.081463], {
+  title: "vp1",
+}).bindTooltip("Lantau Link Visitors Centre", {
+  interactive: true,
+  permanent: true,
+  direction: "left",
+  className: "sr-tooltip",
+  offset: [-25, 0],
+  title: "vp1",
+});
+
+var PlannedPrivateHousing = L.marker([22.34498, 114.064457], {
+  title: "vp2",
+}).bindTooltip("Planned Private Housing Development <br>in Ma Wan South", {
+  interactive: true,
+  permanent: true,
+  direction: "bottom",
+  className: "sr-tooltip",
+  offset: [-15, 30],
+  title: "vp2",
+});
+
+var NoahArk = L.marker([22.348478, 114.061185], {
+  title: "vp2",
+}).bindTooltip("Noah's Ark", {
+  interactive: true,
+  permanent: true,
+  direction: "left",
+  className: "sr-tooltip",
+  offset: [-25, 0],
+  title: "vp2",
+});
+
+
+var VillageHouseAtTsoWan = L.marker([22.334476, 114.054265], {
+  title: "vp3",
+}).bindTooltip("Village House at Tso Wan", {
+  interactive: true,
+  permanent: true,
+  direction: "left",
+  className: "sr-tooltip",
+  offset: [-25, 0],
+  title: "vp3",
+});
+
+var VillageHouseAtYiChuen = L.marker([22.340669, 114.054995], {
+  title: "vp3",
+}).bindTooltip("Village House at Yi Chuen", {
+  interactive: true,
+  permanent: true,
+  direction: "bottom",
+  className: "sr-tooltip",
+  offset: [-15, 30],
+  title: "vp3",
+});
 
 
 var SrArray = [
-  Uptown,
-  TaiTaoTsuen,
-  ParkVilla,
-  JasperCourt,
-  TanKwaiTsuen,
-  PingShanSouth,
-  CasaRegalia,
-  ManorParc,
+  AdministrationBuilding,
+  LantauLinkVisitorsCentre,
+  PlannedPrivateHousing,
+  NoahArk,
+  VillageHouseAtTsoWan,
+  VillageHouseAtYiChuen,
 ];

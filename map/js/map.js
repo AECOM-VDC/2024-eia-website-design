@@ -108,7 +108,7 @@ var VpIcon = L.icon({
 
 //>> View Points
 
-var vp1 = L.marker([22.437827, 114.011724], {
+var vp1 = L.marker([22.355136, 114.083877], {
   icon: VpIcon,
   title: "vp1",
 }).addTo(map);
@@ -120,7 +120,7 @@ vp1.bindTooltip("View Point 1", {
   offset: [0, 5],
 });
 
-var vp2 = L.marker([22.434415, 114.005228], {
+var vp2 = L.marker([22.347218, 114.064125], {
   icon: VpIcon,
   title: "vp2",
 })
@@ -133,7 +133,7 @@ var vp2 = L.marker([22.434415, 114.005228], {
     offset: [0, 5],
   });
 
-var vp3 = L.marker([22.433845, 114.00342], {
+var vp3 = L.marker([22.33789, 114.052377], {
   icon: VpIcon,
   title: "vp3",
 })
@@ -269,7 +269,9 @@ function onMapClick(e) {
 // }
 // map.invalidateSize();
 // map.fitBounds(siteBounds);
-map.setView([22.430408, 114.00223], 16);
+
+//>> map coordinate
+map.setView([22.346345, 114.068255], 15);
 
 // function setDivSize(params) {
 //   //set div height and width when window resize
