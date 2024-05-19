@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noise Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            width: 320px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+        }
+        header {
+            background-color: #005555; /* Dark green */
+            color: white;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px 8px 0 0;
+            text-align: left;
+        }
+        header .close {
+            float: right;
+            cursor: pointer;
+        }
+        .button {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            color: white;
+        }
+        .mitigated {
+            background-color: #004d40; /* Dark green */
+        }
+        .unmitigated {
+            background-color: #c62828; /* Dark red */
+        }
+        .legend {
+            text-align: left;
+            margin-top: 15px;
+        }
+        .legend div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .legend div span {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+        }
+        .complied {
+            background-color: #99e29d; /* light green */
+        }
+        .exceeded {
+            background-color: #e57373; /* light red */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            Noise
+            <span class="close">&times;</span>
+        </header>
+        <h2>Ping Shan South</h2>
+        <p>Click Below to Select a Scenario</p>
+        <button id="mitigatedBtn" class="button mitigated" onclick="toggleButton('mitigated')">Mitigated</button>
+        <button id="unmitigatedBtn" class="button unmitigated" onclick="toggleButton('unmitigated')">Unmitigated</button>
+        <div class="legend">
+            <div>
+                <span class="complied"></span>
+                <label>Complied with the criteria</label>
+            </div>
+            <div>
+                <span class="exceeded"></span>
+                <label>Exceeded the criteria</label>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleButton(buttonType) {
+            const mitigatedBtn = document.getElementById('mitigatedBtn');
+            const unmitigatedBtn = document.getElementById('unmitigatedBtn');
+
+            if (buttonType === 'mitigated') {
+                mitigatedBtn.classList.toggle('mitigated');
+                mitigatedBtn.classList.toggle('unmitigated');
+            } else if (buttonType === 'unmitigated') {
+                unmitigatedBtn.classList.toggle('unmitigated');
+                unmitigatedBtn.classList.toggle('mitigated');
+            }
+        }
+
+        document.querySelector('.close').addEventListener('click', () => {
+            document.querySelector('.container').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
