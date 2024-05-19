@@ -1,66 +1,198 @@
-<!-- Noise -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noise Selection</title>
     <style>
+      * {
+        user-select: none;
+      }
+
       body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+        font-family: Arial, sans-serif;
         margin: 0;
-        padding: 0 2vw 0 2vw;
+        padding: 0;
+        /* justify-content: center; */
+        /* align-items: center; */
+        /* height: 100vh; */
+        background-color: transparent;
         overflow: hidden;
       }
+      .container {
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0.692);
+        border-radius: 20px;
+        /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+        padding: 0px;
+        text-align: center;
+      }
+      header {
+        height: 100px;
+        display: flex;
+        background-color: #005555; /* Dark green */
+        color: white;
+        border-radius: 8px 8px 0 0;
+        text-align: left;
+        padding: 0;
 
-      .highlighted {
-        background-color: yellow;
+        align-items: center;
+      }
+      #noiseTitle {
+        padding: 0 0 0 40px;
+        font-size: 58px;
+        font-weight: bold;
       }
 
-      button {
-        /* padding: 10px; */
-        /* margin: 30px; */
-        font-size: 12vw;
-        width: 100%;
-        overflow: hidden;
-        /* transform: scaleX(1.8); */
-        outline: 5px solid black;
-        /* use hand cursor */
+      #closeCon {
+        display: flex;
+        height: 100%;
+        width: 100px;
         cursor: pointer;
+        margin: 0px 0px 0px auto;
+        padding: 0px;
+        background-color: #005555;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0 8px 0 0;
+      }
+      #closeCon:hover {
+        background-color: #003838;
+      }
+
+      #close {
+
+        font-size: 120px !important;
+        padding: 0px 0px 0px 0px !important;
+        line-height: 80px !important;
+        vertical-align: middle !important;
+
       }
 
       #title {
-        font-size: 16vw;
+        font-size: 90px;
         margin: 0;
-        padding: 0;
-        /* transform: scaleX(1.8); */
+        padding-top: 50px;
+      }
+      .button {
+        display: block;
+        width: 80%;
+        margin: 30px auto;
+        padding: 20px;
+        text-align: center;
+        font-size: 50px;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 8px;
+        color: rgb(0, 0, 0);
+        border: #004d40 solid 4px;
+        background-color: #ffffff; /* Dark green */
+      }
+      .selected {
+        background-color: #004d40; /* Dark green */
+        border: #004d40 solid 4px;
+        color: white !important;
+      }
+
+      .legend {
+        text-align: left;
+        margin-top: 15px;
+        font-size: 38px;
+        padding-left: 80px;
+        padding-bottom: 50px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+      }
+      .legend div {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      .legend div span {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        margin-right: 28px;
+      }
+      .complied {
+        background-color: #8af678; /* light green */
+      }
+      .exceeded {
+        background-color: #ff0000; /* light red */
+      }
+
+      hr {
+        width: 80%;
+        margin-top: 50px;
+        border: 2px solid #a5a5a5a8;
       }
     </style>
   </head>
   <body>
-    <p id="title">Title</p>
-    <button id="mitigated" class="highlighted" onclick="mitigatedFunction()">
-      Mitigated
-    </button>
-    <button id="unmitigated" onclick="unmitigatedFunction()">
-      Unmitigated
-    </button>
-    <button
-      id="closeBtn"
-      onclick="closePanel()"
-      style="position: fixed; top: 0"
-    >
-      Close
-    </button>
-    <button id="testBtn" onclick="testApi()" style="position: fixed; bottom: 0">
-      test(don't click)
-    </button>
-    <!-- <script src="../js/script.js"></script> -->
+    <div class="container">
+      <header>
+        <span id="noiseTitle">Noise</span>
+        <div id="closeCon" onclick="closePanel()">
+          <span id="close">&times;</span>
+        </div>
+      </header>
+      <h2 id="title">Title</h2>
+      <p style="font-size: 38px">Click Below to Select a Scenario</p>
+      <button
+        id="mitigatedBtn"
+        class="button mitigated selected"
+        onclick="mitigatedFunction()"
+      >
+        Mitigated
+      </button>
+      <button
+        id="unmitigatedBtn"
+        class="button unmitigated"
+        onclick="unmitigatedFunction()"
+      >
+        Unmitigated
+      </button>
+      <div></div>
+      <hr>
+      <div class="legend">
+        <div style="font-weight: 600; margin-bottom: 40px !important;">Legend</div>
+        <div>
+          <span class="complied"></span>
+          <label>Complied with the criteria</label>
+        </div>
+        <div>
+          <span class="exceeded"></span>
+          <label>Exceeded the criteria</label>
+        </div>
+      </div>
+    </div>
 
     <script>
+      //function to toggle the button
+      function toggleButton(btn) {
+        //get the button element
+        var button = document.getElementById(btn + "Btn");
+        //check if the button is selected
+        if (button.classList.contains("selected")) {
+          //remove the selected class
+          // button.classList.remove("selected");
+        } else {
+          //remove the selected class from all buttons
+          document.querySelectorAll(".button").forEach((btn) => {
+            btn.classList.remove("selected");
+          });
+          //add the selected class to the button
+          button.classList.add("selected");
+        }
+      }
+      //3dv
+
       let rp = window.parent.tour._getRootPlayer();
-      //function to change the title according to the parameter passed in url as ?title=YourTitle
+
       function changeTitle() {
         // Get the parameter title from the url
         const urlParams = new URLSearchParams(window.location.search);
@@ -73,16 +205,16 @@
 
       function mitigatedFunction() {
         // var rp = window.parent.tour._getRootPlayer();
-        document.getElementById("mitigated").classList.add("highlighted");
-        document.getElementById("unmitigated").classList.remove("highlighted");
+        document.getElementById("mitigatedBtn").classList.add("selected");
+        document.getElementById("unmitigatedBtn").classList.remove("selected");
         MySetVizByTags(["Noise_Unmitigated"], false, 0);
         MySetVizByTags(["Noise_Mitigated"], true, 300);
       }
 
       function unmitigatedFunction() {
         // var rp = window.parent.tour._getRootPlayer();
-        document.getElementById("unmitigated").classList.add("highlighted");
-        document.getElementById("mitigated").classList.remove("highlighted");
+        document.getElementById("unmitigatedBtn").classList.add("selected");
+        document.getElementById("mitigatedBtn").classList.remove("selected");
         MySetVizByTags(["Noise_Mitigated"], false, 0);
         MySetVizByTags(["Noise_Unmitigated"], true, 300);
       }
@@ -91,8 +223,8 @@
         // var rp = window.parent.tour._getRootPlayer();
         MySetVizByTags(["switch_state_noise"], false, 0);
         MySetVizByTags(["switch_state_air"], false), 0;
-        rp.getComponentByName('NoiseStateSwitch').set('visible',false);
-        rp.getComponentByName('AirStateSwitch').set('visible',false);
+        rp.getComponentByName("NoiseStateSwitch").set("visible", false);
+        rp.getComponentByName("AirStateSwitch").set("visible", false);
         console.log("closePanel");
       }
 
@@ -105,13 +237,6 @@
           "or",
           delay
         );
-      }
-
-      function testApi() {
-        // var rp = window.parent.tour._getRootPlayer();
-        rp.getComponentByName("NB_button").set("visible", false);
-        // rp.setComponentsVisibilityByTags("Noise_Barrier", false, 0);
-        // rp.getComponentsByTags("Noise_Barrier", "or").set("pressed", true);
       }
 
       changeTitle();
