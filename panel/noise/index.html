@@ -71,7 +71,7 @@
       }
 
       #title {
-        font-size: 6.2vw;
+        font-size: 9vw;
         margin: 0;
         padding: 50px 30px 0 30px;
         /* white-space:nowrap; */
@@ -201,7 +201,6 @@
       function changeTitle() {
         // Get the parameter title from the url
         const urlParams = new URLSearchParams(window.location.search);
-        console.log(urlParams);
         const title = urlParams.get("title");
         // If title is not null then change the title of the page
         if (title) {
@@ -213,6 +212,7 @@
         //get parameter from url and set the title size
         const urlParams = new URLSearchParams(window.location.search);
         const titleSize = urlParams.get("titleSize");
+        console.log(titleSize);
         if (titleSize) {
           document.getElementById("title").style.fontSize = titleSize;
         }
@@ -255,6 +255,7 @@
       }
 
       changeTitle();
+      setTitleSize();
     </script>
   </body>
 </html>
