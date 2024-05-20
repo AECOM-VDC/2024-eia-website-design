@@ -94,23 +94,25 @@
       }
 
       .legend {
+        display: flex;
+        justify-content: center;
         text-align: left;
         margin-top: 15px;
         font-size: 38px;
-        padding-left: 80px;
+        /* padding-left: 80px; */
         padding-bottom: 50px;
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
       }
-      .legend div {
+      .legend .legendItems {
         display: flex;
         align-items: center;
         margin-top: 20px;
         margin-bottom: 20px;
       }
-      .legend div span {
+      .legendItems span {
         display: inline-block;
         width: 55px;
         height: 55px;
@@ -138,14 +140,17 @@
         margin-top: 20px;
       }
 
-      #airItems div{   
+      #airItems div {
         padding: 5px 0 5px 0;
-       }
+      }
 
       hr {
-        width: 80%;
+        display: block;
+        width: 82%;
+        height: 2px;
         margin-top: 25px;
-        border: 2px solid #a5a5a5a8;
+        margin-bottom: 25px;
+        background-color:  #a5a5a5a8;
       }
     </style>
   </head>
@@ -160,7 +165,7 @@
       <h2 id="title">Title</h2>
       <div id="airItemsCon">
         <div id="airItems">
-          <p style="text-align: left; margin: 0%;">For scenario:</p>
+          <p style="text-align: left; margin: 0%">For scenario:</p>
           <div>i. 19<sup>th</sup> Highest Hourly NO2;</div>
           <div>ii. Annual NO2;</div>
           <div>iii. 10<sup>th</sup> Highest Daily RSP;</div>
@@ -171,15 +176,17 @@
       </div>
       <hr />
       <div class="legend">
-        <div style="font-weight: 600; margin-bottom: 40px !important">
-          Legend
-        </div>
         <div>
-          <span class="complied"></span>
-          <label
-            >In compliance with Hong Kong<br />Air Quality Objectives
-            (AQOs)</label
-          >
+          <div class="legendItems" style="font-weight: 600; margin-bottom: 25px !important">
+            Legend
+          </div>
+          <div class="legendItems">
+            <span class="complied"></span>
+            <label
+              >In compliance with Hong Kong<br />Air Quality Objectives
+              (AQOs)</label
+            >
+          </div>
         </div>
       </div>
     </div>
