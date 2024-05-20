@@ -22,8 +22,8 @@
       .container {
         width: 100vw;
         height: 100vh;
-        background-color: rgba(255, 255, 255, 0.692);
-        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 0.75);
+        border-radius: 15px;
         /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
         padding: 0px;
         text-align: center;
@@ -33,7 +33,7 @@
         display: flex;
         background-color: #005555; /* Dark green */
         color: white;
-        border-radius: 8px 8px 0 0;
+        border-radius: 15px 15px 0 0;
         text-align: left;
         padding: 0;
 
@@ -55,7 +55,7 @@
         background-color: #005555;
         align-items: center;
         justify-content: center;
-        border-radius: 0 8px 0 0;
+        border-radius: 0 15px 0 0;
       }
       #closeCon:hover {
         background-color: #003838;
@@ -71,10 +71,14 @@
       }
 
       #title {
-        font-size: 90px;
+        font-size: 6.2vw;
         margin: 0;
-        padding-top: 50px;
+        padding: 50px 30px 0 30px;
+        /* white-space:nowrap; */
       }
+
+      /* TODO use url params to change text size */
+
       .button {
         display: block;
         width: 80%;
@@ -84,7 +88,7 @@
         font-size: 50px;
         font-weight: bold;
         cursor: pointer;
-        border-radius: 8px;
+        border-radius: 0px;
         color: rgb(0, 0, 0);
         border: #004d40 solid 4px;
         background-color: #ffffff; /* Dark green */
@@ -197,10 +201,20 @@
       function changeTitle() {
         // Get the parameter title from the url
         const urlParams = new URLSearchParams(window.location.search);
+        console.log(urlParams);
         const title = urlParams.get("title");
         // If title is not null then change the title of the page
         if (title) {
           document.getElementById("title").textContent = title;
+        }
+      }
+
+      function setTitleSize() {
+        //get parameter from url and set the title size
+        const urlParams = new URLSearchParams(window.location.search);
+        const titleSize = urlParams.get("titleSize");
+        if (titleSize) {
+          document.getElementById("title").style.fontSize = titleSize;
         }
       }
 
