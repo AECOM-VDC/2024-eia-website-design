@@ -23,39 +23,39 @@
         width: 100vw;
         height: 100vh;
         background-color: rgba(255, 255, 255, 0.75);
-        border-radius: 15px;
+        border-radius: 2.1vw;
         /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
         padding: 0px;
         text-align: center;
       }
       header {
-        height: 100px;
+        height: 13.75vw;
         display: flex;
         background-color: #005555; /* Dark green */
         color: white;
-        border-radius: 15px 15px 0 0;
+        border-radius: 2.1vw 2.1vw 0 0;
         text-align: left;
         padding: 0;
 
         align-items: center;
       }
       #noiseTitle {
-        padding: 0 0 0 40px;
-        font-size: 58px;
+        padding: 0 0 0 5vw;
+        font-size: 9vw;
         font-weight: bold;
       }
 
       #closeCon {
         display: flex;
         height: 100%;
-        width: 100px;
+        width: 13.75vw;
         cursor: pointer;
         margin: 0px 0px 0px auto;
         padding: 0px;
         background-color: #005555;
         align-items: center;
         justify-content: center;
-        border-radius: 0 15px 0 0;
+        border-radius: 0 2.1vw 0 0;
       }
       #closeCon:hover {
         background-color: #003838;
@@ -63,64 +63,79 @@
 
       #close {
 
-        font-size: 120px !important;
-        padding: 0px 0px 0px 0px !important;
-        line-height: 80px !important;
-        vertical-align: middle !important;
+        font-size: 17vw !important;
+        padding: 0 !important;
+        /* line-height: 53px !important; */
+        /* vertical-align: middle !important; */
 
       }
 
       #title {
         font-size: 9vw;
         margin: 0;
-        padding: 50px 30px 0 30px;
+        padding: 5vw 3.5vw 5vw 3.5vw;
+        height: 40vw;
         /* white-space:nowrap; */
       }
 
       /* TODO use url params to change text size */
 
+      #instruction {
+        font-size: 3vw;
+        margin: 0;
+        padding: 0 7vw;
+      }
+
       .button {
         display: block;
         width: 80%;
-        margin: 30px auto;
-        padding: 20px;
+        margin: 4.2vw auto;
+        padding: 2.7vw;
         text-align: center;
-        font-size: 50px;
+        font-size: 7vw;
         font-weight: bold;
         cursor: pointer;
         border-radius: 0px;
         color: rgb(0, 0, 0);
-        border: #004d40 solid 4px;
+        border: #004d40 solid 3px;
         background-color: #ffffff; /* Dark green */
       }
       .selected {
         background-color: #004d40; /* Dark green */
-        border: #004d40 solid 4px;
+        border: #004d40 solid 3px;
         color: white !important;
       }
 
       .legend {
         text-align: left;
-        margin-top: 15px;
-        font-size: 38px;
-        padding-left: 80px;
-        padding-bottom: 50px;
+        margin-top: 2vw;
+        font-size: 5vw;
+        padding-left: 11vw;
+        padding-bottom: 7vw;
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
       }
+
+      #legendTitle {
+        font-weight: 600; 
+        margin-bottom: 5.5vw !important;
+      }
+
+    
+
       .legend div {
         display: flex;
         align-items: center;
-        margin-top: 20px;
-        margin-bottom: 20px;
+        margin-top: 2.7vw;
+        margin-bottom: 2.7vw;
       }
       .legend div span {
         display: inline-block;
-        width: 50px;
-        height: 50px;
-        margin-right: 28px;
+        width: 7vw;
+        height: 7vw;
+        margin-right: 4vw;
       }
       .complied {
         background-color: #8af678; /* light green */
@@ -131,7 +146,7 @@
 
       hr {
         width: 80%;
-        margin-top: 50px;
+        margin-top: 7vw;
         height: 2px;
         background-color: #a5a5a5a8;
       }
@@ -146,7 +161,7 @@
         </div>
       </header>
       <h2 id="title">Title</h2>
-      <p style="font-size: 38px">Click Below to Select a Scenario</p>
+      <p id="instruction">Click Below to Select a Scenario</p>
       <button
         id="mitigatedBtn"
         class="button mitigated selected"
@@ -164,7 +179,7 @@
       <div></div>
       <hr>
       <div class="legend">
-        <div style="font-weight: 600; margin-bottom: 40px !important;">Legend</div>
+        <div id="legendTitle">Legend</div>
         <div>
           <span class="complied"></span>
           <label>Complied with the criteria</label>
