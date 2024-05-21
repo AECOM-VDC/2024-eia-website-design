@@ -73,23 +73,22 @@
       #title {
         font-size: 9vw;
         margin: 0;
-        padding: 5vw 3.5vw 5vw 3.5vw;
-        height: 40vw;
+        padding: 5vw 4vw 5vw 4vw;
+        height: 21vw;
         /* white-space:nowrap; */
       }
 
       /* TODO use url params to change text size */
 
       #instruction {
-        font-size: 3vw;
+        font-size: 5vw;
         margin: 0;
-        padding: 0 7vw;
       }
 
       .button {
         display: block;
         width: 80%;
-        margin: 4.2vw auto;
+        margin: 4vw auto;
         padding: 2.7vw;
         text-align: center;
         font-size: 7vw;
@@ -146,8 +145,8 @@
 
       hr {
         width: 80%;
-        margin-top: 7vw;
-        height: 2px;
+        margin-top: 6vw;
+        height: 1px;
         background-color: #a5a5a5a8;
       }
     </style>
@@ -161,7 +160,7 @@
         </div>
       </header>
       <h2 id="title">Title</h2>
-      <p id="instruction">Click Below to Select a Scenario</p>
+      <p id="instruction">Click below to select a scenario</p>
       <button
         id="mitigatedBtn"
         class="button mitigated selected"
@@ -209,17 +208,19 @@
           button.classList.add("selected");
         }
       }
-      //3dv
+      //>> 3dv
 
       let rp = window.parent.tour._getRootPlayer();
 
       function changeTitle() {
         // Get the parameter title from the url
         const urlParams = new URLSearchParams(window.location.search);
-        const title = urlParams.get("title");
+        let title = urlParams.get("title");
         // If title is not null then change the title of the page
         if (title) {
-          document.getElementById("title").textContent = title;
+          // Replace ~ symbol with HTML line break
+          title = title.replace(/~/g, '<br>');
+          document.getElementById("title").innerHTML = title;
         }
       }
 
