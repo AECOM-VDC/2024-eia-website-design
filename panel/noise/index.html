@@ -13,9 +13,6 @@
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        /* justify-content: center; */
-        /* align-items: center; */
-        /* height: 100vh; */
         background-color: transparent;
         overflow: hidden;
       }
@@ -23,20 +20,18 @@
         width: 100vw;
         height: 100vh;
         background-color: rgba(255, 255, 255, 0.75);
-        border-radius: 2.1vw;
-        /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+        border-radius: 2.5vw 2.5vw 2.5vw 2.5vw;
         padding: 0px;
         text-align: center;
+        overflow: hidden;
       }
       header {
         height: 13.75vw;
         display: flex;
         background-color: #005555; /* Dark green */
         color: white;
-        border-radius: 2.1vw 2.1vw 0 0;
         text-align: left;
         padding: 0;
-
         align-items: center;
       }
       #noiseTitle {
@@ -55,29 +50,31 @@
         background-color: #005555;
         align-items: center;
         justify-content: center;
-        border-radius: 0 2.1vw 0 0;
       }
       #closeCon:hover {
         background-color: #003838;
       }
 
       #close {
-
         font-size: 17vw !important;
         padding: 0 !important;
-        /* line-height: 53px !important; */
-        /* vertical-align: middle !important; */
-
+      }
+      #titleCon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 21vw;
+        max-height: 21vw;
+        overflow: hidden;
+        padding: 4vw 4vw 4vw 4vw;
+        /* background-color: #ff0000; */
       }
 
       #title {
         font-size: 9vw;
-        margin: 0;
-        padding: 5vw 4vw 5vw 4vw;
-        height: 21vw;
-        max-height: 21vw;
-        overflow: hidden;
-        /* white-space:nowrap; */
+        text-align: center;
+        vertical-align: middle;
+        /* background-color: #8af678; */
       }
 
       /* TODO use url params to change text size */
@@ -97,10 +94,9 @@
         font-size: 7vw;
         font-weight: bold;
         cursor: pointer;
-        border-radius: 0px;
         color: rgb(0, 0, 0);
         border: #004d40 solid 3px;
-        background-color: #ffffff; /* Dark green */
+        background-color: #ffffff;
       }
       .selected {
         background-color: #004d40; /* Dark green */
@@ -121,19 +117,17 @@
       }
 
       #legendTitle {
-        font-weight: 600; 
+        font-weight: 600;
         margin-bottom: 5.5vw !important;
       }
 
-    
-
-      .legend div {
+      .legendItems {
         display: flex;
         align-items: center;
         margin-top: 2.7vw;
         margin-bottom: 2.7vw;
       }
-      .legend div span {
+      .legendIcon {
         display: inline-block;
         width: 7vw;
         height: 7vw;
@@ -162,7 +156,7 @@
           <span id="close">&times;</span>
         </div>
       </header>
-      <h2 id="title">Title</h2>
+      <div id="titleCon"><h2 id="title">Title</h2></div>
       <p id="instruction">Click below to select a scenario</p>
       <button
         id="mitigatedBtn"
@@ -179,15 +173,15 @@
         Unmitigated
       </button>
       <div></div>
-      <hr>
+      <hr />
       <div class="legend">
         <div id="legendTitle">Legend</div>
-        <div>
-          <span class="complied"></span>
+        <div class="legendItems">
+          <span class="complied legendIcon"></span>
           <label>Complied with the criteria</label>
         </div>
-        <div>
-          <span class="exceeded"></span>
+        <div class="legendItems">
+          <span class="exceeded legendIcon"></span>
           <label>Exceeded the criteria</label>
         </div>
       </div>
@@ -222,7 +216,7 @@
         // If title is not null then change the title of the page
         if (title) {
           // Replace ~ symbol with HTML line break
-          title = title.replace(/~/g, '<br>');
+          title = title.replace(/~/g, "<br>");
           document.getElementById("title").innerHTML = title;
         }
       }

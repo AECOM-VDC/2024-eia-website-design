@@ -7,116 +7,111 @@
     <style>
       * {
         user-select: none;
+        background-color: none;
       }
 
       body {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        /* justify-content: center; */
-        /* align-items: center; */
-        /* height: 100vh; */
         background-color: transparent;
-        overflow: hidden;
+        overflow: hidden !important;
       }
       .container {
         width: 100vw;
         height: 100vh;
-        background-color: rgba(255, 255, 255, 0.8);
-        border-radius: 15px;
-        /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+        background-color: rgba(255, 255, 255, 0.75);
+        border-radius: 2.5vw 2.5vw 2.5vw 2.5vw;
         padding: 0px;
         text-align: center;
+        overflow: hidden !important;
       }
       header {
-        height: 100px;
+        height: 13.75vw;
         display: flex;
         background-color: #005555; /* Dark green */
         color: white;
-        border-radius: 15px 15px 0 0;
         text-align: left;
         padding: 0;
-
         align-items: center;
       }
       #noiseTitle {
-        padding: 0 0 0 40px;
-        font-size: 58px;
+        padding: 0 0 0 5vw;
+        font-size: 9vw;
         font-weight: bold;
       }
 
       #closeCon {
         display: flex;
         height: 100%;
-        width: 100px;
+        width: 13.75vw;
         cursor: pointer;
         margin: 0px 0px 0px auto;
         padding: 0px;
         background-color: #005555;
         align-items: center;
         justify-content: center;
-        border-radius: 0 15px 0 0;
       }
       #closeCon:hover {
         background-color: #003838;
       }
 
       #close {
-        font-size: 120px !important;
-        padding: 0px 0px 0px 0px !important;
-        line-height: 80px !important;
-        vertical-align: middle !important;
+        font-size: 17vw !important;
+        padding: 0 !important;
+      }
+
+      #titleCon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 21vw;
+        max-height: 21vw;
+        overflow: hidden;
+        padding: 4vw 4vw 4vw 4vw;
+        /* background-color: #ff0000; */
       }
 
       #title {
-        font-size: 90px;
-        margin: 0;
-        padding-top: 40px;
+        font-size: 9vw;
+        text-align: center;
+        vertical-align: middle;
+        /* background-color: #8af678; */
       }
       .button {
-        /* display: block;
-        width: 80%;
-        margin: 30px auto;
-        padding: 20px;
-        text-align: center;
-        font-size: 50px;
-        font-weight: bold;
-        cursor: pointer;
-        border-radius: 8px;
-        color: rgb(0, 0, 0);
-        border: #004d40 solid 4px;
-        background-color: #ffffff;  */
       }
       .selected {
         background-color: #004d40; /* Dark green */
-        border: #004d40 solid 4px;
+        border: #004d40 solid 3px;
         color: white !important;
       }
 
       .legend {
-        display: flex;
-        justify-content: center;
         text-align: left;
-        margin-top: 15px;
-        font-size: 38px;
-        /* padding-left: 80px; */
-        padding-bottom: 50px;
+        /* margin-top: 2vw; */
+        font-size: 5vw;
+        padding-left: 11vw;
+        padding-bottom: 4vw;
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
       }
-      .legend .legendItems {
+      #legendTitle {
+        font-weight: 600;
+        margin-bottom: 4vw !important;
+      }
+      .legendItems {
         display: flex;
         align-items: center;
-        margin-top: 20px;
-        margin-bottom: 20px;
+        margin-top: 2.7vw;
+        margin-bottom: 2.7vw;
       }
-      .legendItems span {
+      .legendIcon {
         display: inline-block;
-        width: 55px;
-        height: 55px;
-        margin-right: 28px;
+        width: 7vw;
+        height: 7vw;
+        margin-right: 4vw;
       }
       .complied {
         background-color: #00b050; /* light green */
@@ -131,26 +126,24 @@
       }
 
       #airItems {
-        font-size: 42px;
+        font-size: 5.6vw;
         /* margin: 0 auto; */
         display: flex;
         justify-content: flex-start;
         flex-direction: column;
         text-align: start;
-        margin-top: 20px;
+        /* margin-top: 2.5vw; */
       }
 
       #airItems div {
-        padding: 5px 0 5px 0;
+        padding: 1vw 0 0.7vw 0;
       }
 
       hr {
-        display: block;
-        width: 82%;
-        height: 2px;
-        margin-top: 25px;
-        margin-bottom: 25px;
-        background-color:  #a5a5a5a8;
+        width: 80%;
+        margin-top: 3vw;
+        height: 1px;
+        background-color: #c5c5c5a8;
       }
     </style>
   </head>
@@ -162,7 +155,7 @@
           <span id="close">&times;</span>
         </div>
       </header>
-      <h2 id="title">Title</h2>
+      <div id="titleCon"><h2 id="title">Title</h2></div>
       <div id="airItemsCon">
         <div id="airItems">
           <p style="text-align: left; margin: 0%">For scenario:</p>
@@ -177,11 +170,9 @@
       <hr />
       <div class="legend">
         <div>
-          <div class="legendItems" style="font-weight: 600; margin-bottom: 25px !important">
-            Legend
-          </div>
+          <div id="legendTitle">Legend</div>
           <div class="legendItems">
-            <span class="complied"></span>
+            <span class="complied legendIcon"></span>
             <label
               >In compliance with Hong Kong<br />Air Quality Objectives
               (AQOs)</label
