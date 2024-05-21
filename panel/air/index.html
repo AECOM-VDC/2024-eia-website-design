@@ -65,41 +65,42 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 21vw;
-        max-height: 21vw;
-        overflow: hidden;
+        min-height: 22vw;
         padding: 4vw 4vw 4vw 4vw;
-        /* background-color: #ff0000; */
+        overflow: hidden;
       }
 
       #title {
         font-size: 9vw;
         text-align: center;
         vertical-align: middle;
-        /* background-color: #8af678; */
+        margin: 0;
       }
       .button {
       }
       .selected {
-        background-color: #004d40; /* Dark green */
+        /* background-color: #004d40; 
         border: #004d40 solid 3px;
-        color: white !important;
+        color: white !important; */
       }
-
+      #bottomContainer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+      }
       .legend {
         text-align: left;
         /* margin-top: 2vw; */
         font-size: 5vw;
         padding-left: 11vw;
         padding-bottom: 4vw;
-        position: absolute;
-        bottom: 0;
-        left: 0;
         width: 100%;
       }
       #legendTitle {
         font-weight: 600;
-        margin-bottom: 4vw !important;
+        margin-top: 3vw;
+        margin-bottom: 3vw !important;
       }
       .legendItems {
         display: flex;
@@ -142,6 +143,7 @@
       hr {
         width: 80%;
         margin-top: 3vw;
+        margin-bottom: 3vw;
         height: 1px;
         background-color: #c5c5c5a8;
       }
@@ -155,28 +157,33 @@
           <span id="close">&times;</span>
         </div>
       </header>
-      <div id="titleCon"><h2 id="title">Title</h2></div>
-      <div id="airItemsCon">
-        <div id="airItems">
-          <p style="text-align: left; margin: 0%">For scenario:</p>
-          <div>i. 19<sup>th</sup> Highest Hourly NO2;</div>
-          <div>ii. Annual NO2;</div>
-          <div>iii. 10<sup>th</sup> Highest Daily RSP;</div>
-          <div>iv. Annual RSP;</div>
-          <div>v. 19<sup>th</sup> Highest Daily FSP;</div>
-          <div>vi. Annual FSP</div>
-        </div>
+      <div id="titleCon">
+        <h2 id="title">Title</h2>
       </div>
-      <hr />
-      <div class="legend">
-        <div>
-          <div id="legendTitle">Legend</div>
-          <div class="legendItems">
-            <span class="complied legendIcon"></span>
-            <label
-              >In compliance with Hong Kong<br />Air Quality Objectives
-              (AQOs)</label
-            >
+
+      <div id="bottomContainer">
+        <div id="airItemsCon">
+          <div id="airItems">
+            <p style="text-align: left; margin: 0%">For scenario:</p>
+            <div>i. 19<sup>th</sup> Highest Hourly NO2;</div>
+            <div>ii. Annual NO2;</div>
+            <div>iii. 10<sup>th</sup> Highest Daily RSP;</div>
+            <div>iv. Annual RSP;</div>
+            <div>v. 19<sup>th</sup> Highest Daily FSP;</div>
+            <div>vi. Annual FSP</div>
+          </div>
+        </div>
+        <hr />
+        <div class="legend">
+          <div>
+            <div id="legendTitle">Legend</div>
+            <div class="legendItems">
+              <span class="complied legendIcon"></span>
+              <label
+                >In compliance with Hong Kong<br />Air Quality Objectives
+                (AQOs)</label
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -200,19 +207,35 @@
           button.classList.add("selected");
         }
       }
-      //3dv
 
-      let rp = window.parent.tour._getRootPlayer();
+      changeTitle();
+      setTitleSize();
 
       function changeTitle() {
         // Get the parameter title from the url
         const urlParams = new URLSearchParams(window.location.search);
-        const title = urlParams.get("title");
+        let title = urlParams.get("title");
         // If title is not null then change the title of the page
         if (title) {
-          document.getElementById("title").textContent = title;
+          // Replace ~ symbol with HTML line break
+          title = title.replace(/~/g, "<br>");
+          document.getElementById("title").innerHTML = title;
         }
+        console.log(title);
       }
+
+      function setTitleSize() {
+        //get parameter from url and set the title size
+        const urlParams = new URLSearchParams(window.location.search);
+        const titleSize = urlParams.get("titleSize");
+        if (titleSize) {
+          document.getElementById("title").style.fontSize = titleSize;
+        }
+        console.log(titleSize);
+      }
+      //>> 3dv
+
+      let rp = window.parent.tour._getRootPlayer();
 
       function mitigatedFunction() {
         // var rp = window.parent.tour._getRootPlayer();
@@ -249,8 +272,6 @@
           delay
         );
       }
-
-      changeTitle();
     </script>
   </body>
 </html>

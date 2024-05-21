@@ -63,17 +63,17 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 21vw;
-        max-height: 21vw;
-        overflow: hidden;
+        min-height: 22vw;
         padding: 4vw 4vw 4vw 4vw;
-        /* background-color: #ff0000; */
+        overflow: hidden;
       }
 
       #title {
         font-size: 9vw;
         text-align: center;
         vertical-align: middle;
+        margin: 0;
+
         /* background-color: #8af678; */
       }
 
@@ -82,7 +82,7 @@
       #instruction {
         font-size: 5vw;
         margin: 0;
-        padding-top: 2vw;
+        padding-top: 0;
       }
 
       .button {
@@ -104,15 +104,18 @@
         color: white !important;
       }
 
-      .legend {
-        text-align: left;
-        margin-top: 2vw;
-        font-size: 5vw;
-        padding-left: 11vw;
-        padding-bottom: 7vw;
+      #bottomContainer {
         position: absolute;
         bottom: 0;
         left: 0;
+        width: 100%;
+      }
+
+      .legend {
+        text-align: left;
+        font-size: 5vw;
+        padding-left: 11vw;
+        padding-bottom: 11vw;
         width: 100%;
       }
 
@@ -125,7 +128,7 @@
         display: flex;
         align-items: center;
         margin-top: 2.7vw;
-        margin-bottom: 2.7vw;
+        /* margin-bottom: 2.7vw; */
       }
       .legendIcon {
         display: inline-block;
@@ -142,9 +145,10 @@
 
       hr {
         width: 80%;
-        margin-top: 6vw;
+        margin-top: 5vw;
+        margin-bottom: 4vw;
         height: 1px;
-        background-color: #a5a5a5a8;
+        background-color: #c5c5c5a8;
       }
     </style>
   </head>
@@ -157,32 +161,34 @@
         </div>
       </header>
       <div id="titleCon"><h2 id="title">Title</h2></div>
-      <p id="instruction">Click below to select a scenario</p>
-      <button
-        id="mitigatedBtn"
-        class="button mitigated selected"
-        onclick="mitigatedFunction()"
-      >
-        Mitigated
-      </button>
-      <button
-        id="unmitigatedBtn"
-        class="button unmitigated"
-        onclick="unmitigatedFunction()"
-      >
-        Unmitigated
-      </button>
-      <div></div>
-      <hr />
-      <div class="legend">
-        <div id="legendTitle">Legend</div>
-        <div class="legendItems">
-          <span class="complied legendIcon"></span>
-          <label>Complied with the criteria</label>
-        </div>
-        <div class="legendItems">
-          <span class="exceeded legendIcon"></span>
-          <label>Exceeded the criteria</label>
+
+      <div id="bottomContainer">
+        <p id="instruction">Click below to select a scenario</p>
+        <button
+          id="mitigatedBtn"
+          class="button mitigated selected"
+          onclick="mitigatedFunction()"
+        >
+          Mitigated
+        </button>
+        <button
+          id="unmitigatedBtn"
+          class="button unmitigated"
+          onclick="unmitigatedFunction()"
+        >
+          Unmitigated
+        </button>
+        <hr />
+        <div class="legend">
+          <div id="legendTitle">Legend</div>
+          <div class="legendItems">
+            <span class="complied legendIcon"></span>
+            <label>Complied with the criteria</label>
+          </div>
+          <div class="legendItems">
+            <span class="exceeded legendIcon"></span>
+            <label>Exceeded the criteria</label>
+          </div>
         </div>
       </div>
     </div>
@@ -205,9 +211,6 @@
           button.classList.add("selected");
         }
       }
-      //>> 3dv
-
-      let rp = window.parent.tour._getRootPlayer();
 
       function changeTitle() {
         // Get the parameter title from the url
@@ -230,7 +233,11 @@
           document.getElementById("title").style.fontSize = titleSize;
         }
       }
+      changeTitle();
+      setTitleSize();
+      //>> 3dv
 
+      let rp = window.parent.tour._getRootPlayer();
       function mitigatedFunction() {
         // var rp = window.parent.tour._getRootPlayer();
         document.getElementById("mitigatedBtn").classList.add("selected");
@@ -266,9 +273,6 @@
           delay
         );
       }
-
-      changeTitle();
-      setTitleSize();
     </script>
   </body>
 </html>
