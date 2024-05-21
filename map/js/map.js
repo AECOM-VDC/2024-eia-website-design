@@ -57,7 +57,7 @@ var imageOverlay = L.imageOverlay(imageUrl, siteBounds, {
 }).addTo(map);
 
 //>> Overlay Rectangle
-L.rectangle(siteBounds, { color: "#0a0800", weight: 0}).addTo(map);
+L.rectangle(siteBounds, { color: "#0a0800", weight: 0 }).addTo(map);
 
 L.control
   .attribution({
@@ -140,45 +140,6 @@ var vp3 = L.marker([22.33789, 114.052377], {
   .addTo(map)
   .on("click", onVpClick)
   .bindTooltip("View Point 3", {
-    permanent: true,
-    direction: "bottom",
-    className: "vp-tooltip",
-    offset: [0, 5],
-  });
-
-var vp4 = L.marker([22.432466, 114.002814], {
-  icon: VpIcon,
-  title: "vp4",
-})
-  .addTo(map)
-  .on("click", onVpClick)
-  .bindTooltip("View Point 4", {
-    permanent: true,
-    direction: "bottom",
-    className: "vp-tooltip",
-    offset: [0, 5],
-  });
-
-var vp5 = L.marker([22.428738, 114.00017], {
-  icon: VpIcon,
-  title: "vp5",
-})
-  .addTo(map)
-  .on("click", onVpClick)
-  .bindTooltip("View Point 5", {
-    permanent: true,
-    direction: "bottom",
-    className: "vp-tooltip",
-    offset: [0, 5],
-  });
-
-var vp6 = L.marker([22.424346, 113.997658], {
-  icon: VpIcon,
-  title: "vp6",
-})
-  .addTo(map)
-  .on("click", onVpClick)
-  .bindTooltip("View Point 6", {
     permanent: true,
     direction: "bottom",
     className: "vp-tooltip",
