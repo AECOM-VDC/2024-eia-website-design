@@ -39,11 +39,11 @@ var map = L.map("map", {
 });
 
 //>> Image Overlay
-var imageUrl = "./image/TYLL-map-compressed_240513.png";
+var imageUrl = "./image/TYLL-map-compressed_20240523.png";
 var errorOverlayUrl = "https://cdn-icons-png.flaticon.com/512/110/110686.png";
 var altText = "image";
 var siteBounds = L.latLngBounds([
-  [22.328045, 114.04403],
+  [22.328243, 114.043917],
   [22.363491, 114.094155],
 ]);
 
@@ -57,7 +57,7 @@ var imageOverlay = L.imageOverlay(imageUrl, siteBounds, {
 }).addTo(map);
 
 //>> Overlay Rectangle
-L.rectangle(siteBounds, { color: "#0a0800", weight: 0 }).addTo(map);
+// L.rectangle(siteBounds, { color: "#0a0800", weight: 0 }).addTo(map);
 
 L.control
   .attribution({
