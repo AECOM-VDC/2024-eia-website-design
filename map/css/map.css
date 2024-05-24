@@ -1,3 +1,8 @@
+.leaflet-tile {
+  -webkit-filter: brightness(90%) saturate(150%) contrast(110%);
+  filter: brightness(90%) saturate(150%) contrast(110%);
+}
+
 body {
   margin: 0 !important;
   padding: 0 !important;
@@ -11,7 +16,7 @@ body {
 }
 
 .leaflet-marker-icon {
-  filter: hue-rotate(-40deg);
+  /* filter: hue-rotate(-40deg); */
 }
 
 .divIcon {
@@ -23,16 +28,24 @@ body {
   text-align: center;
 }
 .sr-tooltip {
-  /* background: transparent; */
-  border: 1px solid rgb(255, 255, 255);
+  border: 0px solid rgb(255, 255, 255) !important;
   box-shadow: none;
   font-size: 18px;
   padding: 0px 6px 0px 6px !important;
-  color: #000000;
-  /* text-shadow: 0em 0em 0.2em black, 0em 0em 0.2em black,
-    0em 0em 0.3em black; */
+  color: #ffffff;
+  background-color: #0000003c;
+  /* background-color: transparent; */
   border-radius: 6px;
-  /* text-align: center; */
+  font-size: 0.85vw;
+  text-shadow: 0em 0em 0.2em black, 0em 0em 0.3em black;
+}
+
+/* make sr tooltip arrow transparent */
+.sr-tooltip::before {
+  border-top-color: transparent !important;
+  border-bottom-color: transparent !important;
+  border-left-color: transparent !important;
+  border-right-color: transparent !important;
 }
 
 .vp-tooltip {
@@ -41,8 +54,7 @@ body {
   box-shadow: none;
   font-size: 22px;
   color: #ffffff;
-  text-shadow: 0em 0em 0.2em black, 0em 0em 0.2em black,
-    0em 0em 0.3em black;
+  text-shadow: 0em 0em 0.2em black, 0em 0em 0.2em black, 0em 0em 0.3em black;
 }
 
 /* make tooltip arrow transparent */

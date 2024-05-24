@@ -13,30 +13,44 @@ SrArray.forEach((element) => {
 //group
 let sr = L.layerGroup(SrArray);
 
-//Tiles
-let osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution:
-    '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-});
+//>> Image Filter
 
-let Esri_WorldImagery = L.tileLayer(
-  "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-  {
-    attribution:
-      "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community",
-  }
-);
+let myFilter = [
+  // "blur:500px",
+  "brightness:500%",
+  // "contrast:130%",
+  "saturate:50%",
+];
+
+//>> esri image layer
+//Tiles
+// let osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+//   attribution:
+//     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+// });
+
+// let Esri_WorldImagery = L.tileLayer(
+//   "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+//   {
+//     attribution:
+//       "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community",
+//   }
+// );
 
 //add hongkong topography
 let HkBase = L.layerGroup.hongKong("topography.tc");
 let HkSate = L.tileLayer.hongKong("basemap.imagery");
 
+//>> set map
 let map = L.map("map", {
   attributionControl: false,
   layers: [HkSate, sr],
   minZoom: 13,
   maxZoom: 18,
 });
+
+//>> map coordinate
+map.setView([22.346345, 114.068255], 15);
 
 //>> Image Overlay
 let imageUrl = "./image/TYLL-map-compressed_20240523.png";
@@ -115,9 +129,9 @@ let vp1 = L.marker([22.355136, 114.083877], {
 vp1.on("click", onVpClick);
 vp1.bindTooltip("View Point 1", {
   permanent: true,
-  direction: "bottom",
+  direction: "right",
   className: "vp-tooltip",
-  offset: [0, 5],
+  offset: [12, 0],
 });
 
 let vp2 = L.marker([22.347218, 114.064125], {
@@ -128,9 +142,9 @@ let vp2 = L.marker([22.347218, 114.064125], {
   .on("click", onVpClick)
   .bindTooltip("View Point 2", {
     permanent: true,
-    direction: "bottom",
+    direction: "right",
     className: "vp-tooltip",
-    offset: [0, 5],
+    offset: [12, 0],
   });
 
 let vp3 = L.marker([22.33789, 114.052377], {
@@ -230,9 +244,6 @@ function onMapClick(e) {
 // }
 // map.invalidateSize();
 // map.fitBounds(siteBounds);
-
-//>> map coordinate
-map.setView([22.346345, 114.068255], 15);
 
 // function setDivSize(params) {
 //   //set div height and width when window resize
