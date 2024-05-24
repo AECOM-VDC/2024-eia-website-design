@@ -3,7 +3,7 @@ SrArray.forEach((element) => {
   element.on("click", onVpClick);
 });
 
-// var imageOverlay = L.imageOverlay(imageUrl, siteBounds, {
+// let imageOverlay = L.imageOverlay(imageUrl, siteBounds, {
 //   opacity: 0.8,
 //   errorOverlayUrl: errorOverlayUrl,
 //   alt: altText,
@@ -11,15 +11,15 @@ SrArray.forEach((element) => {
 // });
 
 //group
-var sr = L.layerGroup(SrArray);
+let sr = L.layerGroup(SrArray);
 
 //Tiles
-var osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+let osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution:
     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 });
 
-var Esri_WorldImagery = L.tileLayer(
+let Esri_WorldImagery = L.tileLayer(
   "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
   {
     attribution:
@@ -28,10 +28,10 @@ var Esri_WorldImagery = L.tileLayer(
 );
 
 //add hongkong topography
-var HkBase = L.layerGroup.hongKong("topography.tc");
-var HkSate = L.tileLayer.hongKong("basemap.imagery");
+let HkBase = L.layerGroup.hongKong("topography.tc");
+let HkSate = L.tileLayer.hongKong("basemap.imagery");
 
-var map = L.map("map", {
+let map = L.map("map", {
   attributionControl: false,
   layers: [HkSate, sr],
   minZoom: 13,
@@ -39,17 +39,17 @@ var map = L.map("map", {
 });
 
 //>> Image Overlay
-var imageUrl = "./image/TYLL-map-compressed_20240523.png";
-var errorOverlayUrl = "https://cdn-icons-png.flaticon.com/512/110/110686.png";
-var altText = "image";
-var siteBounds = L.latLngBounds([
+let imageUrl = "./image/TYLL-map-compressed_20240523.png";
+let errorOverlayUrl = "https://cdn-icons-png.flaticon.com/512/110/110686.png";
+let altText = "image";
+let siteBounds = L.latLngBounds([
   [22.328243, 114.043917],
   [22.363491, 114.094155],
 ]);
 
 // zoom the map to the rectangle bounds
 
-var imageOverlay = L.imageOverlay(imageUrl, siteBounds, {
+let imageOverlay = L.imageOverlay(imageUrl, siteBounds, {
   opacity: 1,
   errorOverlayUrl: errorOverlayUrl,
   alt: altText,
@@ -73,7 +73,7 @@ map.attributionControl
   ();
 
 // define rectangle geographical bounds
-// var bounds = [
+// let bounds = [
 //   [54.559322, -5.767822],
 //   [56.1210604, -3.02124],
 // ];
@@ -81,22 +81,22 @@ map.attributionControl
 // create an orange rectangle
 // L.rectangle(latLngBounds, { color: "#ff7800", weight: 1 }).addTo(map);
 
-var baseMaps = {
+let baseMaps = {
   "Satellite Map": HkSate,
   "Base Map": HkBase,
 };
-var overlayMaps = {
+let overlayMaps = {
   SRs: sr,
   "Image Overlay": imageOverlay,
 };
-var imageOverlayMaps = {
+let imageOverlayMaps = {
   "Image Overlay": imageOverlay,
 };
 
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 
 //custom marker
-var VpIcon = L.icon({
+let VpIcon = L.icon({
   iconUrl: "./image/vp_marker.png",
   // shadowUrl: "leaf-shadow.png",
   iconSize: [60, 60], // size of the icon
@@ -108,7 +108,7 @@ var VpIcon = L.icon({
 
 //>> View Points
 
-var vp1 = L.marker([22.355136, 114.083877], {
+let vp1 = L.marker([22.355136, 114.083877], {
   icon: VpIcon,
   title: "vp1",
 }).addTo(map);
@@ -120,7 +120,7 @@ vp1.bindTooltip("View Point 1", {
   offset: [0, 5],
 });
 
-var vp2 = L.marker([22.347218, 114.064125], {
+let vp2 = L.marker([22.347218, 114.064125], {
   icon: VpIcon,
   title: "vp2",
 })
@@ -133,7 +133,7 @@ var vp2 = L.marker([22.347218, 114.064125], {
     offset: [0, 5],
   });
 
-var vp3 = L.marker([22.33789, 114.052377], {
+let vp3 = L.marker([22.33789, 114.052377], {
   icon: VpIcon,
   title: "vp3",
 })
@@ -149,13 +149,13 @@ var vp3 = L.marker([22.33789, 114.052377], {
 //>> function for 3D vista
 function onVpClick() {
   //get marker name
-  var markerName = this.options.title;
+  let markerName = this.options.title;
   // alert("You clicked the map at " + markerName);
 
   // create switch statement for each SR name
   function onVpClick() {
     //get marker name
-    var markerName = this.options.title;
+    let markerName = this.options.title;
 
     switch (markerName) {
       case "Uptown":
@@ -202,14 +202,14 @@ function onVpClickTest() {
 }
 
 //add text to map
-// var text = L.divIcon({
+// let text = L.divIcon({
 //   className: "divIcon",
 //   html: "Uptown",
 // });
 // L.marker([22.426537, 114.002385], { icon: text }).addTo(map);
 
 //pup-up
-var popup = L.popup();
+let popup = L.popup();
 
 function onMapClick(e) {
   popup.setLatLng(e.latlng).setContent(e.latlng.toString()).openOn(map);
@@ -236,10 +236,10 @@ map.setView([22.346345, 114.068255], 15);
 
 // function setDivSize(params) {
 //   //set div height and width when window resize
-//   var bodyDiv = document.getElementById("body");
-//   var mapDiv = document.getElementById("map");
-//   var mapDivWidth = bodyDiv.offsetWidth;
-//   var mapDivHeight = bodyDiv.offsetHeight;
+//   let bodyDiv = document.getElementById("body");
+//   let mapDiv = document.getElementById("map");
+//   let mapDivWidth = bodyDiv.offsetWidth;
+//   let mapDivHeight = bodyDiv.offsetHeight;
 //   mapDiv.style.height = mapDivHeight + "px";
 //   mapDiv.style.width = mapDivWidth + "px";
 // }
@@ -252,9 +252,9 @@ map.setView([22.346345, 114.068255], 15);
 // };
 
 //add a logo to map at bottom right
-var logo = L.control({ position: "bottomright" });
+let logo = L.control({ position: "bottomright" });
 logo.onAdd = function (map) {
-  var div = L.DomUtil.create("div", "Maplogo");
+  let div = L.DomUtil.create("div", "Maplogo");
   div.innerHTML =
     '<img id="map_logo" src="./image/landsdlogo.jpg" alt="logo" />';
   return div;
@@ -263,16 +263,16 @@ logo.addTo(map);
 
 // >> Add legend
 
-var legend = L.control({ position: "bottomleft" });
+let legend = L.control({ position: "bottomleft" });
 legend.onAdd = function (map) {
-  var div = L.DomUtil.create("div", "legend");
+  let div = L.DomUtil.create("div", "legend");
   div.style.display = "none";
-  var divCon = L.DomUtil.create("div", "container");
+  let divCon = L.DomUtil.create("div", "container");
   //append a child div to div
   divCon.appendChild(div);
 
   // Add close button to the top-right corner of the container div
-  var closeButton = L.DomUtil.create("button", "close-button");
+  let closeButton = L.DomUtil.create("button", "close-button");
   closeButton.style.display = "none";
   closeButton.innerHTML = "╳";
   closeButton.onclick = function () {
@@ -292,7 +292,7 @@ legend.onAdd = function (map) {
   div.innerHTML +=
     '<img class="legend-icon" src="./image/marker-icon-green.png" alt="View Point"/><span>Sensitive Receiver Locations</span><br>';
   // Add button to toggle legend visibility
-  var toggleButton = L.DomUtil.create("button", "toggle-button");
+  let toggleButton = L.DomUtil.create("button", "toggle-button");
   toggleButton.innerHTML = "Display Legend";
   toggleButton.onclick = function () {
     if (div.style.display == "none") {
@@ -320,7 +320,7 @@ let devMode = true;
 
 if (devMode) {
   //pop up coordinates when clicking on map
-  var popup = L.popup();
+  let popup = L.popup();
   function onMapClick(e) {
     popup
       .setLatLng(e.latlng)
@@ -328,7 +328,7 @@ if (devMode) {
       .openOn(map);
 
     //copy coordinates to clipboard
-    var copyText = e.latlng.toString();
+    let copyText = e.latlng.toString();
     //extract only coordinates
     copyText = copyText.replace("LatLng(", "");
     copyText = copyText.replace(")", "");
