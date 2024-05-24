@@ -88,11 +88,11 @@ function vueDraw() {
         //一定要在Vue之後
 
         const options = {
-          smoothing: true,
+          smoothing: false,
           smoothingAmount: 100,
           controlShadow: false,
-          addCircle: true,
-          addCircleBlur: true,
+          addCircle: false,
+          addCircleBlur: false,
         };
         const element = document.getElementById("image-compare");
         const viewer = new ImageCompare(element, options).mount();
