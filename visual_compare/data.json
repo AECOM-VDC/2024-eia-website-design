@@ -44,35 +44,57 @@
     }
   },
   "DATA": {
-    "vp1": {
+    "VP-A3": {
       "title": "Visual Impact",
-      "mapLocation": "View from Jasper Court",
+      "mapLocation": "View from Village House at Tso Wan",
       "description": "",
       "type": "compare",
       "options": ["Existing  Condition", "Future Condition"],
-      "fileName": ["v5_e.jpg", "v5.jpg"],
+      "fileName": ["e.jpg", "y10.jpg"],
       "preSelect": [0, 1],
       "noteTitle": "Mitigation Measures:",
       "note": []
     },
-    "vp5": {
+    "VP-A4": {
       "title": "Visual Impact",
-      "mapLocation": "View from Jasper Court",
+      "mapLocation": "Administration Building of Shell Tsing Yi Installation",
       "description": "",
       "type": "compare",
       "options": ["Existing  Condition", "Future Condition"],
-      "fileName": ["v3_e.jpg", "v3_m.jpg"],
+      "fileName": ["e.jpg", "y10.jpg"],
       "preSelect": [0, 1],
       "noteTitle": "Mitigation Measures:",
       "note": []
     },
-    "vp6": {
+    "VP-B3": {
       "title": "Visual Impact",
-      "mapLocation": "View from Jasper Court",
+      "mapLocation": "View from ?",
       "description": "",
       "type": "compare",
       "options": ["Existing  Condition", "Future Condition"],
-      "fileName": ["v2_e.jpg", "v2_m.jpg"],
+      "fileName": ["e.jpg", "y10.jpg"],
+      "preSelect": [0, 1],
+      "noteTitle": "Mitigation Measures:",
+      "note": []
+    },
+    "VP-B4": {
+      "title": "Visual Impact",
+      "mapLocation": "Lantau Link Visitors Centre",
+      "description": "",
+      "type": "compare",
+      "options": ["Existing  Condition", "Future Condition"],
+      "fileName": ["e.jpg", "y10.jpg"],
+      "preSelect": [0, 1],
+      "noteTitle": "Mitigation Measures:",
+      "note": []
+    },
+    "VP-P1": {
+      "title": "Visual Impact",
+      "mapLocation": "View from ?",
+      "description": "",
+      "type": "compare",
+      "options": ["Existing  Condition", "Future Condition"],
+      "fileName": ["e.jpg", "y10.jpg"],
       "preSelect": [0, 1],
       "noteTitle": "Mitigation Measures:",
       "note": []
