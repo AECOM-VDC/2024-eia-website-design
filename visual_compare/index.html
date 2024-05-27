@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="./lib/image-compare-viewer.min.css" />
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 
-    <script src="./js/page.js?v=1.0.7"></script>
+    <script src="./js/script-min.js"></script>
 
     <link
       rel="stylesheet"
@@ -212,6 +212,10 @@
         overflow: auto !important;
         max-height: max-content !important;
       }
+
+      a{
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -267,7 +271,6 @@
             <!-- 上面title是tooltip顯示內容 拿掉了 -->
               <a
                 data-bs-toggle="collapse"
-                href="#"
                 data-bs-target="#collapse-left"
                 role="button"
                 class="text-light text-center align-baseline align-self-center h6 p-0 d-none d-sm-inline"
@@ -291,7 +294,6 @@
             >
               <a
                 data-bs-toggle="collapse"
-                href="#"
                 data-bs-target="#collapse-right"
                 role="button"
                 class="text-light text-center align-baseline align-self-center h6 p-0 d-none d-sm-inline"
@@ -325,7 +327,6 @@
                       v-for="(item, index) in options"
                       :key="index"
                       class="items dropdown-item my-1"
-                      href="#"
                       @click="optionClicked($event,index,false)"
                       >{{item}}</a
                     >
@@ -354,7 +355,6 @@
                       v-for="(item, index) in options"
                       :key="index"
                       class="items dropdown-item my-1"
-                      href="#"
                       @click="optionClicked($event,index,true)"
                       >{{item}}</a
                     >
