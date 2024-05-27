@@ -47,7 +47,7 @@ function Get-FolderStructure {
     $folderStructure = $folderStructure | ForEach-Object {
         $key = $_.Key
         $value = $_.Value
-        $value = $value | Sort-Object -CaseSensitive -Descending -Property @{Expression={$_ -match "existing"}},@{Expression={$_ -match "without"}},@{Expression={$_ -match "day"}},@{Expression={$_ -match "year|10years"}},@{Expression={$_ -notmatch "existing|without|day|year|10years"}}
+        $value = $value | Sort-Object -CaseSensitive -Descending -Property @{Expression={$_ -match "existing|e"}},@{Expression={$_ -match "without"}},@{Expression={$_ -match "day"}},@{Expression={$_ -match "year|10years|y"}},@{Expression={$_ -notmatch "existing|without|day|year|10years"}}
         [PSCustomObject]@{
             Key = $key
             Value = $value
@@ -66,4 +66,7 @@ function Get-FolderStructure {
 }
 
 # Path to _webframe\asset\visual_impact
-Get-FolderStructure -Path "C:\Users\aerch\Documents\Eric\AECOM\git-repo\spatial-engage\WYLH\_webframe\asset\visual_impact"
+Get-FolderStructure -Path ".\asset\visual_impact"
+
+# Add this line to prevent the window from closing immediately
+Read-Host -Prompt "Press Enter to exit"
