@@ -56,7 +56,7 @@ let map = L.map("map", {
 map.setView([22.346345, 114.068255], 15);
 
 //>> Image Overlay
-let imageUrl = "./image/TYLL-map-compressed_20240523.png";
+let imageUrl = "./image/TYLL-map-compressed_240528.png";
 let errorOverlayUrl = "https://cdn-icons-png.flaticon.com/512/110/110686.png";
 let altText = "image";
 let siteBounds = L.latLngBounds([
