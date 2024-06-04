@@ -267,10 +267,10 @@ function onVpClick() {
   console.log("entering " + markerName);
 
   //trigger function in parent window
-  // window.parent.tour
-  //   ._getRootPlayer()
-  //   .getComponentByName("trigger" + "_" + markerName)
-  //   .trigger("click");
+  window.parent.tour
+    ._getRootPlayer()
+    .getComponentByName("trigger" + "_" + markerName)
+    .trigger("click");
 }
 
 function onVpClickTest() {
