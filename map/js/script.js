@@ -54,7 +54,7 @@ let map = L.map("map", {
 });
 
 //>> map coordinate
-map.setView([22.346345, 114.068255], 15);
+map.setView([22.28036, 114.255152], 15);
 
 //>> Image Overlay
 let imageUrl = "./image/TYLL-map-compressed_240528.png";
@@ -126,92 +126,151 @@ let VpIcon = L.icon({
 
 //>> View Points
 
-let vp1 = L.marker([22.355136, 114.083877], {
+let VPA1 = L.marker([22.267652, 114.264593], {
   icon: VpIcon,
-  title: "vp1",
-}).addTo(map);
-vp1.on("click", onVpClick);
-vp1.bindTooltip("View Point 1", {
-  permanent: true,
-  direction: "right",
-  className: "vp-tooltip",
-  offset: [12, 0],
-});
-
-let vp2 = L.marker([22.347218, 114.064125], {
-  icon: VpIcon,
-  title: "vp2",
+  title: "VP-A1",
 })
   .addTo(map)
   .on("click", onVpClick)
-  .bindTooltip("View Point 2", {
+  .bindTooltip("VP-A1", {
     permanent: true,
     direction: "right",
     className: "vp-tooltip",
     offset: [12, 0],
   });
 
-let vp3 = L.marker([22.33789, 114.052377], {
+let VPA2 = L.marker([22.266957, 114.274442], {
   icon: VpIcon,
-  title: "vp3",
+  title: "VP-A2",
 })
   .addTo(map)
   .on("click", onVpClick)
-  .bindTooltip("View Point 3", {
+  .bindTooltip("VP-A2", {
+    permanent: true,
+    direction: "right",
+    className: "vp-tooltip",
+    offset: [12, 0],
+  });
+
+let VPA3 = L.marker([22.270869, 114.271846], {
+  icon: VpIcon,
+  title: "VP-A3",
+})
+  .addTo(map)
+  .on("click", onVpClick)
+  .bindTooltip("VP-A3", {
     permanent: true,
     direction: "bottom",
     className: "vp-tooltip",
     offset: [0, 5],
   });
 
+let VPA4 = L.marker([22.275277, 114.270923], {
+  icon: VpIcon,
+  title: "VP-A4",
+})
+  .addTo(map)
+  .on("click", onVpClick)
+  .bindTooltip("VP-A4", {
+    permanent: true,
+    direction: "bottom",
+    className: "vp-tooltip",
+    offset: [0, 5],
+  });
+
+let VPA5 = L.marker([22.271385, 114.274013], {
+  icon: VpIcon,
+  title: "VP-A5",
+})
+  .addTo(map)
+  .on("click", onVpClick)
+  .bindTooltip("VP-A5", {
+    permanent: true,
+    direction: "bottom",
+    className: "vp-tooltip",
+    offset: [0, 5],
+  });
+
+let VPA6 = L.marker([22.26928, 114.275064], {
+  icon: VpIcon,
+  title: "VP-A6",
+})
+  .addTo(map)
+  .on("click", onVpClick)
+  .bindTooltip("VP-A6", {
+    permanent: true,
+    direction: "bottom",
+    className: "vp-tooltip",
+    offset: [0, 5],
+  });
+
+let VPA7 = L.marker([22.266123, 114.277682], {
+  icon: VpIcon,
+  title: "VP-A7",
+})
+  .addTo(map)
+  .on("click", onVpClick)
+  .bindTooltip("VP-A7", {
+    permanent: true,
+    direction: "bottom",
+    className: "vp-tooltip",
+    offset: [0, 5],
+  });
+
+  let VPB1 = L.marker([22.289176, 114.254315], {
+    icon: VpIcon,
+    title: "VP-B1",
+  })
+    .addTo(map)
+    .on("click", onVpClick)
+    .bindTooltip("VP-B1", {
+      permanent: true,
+      direction: "bottom",
+      className: "vp-tooltip",
+      offset: [0, 5],
+    });
+
+    let VPB2 = L.marker([22.297733, 114.257169], {
+      icon: VpIcon,
+      title: "VP-B2",
+    })
+      .addTo(map)
+      .on("click", onVpClick)
+      .bindTooltip("VP-B2", {
+        permanent: true,
+        direction: "bottom",
+        className: "vp-tooltip",
+        offset: [0, 5],
+      });
+
+      
+    let VPB3 = L.marker([22.290844, 114.246569], {
+      icon: VpIcon,
+      title: "VP-B3",
+    })
+      .addTo(map)
+      .on("click", onVpClick)
+      .bindTooltip("VP-B3", {
+        permanent: true,
+        direction: "bottom",
+        className: "vp-tooltip",
+        offset: [0, 5],
+      });
+
 //>> function for 3D vista
 function onVpClick() {
   //get marker name
   let markerName = this.options.title;
   // alert("You clicked the map at " + markerName);
+  console.log("entering ");
 
-  // create switch statement for each SR name
-  function onVpClick() {
-    //get marker name
-    let markerName = this.options.title;
-
-    switch (markerName) {
-      case "Uptown":
-        markerName = "vp3";
-        break;
-      case "Tai Tao Tsuen":
-        markerName = "vp4";
-        break;
-      case "Park Villa":
-        markerName = "vp2";
-        break;
-      case "Jasper Court":
-        markerName = "vp1";
-        break;
-      case "Tan Kwai Tsuen":
-        markerName = "vp6";
-        break;
-      case "Ping Shan South":
-        markerName = "vp6";
-        break;
-      case "Casa Regalia":
-        markerName = "vp5";
-        break;
-      case "Manor Parc":
-        markerName = "vp5";
-        break;
-      default:
-        // do something if markerName doesn't match any case
-        break;
-    }
-  }
   console.log("entering " + markerName);
 
   //trigger function in parent window
-  window.parent.tour
-    ._getRootPlayer()
-    .getComponentByName("trigger" + "_" + markerName)
-    .trigger("click");
+  // window.parent.tour
+  //   ._getRootPlayer()
+  //   .getComponentByName("trigger" + "_" + markerName)
+  //   .trigger("click");
 }
 
 function onVpClickTest() {
@@ -331,7 +390,7 @@ legend.addTo(map);
 
 //>> Dev Mode
 
-let devMode = false;
+let devMode = true;
 
 if (devMode) {
   //pop up coordinates when clicking on map
