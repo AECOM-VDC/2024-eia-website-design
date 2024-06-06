@@ -49,7 +49,7 @@ let map = L.map("map", {
   minZoom: 14,
   maxZoom: 17,
   zoomDelta: 1,
-  zoomSnap: 1,
+  zoomSnap: 0.7,
   wheelPxPerZoomLevel: 120,
 });
 
