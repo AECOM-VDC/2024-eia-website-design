@@ -57,12 +57,12 @@ let map = L.map("map", {
 map.setView([22.28036, 114.255152], 15);
 
 //>> Image Overlay
-let imageUrl = "./image/TYLL-map-compressed_240528.png";
+let imageUrl = "./image/map_20240611.webp";
 let errorOverlayUrl = "https://cdn-icons-png.flaticon.com/512/110/110686.png";
 let altText = "image";
 let siteBounds = L.latLngBounds([
-  [22.328243, 114.043917],
-  [22.363491, 114.094155],
+  [22.251686, 114.226656],
+  [22.313793, 114.294548],
 ]);
 
 // zoom the map to the rectangle bounds
@@ -75,7 +75,7 @@ let imageOverlay = L.imageOverlay(imageUrl, siteBounds, {
 }).addTo(map);
 
 //>> Overlay Rectangle
-// L.rectangle(siteBounds, { color: "#0a0800", weight: 0 }).addTo(map);
+L.rectangle(siteBounds, { color: "#ffd96c", weight: 1 }).addTo(map);
 
 L.control
   .attribution({
