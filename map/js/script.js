@@ -54,7 +54,10 @@ let map = L.map("map", {
 });
 
 //>> map coordinate
-map.setView([22.28036, 114.255152], 15);
+// map.setView([22.28036, 114.255152], 14);
+
+
+
 
 //>> Image Overlay
 let imageUrl = "./image/map_20240612_2.webp";
@@ -65,7 +68,15 @@ let siteBounds = L.latLngBounds([
   [22.317078, 114.295996],
 ]);
 
-// zoom the map to the rectangle bounds
+let viewBounds = L.latLngBounds([
+  [22.262727, 114.243908],
+  [22.299261, 114.276094],
+]);
+
+
+//set view to fit the site bounds
+map.fitBounds(viewBounds);
+
 
 let imageOverlay = L.imageOverlay(imageUrl, siteBounds, {
   opacity: 1,
@@ -75,7 +86,7 @@ let imageOverlay = L.imageOverlay(imageUrl, siteBounds, {
 }).addTo(map);
 
 //>> Overlay Rectangle
-// L.rectangle(siteBounds, { color: "#ffd96c", weight: 1 }).addTo(map);
+L.rectangle(siteBounds, { color: "#ffd96c", weight: 1 }).addTo(map);
 
 L.control
   .attribution({
@@ -113,16 +124,32 @@ let imageOverlayMaps = {
 
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 
+
+let VpIconPixelSize = [280, 279];
+let VpIconScale = 0.18;
+let VpIconSize = [
+  VpIconPixelSize[0] * VpIconScale,
+  VpIconPixelSize[1] * VpIconScale,
+]; // size of the icon
+let VpIconAnchor = [VpIconSize[0] / 2, VpIconSize[1]/2]; 
+let VPPopupAnchor = [0, VpIconSize[1] / 2];
+let bottomOffset = [0,16];
+
+
+
+
 //custom marker
 let VpIcon = L.icon({
   iconUrl: "./image/vp_marker.png",
   // shadowUrl: "leaf-shadow.png",
-  iconSize: [60, 60], // size of the icon
-  shadowSize: [50, 64], // size of the shadow
-  iconAnchor: [30, 30], // point of the icon which will correspond to marker's location
-  shadowAnchor: [4, 62], // the same for the shadow
-  popupAnchor: [0, 0], // point from which the popup should open relative to the iconAnchor
+  iconSize: VpIconSize, // size of the icon
+  // shadowSize: [50, 64], 
+  iconAnchor: VpIconAnchor, // point of the icon which will correspond to marker's location
+  // shadowAnchor: [4, 62], 
+  // popupAnchor: [12, 0], 
 });
+
+
 
 //>> View Points
 
@@ -134,12 +161,12 @@ let VPA1 = L.marker([22.267652, 114.264593], {
   .on("click", onVpClick)
   .bindTooltip("VP-A1", {
     permanent: true,
-    direction: "right",
+    direction: "bottom",
     className: "vp-tooltip",
-    offset: [12, 0],
+    offset: bottomOffset,
   });
 
-let VPA2 = L.marker([22.266957, 114.274442], {
+let VPA2 = L.marker([22.267573, 114.272768], {
   icon: VpIcon,
   title: "VP-A2",
 })
@@ -147,12 +174,12 @@ let VPA2 = L.marker([22.266957, 114.274442], {
   .on("click", onVpClick)
   .bindTooltip("VP-A2", {
     permanent: true,
-    direction: "right",
+    direction: "bottom",
     className: "vp-tooltip",
-    offset: [12, 0],
+    offset: bottomOffset,
   });
 
-let VPA3 = L.marker([22.270869, 114.271846], {
+let VPA3 = L.marker([22.272696, 114.270043], {
   icon: VpIcon,
   title: "VP-A3",
 })
@@ -162,10 +189,10 @@ let VPA3 = L.marker([22.270869, 114.271846], {
     permanent: true,
     direction: "bottom",
     className: "vp-tooltip",
-    offset: [0, 5],
+    offset: bottomOffset,
   });
 
-let VPA4 = L.marker([22.275277, 114.270923], {
+let VPA4 = L.marker([22.276478, 114.271009], {
   icon: VpIcon,
   title: "VP-A4",
 })
@@ -175,10 +202,10 @@ let VPA4 = L.marker([22.275277, 114.270923], {
     permanent: true,
     direction: "bottom",
     className: "vp-tooltip",
-    offset: [0, 5],
+    offset: bottomOffset,
   });
 
-let VPA5 = L.marker([22.271385, 114.274013], {
+let VPA5 = L.marker([22.274056, 114.273927], {
   icon: VpIcon,
   title: "VP-A5",
 })
@@ -188,10 +215,10 @@ let VPA5 = L.marker([22.271385, 114.274013], {
     permanent: true,
     direction: "bottom",
     className: "vp-tooltip",
-    offset: [0, 5],
+    offset: bottomOffset,
   });
 
-let VPA6 = L.marker([22.26928, 114.275064], {
+let VPA6 = L.marker([22.270144, 114.274507], {
   icon: VpIcon,
   title: "VP-A6",
 })
@@ -201,10 +228,10 @@ let VPA6 = L.marker([22.26928, 114.275064], {
     permanent: true,
     direction: "bottom",
     className: "vp-tooltip",
-    offset: [0, 5],
+    offset: bottomOffset,
   });
 
-let VPA7 = L.marker([22.266123, 114.277682], {
+let VPA7 = L.marker([22.265567, 114.276749], {
   icon: VpIcon,
   title: "VP-A7",
 })
@@ -214,10 +241,10 @@ let VPA7 = L.marker([22.266123, 114.277682], {
     permanent: true,
     direction: "bottom",
     className: "vp-tooltip",
-    offset: [0, 5],
+    offset: bottomOffset,
   });
 
-  let VPB1 = L.marker([22.289176, 114.254315], {
+  let VPB1 = L.marker([22.291519, 114.25704], {
     icon: VpIcon,
     title: "VP-B1",
   })
@@ -227,10 +254,10 @@ let VPA7 = L.marker([22.266123, 114.277682], {
       permanent: true,
       direction: "bottom",
       className: "vp-tooltip",
-      offset: [0, 5],
+      offset: bottomOffset,
     });
 
-    let VPB2 = L.marker([22.297733, 114.257169], {
+    let VPB2 = L.marker([22.297842, 114.256911], {
       icon: VpIcon,
       title: "VP-B2",
     })
@@ -240,11 +267,11 @@ let VPA7 = L.marker([22.266123, 114.277682], {
         permanent: true,
         direction: "bottom",
         className: "vp-tooltip",
-        offset: [0, 5],
+        offset: bottomOffset,
       });
 
       
-    let VPB3 = L.marker([22.290844, 114.246569], {
+    let VPB3 = L.marker([22.290248, 114.246011], {
       icon: VpIcon,
       title: "VP-B3",
     })
@@ -254,7 +281,7 @@ let VPA7 = L.marker([22.266123, 114.277682], {
         permanent: true,
         direction: "bottom",
         className: "vp-tooltip",
-        offset: [0, 5],
+        offset:bottomOffset,
       });
 
 //>> function for 3D vista

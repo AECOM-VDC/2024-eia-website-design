@@ -49,10 +49,11 @@ body {
 }
 
 .vp-tooltip {
-  background: transparent;
+  padding: 0 5px !important;
+  background: #0000006f;
   border: 0px solid red;
   box-shadow: none;
-  font-size: 22px;
+  font-size: 16px;
   color: #ffffff;
   text-shadow: 0em 0em 0.2em black, 0em 0em 0.2em black, 0em 0em 0.3em black;
 }
