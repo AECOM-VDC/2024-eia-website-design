@@ -46,11 +46,14 @@ let map = L.map("map", {
   attributionControl: false,
   layers: [HkSate, sr],
   //>> zoom
-  minZoom: 14,
+  minZoom: 13,
   maxZoom: 17,
-  zoomDelta: 1,
-  zoomSnap: 0.7,
-  wheelPxPerZoomLevel: 120,
+  // zoomDelta: 1,
+  zoomSnap: 0,
+  // wheelPxPerZoomLevel: 120,
+  scrollWheelZoom: false, // disable original zoom function
+  smoothWheelZoom: true,  // enable smooth zoom 
+  smoothSensitivity: 1,   // zoom speed. default is 1
 });
 
 //>> map coordinate
