@@ -86,7 +86,7 @@ let imageOverlay = L.imageOverlay(imageUrl, siteBounds, {
 }).addTo(map);
 
 //>> Overlay Rectangle
-L.rectangle(siteBounds, { color: "#ffd96c", weight: 1 }).addTo(map);
+// L.rectangle(siteBounds, { color: "#ffd96c", weight: 1 }).addTo(map);
 
 L.control
   .attribution({
@@ -417,7 +417,7 @@ legend.addTo(map);
 
 //>> Dev Mode
 
-let devMode = true;
+let devMode = false;
 
 if (devMode) {
   //pop up coordinates when clicking on map
