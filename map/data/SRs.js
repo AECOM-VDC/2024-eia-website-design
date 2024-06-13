@@ -92,10 +92,10 @@ var VillageHouseAtYiChuen = L.marker([22.340669, 114.054995], {
 });
 
 var SrArray = [
-  AdministrationBuilding,
-  LantauLinkVisitorsCentre,
-  PlannedPrivateHousing,
-  NoahArk,
-  VillageHouseAtTsoWan,
-  VillageHouseAtYiChuen,
+  // AdministrationBuilding,
+  // LantauLinkVisitorsCentre,
+  // PlannedPrivateHousing,
+  // NoahArk,
+  // VillageHouseAtTsoWan,
+  // VillageHouseAtYiChuen,
 ];
