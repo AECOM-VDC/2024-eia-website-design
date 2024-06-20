@@ -1,4 +1,4 @@
-let LviIconPixelSize = [280, 279];
+let LviIconPixelSize = [400, 400];
 let LviIconScale = 0.18;
 let LviIconSize = [
   LviIconPixelSize[0] * LviIconScale,
@@ -6,11 +6,11 @@ let LviIconSize = [
 ]; // size of the icon
 let LviIconAnchor = [LviIconSize[0] / 2, LviIconSize[1] / 2];
 let LviPopupAnchor = [0, LviIconSize[1] / 2];
-let LviBottomOffset = [0, 16];
+let LviCenterOffset = [0, 0];
 
 //custom marker
 let LviIcon = L.icon({
-  iconUrl: "./image/vp_marker.png",
+  iconUrl: "./image/LVI_arrow.png",
   // shadowUrl: "leaf-shadow.png",
   iconSize: LviIconSize, // size of the icon
   // shadowSize: [50, 64],
@@ -21,64 +21,67 @@ let LviIcon = L.icon({
 
 //>> View Points
 
-let VPA1_ = L.marker([22.267652, 114.264593], {
+let VPA1_ = L.marker([22.276079, 114.241587], {
   icon: LviIcon,
-  title: "VP-A1",
+  title: "VP-11",
+  rotationAngle: 45,
 })
-  .on("click", onVpClick)
-  .bindTooltip("VP-A1", {
+  .on("click", onLviClick)
+  .bindTooltip("VP-11", {
     permanent: true,
-    direction: "bottom",
-    className: "vp-tooltip",
-    offset: LviBottomOffset,
+    direction: "center",
+    className: "lvi-tooltip",
+    offset: LviCenterOffset,
   });
 
-let VPA2_ = L.marker([22.267573, 114.272768], {
+let VP2_ = L.marker([22.268852, 114.248524], {
   icon: LviIcon,
-  title: "VP-A2",
+  title: "VP-11",
+  rotationAngle: -25,
 })
-  .on("click", onVpClick)
-  .bindTooltip("VP-A2", {
+  .on("click", onLviClick)
+  .bindTooltip("VP-2", {
     permanent: true,
-    direction: "bottom",
-    className: "vp-tooltip",
-    offset: LviBottomOffset,
+    direction: "center",
+    className: "lvi-tooltip",
+    offset: LviCenterOffset,
   });
 
-let VPA3_ = L.marker([22.272696, 114.270043], {
+let VP2_1 = L.marker([22.268852, 114.248524], {
   icon: LviIcon,
-  title: "VP-A3",
+  title: "VP-11",
+  rotationAngle: 55,
 })
-  .on("click", onVpClick)
-  .bindTooltip("VP-A3", {
+  .on("click", onLviClick)
+  .bindTooltip("", {
     permanent: true,
-    direction: "bottom",
-    className: "vp-tooltip",
-    offset: LviBottomOffset,
+    direction: "center",
+    className: "lvi-tooltip",
+    offset: LviCenterOffset,
   });
 
 let VPA4_ = L.marker([22.276478, 114.271009], {
   icon: LviIcon,
   title: "VP-A4",
 })
-  .on("click", onVpClick)
+  .on("click", onLviClick)
   .bindTooltip("VP-A4", {
     permanent: true,
     direction: "bottom",
     className: "vp-tooltip",
-    offset: LviBottomOffset,
+    offset: LviCenterOffset,
   });
 
 let VPA5_ = L.marker([22.274056, 114.273927], {
   icon: LviIcon,
   title: "VP-A5",
 })
-  .on("click", onVpClick)
+  .on("click", onLviClick)
   .bindTooltip("VP-A5", {
     permanent: true,
     direction: "bottom",
     className: "vp-tooltip",
-    offset: LviBottomOffset,
+    offset: LviCenterOffset,
   });
 
 let VPA6_ = L.marker([22.270144, 114.274507], {
@@ -86,76 +89,81 @@ let VPA6_ = L.marker([22.270144, 114.274507], {
   title: "VP-A6",
 })
 
-  .on("click", onVpClick)
+  .on("click", onLviClick)
   .bindTooltip("VP-A6", {
     permanent: true,
     direction: "bottom",
     className: "vp-tooltip",
-    offset: LviBottomOffset,
+    offset: LviCenterOffset,
   });
 
 let VPA7_ = L.marker([22.265567, 114.276749], {
   icon: LviIcon,
   title: "VP-A7",
 })
-  .on("click", onVpClick)
+  .on("click", onLviClick)
   .bindTooltip("VP-A7", {
     permanent: true,
     direction: "bottom",
     className: "vp-tooltip",
-    offset: LviBottomOffset,
+    offset: LviCenterOffset,
   });
 
 let VPB1_ = L.marker([22.291519, 114.25704], {
   icon: LviIcon,
   title: "VP-B1",
 })
-  .on("click", onVpClick)
+  .on("click", onLviClick)
   .bindTooltip("VP-B1", {
     permanent: true,
     direction: "bottom",
     className: "vp-tooltip",
-    offset: LviBottomOffset,
+    offset: LviCenterOffset,
   });
 
 let VPB2_ = L.marker([22.297842, 114.256911], {
   icon: LviIcon,
   title: "VP-B2",
 })
-  .on("click", onVpClick)
+  .on("click", onLviClick)
   .bindTooltip("VP-B2", {
     permanent: true,
     direction: "bottom",
     className: "vp-tooltip",
-    offset: LviBottomOffset,
+    offset: LviCenterOffset,
   });
 
 let VPB3_ = L.marker([22.290248, 114.246011], {
   icon: LviIcon,
   title: "VP-B3",
 })
-  .on("click", onVpClick)
+  .on("click", onLviClick)
   .bindTooltip("VP-B3", {
     permanent: true,
     direction: "bottom",
     className: "vp-tooltip",
-    offset: LviBottomOffset,
+    offset: LviCenterOffset,
   });
 
 //>> function for 3D vista
-function onVpClick() {
+function onLviClick() {
   //get marker name
   let markerName = this.options.title;
   // alert("You clicked the map at " + markerName);
-  console.log("entering ");
 
-  console.log("entering " + markerName);
+  console.log("open LVI " + markerName);
 
-  //trigger function in parent window
-  window.parent.tour
-    ._getRootPlayer()
-    .getComponentByName("trigger" + "_" + markerName)
-    .trigger("click");
+  // select the lvi-popup element
+  let lviPopup = document.getElementById("lvi-popup");
+
+  // select the iframe inside lvi-popup
+  let iframe = lviPopup.querySelector("iframe");
+
+  // change the src attribute of the iframe to include the marker name as a URL parameter
+  iframe.src = `../visual_compare/index.html?data=VP-A3#`;
+
+  // display the lvi-popup
+  lviPopup.style.display = "block";
 }
 
-let LVIArray = [];
+let LVIArray = [VPA1_, VP2_, VP2_1];

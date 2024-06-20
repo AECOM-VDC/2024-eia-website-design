@@ -47,7 +47,7 @@ let HkSate = L.tileLayer.hongKong("basemap.imagery");
 //>> set map
 let map = L.map("map", {
   attributionControl: false,
-  layers: [HkSate, sr, vp],
+  layers: [HkSate, sr, vp, lvi],
   //>> zoom
   minZoom: 13,
   maxZoom: 17,
@@ -405,7 +405,7 @@ legend.addTo(map);
 
 //>> Dev Mode
 
-let devMode = false;
+let devMode = true;
 
 if (devMode) {
   //pop up coordinates when clicking on map
