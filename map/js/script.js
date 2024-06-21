@@ -10,12 +10,6 @@ SrArray.forEach((element) => {
 //   interactive: true,
 // });
 
-//group
-let sr = L.layerGroup(SrArray);
-let vp = L.layerGroup(VPArray);
-let lvi = L.layerGroup(LVIArray);
-
-
 //>> Image Filter
 
 let myFilter = [
@@ -47,7 +41,6 @@ let HkSate = L.tileLayer.hongKong("basemap.imagery");
 //>> set map
 let map = L.map("map", {
   attributionControl: false,
-  layers: [HkSate, sr, vp, lvi],
   //>> zoom
   minZoom: 13,
   maxZoom: 17,
@@ -58,6 +51,19 @@ let map = L.map("map", {
   smoothWheelZoom: true, // enable smooth zoom
   smoothSensitivity: 1, // zoom speed. default is 1
 });
+
+//group
+let sr = L.layerGroup(SrArray);
+let vp = L.layerGroup(VPArray);
+// let lvi = L.layerGroup(LVIArray);
+
+map.addLayer(HkSate);
+map.addLayer(sr);
+map.addLayer(vp);
+map.addLayer(markerCluster);
+
+
+// map.addLayer(lvi);
 
 //>> map coordinate
 // map.setView([22.28036, 114.255152], 14);
@@ -140,7 +146,6 @@ L.control.layers(baseMaps, overlayMaps).addTo(map);
 //   iconSize: VpIconSize,
 //   iconAnchor: VpIconAnchor,
 // });
-
 
 // let VPA1 = L.marker([22.267652, 114.264593], {
 //   icon: VpIcon,
