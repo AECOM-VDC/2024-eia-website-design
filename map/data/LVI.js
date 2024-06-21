@@ -39,18 +39,61 @@ let LviList = [
   {
     name: "2A",
     latLong: [22.26923, 114.248882],
-    rotation: -30,
+    rotation: 0,
   },
   {
     name: "2B",
-    latLong: [22.268936, 114.24921],
-    rotation: 45,
+    latLong: [22.268734, 114.249375],
+    rotation: 65,
   },
   {
     name: "3",
-    latLong: [22.24032, 114.241663],
-    rotation: 30,
+    latLong: [22.291895, 114.268695],
+    rotation: 180,
+  },  
+  {
+    name: "4",
+    latLong: [22.301382, 114.261168],
+    rotation: 200,
   },
+  {
+    name: "5",
+    latLong: [22.29368, 114.267013],
+    rotation: 260,
+  },
+  {
+    name: "6",
+    latLong: [22.284146, 114.267837],
+    rotation: 300,
+  },
+  {
+    name: "7",
+    latLong: [22.289859, 114.243588],
+    rotation: 120,
+  },
+  {
+    name: "8",
+    latLong: [22.276511, 114.285045],
+    rotation: 260,
+  },
+  {
+    name: "9",
+    latLong: [22.252922, 114.284777],
+    rotation: 330,
+  },
+  {
+    name: "10",
+    latLong: [22.257195, 114.269485],
+    rotation: 340,
+  },
+  {
+    name: "11",
+    latLong: [22.276667, 114.241364],
+    rotation: 60,
+  },
+ 
+
+
 ];
 
 let LVIArray = [];
@@ -74,7 +117,7 @@ LviList.forEach((lvi) => {
 
 var markerCluster = L.markerClusterGroup({
   // disableClusteringAtZoom: 16,
-  maxClusterRadius: 40,
+  maxClusterRadius: 20,
   iconCreateFunction: function (cluster) {
     return LviIconClustered;
   },

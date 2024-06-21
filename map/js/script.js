@@ -122,8 +122,10 @@ let baseMaps = {
   "Base Map": HkBase,
 };
 let overlayMaps = {
-  SRs: sr,
+  // "Sensitive Receivers": sr,
   "Image Overlay": imageOverlay,
+  "View Points": vp,
+  "Visual Impacts": markerCluster,
 };
 let imageOverlayMaps = {
   "Image Overlay": imageOverlay,
