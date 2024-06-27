@@ -266,7 +266,7 @@ function onLviClick() {
   console.log("open LVI " + markerName);
 
   // select the lvi-popup element
-  let lviPopup = document.getElementById("lvi-popup");
+  let lviPopup = document.getElementById("lvi-popup-overlay");
 
   // select the iframe inside lvi-popup
   let iframe = lviPopup.querySelector("iframe");

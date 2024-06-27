@@ -23,47 +23,80 @@
     <script src="./leaflet-hongkong-provider.js"></script>
     <script src="./lib/SmoothWheelZoom.js"></script>
     <script src="./lib/leaflet.rotatedMarker.js"></script>
-    <link rel="stylesheet" href="./lib/leaflet-markercluster/MarkerCluster.css" />
+    <link
+      rel="stylesheet"
+      href="./lib/leaflet-markercluster/MarkerCluster.css"
+    />
     <script src="./lib/leaflet-markercluster/leaflet.markercluster.js"></script>
-
 
     <link rel="stylesheet" href="./css/map.css" />
     <link rel="stylesheet" href="./css/leaflet-legend.css" />
     <style>
       /* Styles for the pop-up iframe and close button */
-      #lvi-popup {
+      #lvi-popup-overlay {
         display: none;
         position: fixed !important;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 80%;
-        height: 80%;
+        width: 100%;
+        height: 100%;
         border: 2px solid #000;
         z-index: 1000;
-        background-color: transparent;
+        background-color: #000000ab;
         border: none;
       }
-      #lvi-popup iframe {
-        width: 100%;
-        height: 90%;
-        border: none;
-      }
-      #close-popup {
-        background-color: aliceblue;
-        display: block;
+      #lvi-popup-window {
+        padding: 0 !important;
+
+        background-color: rgb(0, 0, 0);
+        display: flex;
         text-align: right;
         padding: 10px;
+        position: relative !important;
+        width: 80%;
+        height: 80%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         cursor: pointer;
+        justify-content: center;
+        align-items: center;
+      }
+      #lvi-popup-window iframe {
+        width: 100%;
+        height: 100%;
+
+        border: none;
+        background-color: rgb(0, 0, 0);
+      }
+      #popup-close-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 50px;
+        font-size: 50px;
+        width: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(0, 0, 0);
+        color: #ffffff;
+        user-select: none; /* Prevent text selection */
+      }
+      #popup-close-btn:hover {
+        background-color: rgb(0, 95, 50);
       }
     </style>
   </head>
 
   <body id="body">
     <div id="map"></div>
-    <div id="lvi-popup">
-      <div class="close-btn" id="close-popup">X</div>
-      <iframe src=""></iframe>
+    <div id="lvi-popup-overlay">
+      <div id="lvi-popup-window">
+        <div class="close-btn" id="popup-close-btn">&times;</div>
+        <iframe src=""></iframe>
+      </div>
     </div>
     <script src="./data/SRs.js"></script>
     <script src="./data/VPs.js"></script>
@@ -79,9 +112,9 @@
     // });
 
     document
-      .getElementById("close-popup")
+      .getElementById("popup-close-btn")
       .addEventListener("click", function () {
-        document.getElementById("lvi-popup").style.display = "none";
+        document.getElementById("lvi-popup-overlay").style.display = "none";
       });
   </script>
 </html>
