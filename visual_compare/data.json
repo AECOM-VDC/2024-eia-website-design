@@ -44,58 +44,227 @@
     }
   },
   "DATA": {
-    "VP-A3": {
+    "VP1": {
       "title": "Visual Impact",
       "mapLocation": "View from Village House at Tso Wan",
       "description": "",
       "type": "compare",
-      "options": ["Existing  Condition", "Future Condition"],
+      "options": [
+        "Existing  Condition",
+        "Day 1 without mitigation",
+        "Day 1 with mitigation",
+        "Year 10 with mitigation"
+      ],
       "fileName": ["e.jpg", "y10.jpg"],
-      "preSelect": [0, 1],
+      "preSelect": [0, 2],
       "noteTitle": "Mitigation Measures:",
       "note": []
     },
-    "VP-A4": {
+    "VP2A": {
       "title": "Visual Impact",
       "mapLocation": "Administration Building of Shell Tsing Yi Installation",
       "description": "",
       "type": "compare",
-      "options": ["Existing  Condition", "Future Condition"],
+      "options": [
+        "Existing  Condition",
+        "Day 1 without mitigation",
+        "Day 1 with mitigation",
+        "Year 10 with mitigation"
+      ],
       "fileName": ["e.jpg", "y10.jpg"],
-      "preSelect": [0, 1],
+      "preSelect": [0, 2],
       "noteTitle": "Mitigation Measures:",
       "note": []
     },
-    "VP-B3": {
+    "VP2B": {
       "title": "Visual Impact",
       "mapLocation": "View from ?",
       "description": "",
       "type": "compare",
-      "options": ["Existing  Condition", "Future Condition"],
+      "options": [
+        "Existing  Condition",
+        "Day 1 without mitigation",
+        "Day 1 with mitigation",
+        "Year 10 with mitigation"
+      ],
       "fileName": ["e.jpg", "y10.jpg"],
-      "preSelect": [0, 1],
+      "preSelect": [0, 2],
       "noteTitle": "Mitigation Measures:",
       "note": []
     },
-    "VP-B4": {
+    "VP3": {
       "title": "Visual Impact",
       "mapLocation": "Lantau Link Visitors Centre",
       "description": "",
       "type": "compare",
-      "options": ["Existing  Condition", "Future Condition"],
+      "options": [
+        "Existing  Condition",
+        "Day 1 without mitigation",
+        "Day 1 with mitigation",
+        "Year 10 with mitigation"
+      ],
       "fileName": ["e.jpg", "y10.jpg"],
-      "preSelect": [0, 1],
+      "preSelect": [0, 2],
       "noteTitle": "Mitigation Measures:",
       "note": []
     },
-    "VP-P1": {
+    "VP4": {
       "title": "Visual Impact",
       "mapLocation": "View from ?",
       "description": "",
       "type": "compare",
-      "options": ["Existing  Condition", "Future Condition"],
+      "options": [
+        "Existing  Condition",
+        "Day 1 without mitigation",
+        "Day 1 with mitigation",
+        "Year 10 with mitigation"
+      ],
       "fileName": ["e.jpg", "y10.jpg"],
-      "preSelect": [0, 1],
+      "preSelect": [0, 2],
+      "noteTitle": "Mitigation Measures:",
+      "note": []
+    },
+    "VP5": {
+      "title": "Visual Impact",
+      "mapLocation": "View from ?",
+      "description": "",
+      "type": "compare",
+      "options": [
+        "Existing  Condition",
+        "Day 1 without mitigation",
+        "Day 1 with mitigation",
+        "Year 10 with mitigation"
+      ],
+      "fileName": ["e.jpg", "y10.jpg"],
+      "preSelect": [0, 2],
+      "noteTitle": "Mitigation Measures:",
+      "note": []
+    },
+    "VP6": {
+      "title": "Visual Impact",
+      "mapLocation": "View from ?",
+      "description": "",
+      "type": "compare",
+      "options": [
+        "Existing  Condition",
+        "Day 1 without mitigation",
+        "Day 1 with mitigation",
+        "Year 10 with mitigation"
+      ],
+      "fileName": ["e.jpg", "y10.jpg"],
+      "preSelect": [0, 2],
+      "noteTitle": "Mitigation Measures:",
+      "note": []
+    },
+    "VP7": {
+      "title": "Visual Impact",
+      "mapLocation": "View from ?",
+      "description": "",
+      "type": "compare",
+      "options": [
+        "Existing  Condition",
+        "Day 1 without mitigation",
+        "Day 1 with mitigation",
+        "Year 10 with mitigation"
+      ],
+      "fileName": ["e.jpg", "y10.jpg"],
+      "preSelect": [0, 2],
+      "noteTitle": "Mitigation Measures:",
+      "note": []
+    },
+    "VP8": {
+      "title": "Visual Impact",
+      "mapLocation": "View from ?",
+      "description": "",
+      "type": "compare",
+      "options": [
+        "Existing  Condition",
+        "Day 1 without mitigation",
+        "Day 1 with mitigation",
+        "Year 10 with mitigation"
+      ],
+      "fileName": ["e.jpg", "y10.jpg"],
+      "preSelect": [0, 2],
+      "noteTitle": "Mitigation Measures:",
+      "note": []
+    },
+    "VP9": {
+      "title": "Visual Impact",
+      "mapLocation": "View from ?",
+      "description": "",
+      "type": "compare",
+      "options": [
+        "Existing  Condition",
+        "Day 1 without mitigation",
+        "Day 1 with mitigation",
+        "Year 10 with mitigation"
+      ],
+      "fileName": ["e.jpg", "y10.jpg"],
+      "preSelect": [0, 2],
+      "noteTitle": "Mitigation Measures:",
+      "note": []
+    },
+    "VP10": {
+      "title": "Visual Impact",
+      "mapLocation": "View from ?",
+      "description": "",
+      "type": "compare",
+      "options": [
+        "Existing  Condition",
+        "Day 1 without mitigation",
+        "Day 1 with mitigation",
+        "Year 10 with mitigation"
+      ],
+      "fileName": ["e.jpg", "y10.jpg"],
+      "preSelect": [0, 2],
+      "noteTitle": "Mitigation Measures:",
+      "note": []
+    },
+    "VP11A": {
+      "title": "Visual Impact",
+      "mapLocation": "View from ?",
+      "description": "",
+      "type": "compare",
+      "options": [
+        "Existing  Condition",
+        "Day 1 without mitigation",
+        "Day 1 with mitigation",
+        "Year 10 with mitigation"
+      ],
+      "fileName": ["e.jpg", "y10.jpg"],
+      "preSelect": [0, 2],
+      "noteTitle": "Mitigation Measures:",
+      "note": []
+    },
+    "VP11B": {
+      "title": "Visual Impact",
+      "mapLocation": "View from ?",
+      "description": "",
+      "type": "compare",
+      "options": [
+        "Existing  Condition",
+        "Day 1 without mitigation",
+        "Day 1 with mitigation",
+        "Year 10 with mitigation"
+      ],
+      "fileName": ["e.jpg", "y10.jpg"],
+      "preSelect": [0, 2],
+      "noteTitle": "Mitigation Measures:",
+      "note": []
+    },
+    "VP12": {
+      "title": "Visual Impact",
+      "mapLocation": "View from ?",
+      "description": "",
+      "type": "compare",
+      "options": [
+        "Existing  Condition",
+        "Day 1 without mitigation",
+        "Day 1 with mitigation",
+        "Year 10 with mitigation"
+      ],
+      "fileName": ["e.jpg", "y10.jpg"],
+      "preSelect": [0, 2],
       "noteTitle": "Mitigation Measures:",
       "note": []
     }

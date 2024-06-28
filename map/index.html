@@ -95,7 +95,7 @@
     <div id="lvi-popup-overlay">
       <div id="lvi-popup-window">
         <div class="close-btn" id="popup-close-btn">&times;</div>
-        <iframe src=""></iframe>
+        <iframe id="lvi-popup-iframe" src=""></iframe>
       </div>
     </div>
     <script src="./data/SRs.js"></script>
@@ -111,11 +111,7 @@
     //     document.getElementById('popup').style.display = 'block';
     // });
 
-    document
-      .getElementById("popup-close-btn")
-      .addEventListener("click", function () {
-        document.getElementById("lvi-popup-overlay").style.display = "none";
-      });
+
   </script>
 </html>
 

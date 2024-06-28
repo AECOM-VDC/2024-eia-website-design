@@ -10,6 +10,7 @@ function vueDraw() {
     data() {
       return {
         JsonData: {},
+        folderStructure: {},
         VP: "",
         title: "",
         mapLocation: "",
@@ -21,29 +22,34 @@ function vueDraw() {
       };
     },
     methods: {
-      getJson() {
-        fetch("./data.json", {})
-          .then((response) => {
-            return response.json();
-          })
-          .then((json) => {
-            this.JsonData = json;
-            this.title = this.JsonData.DATA[this.VP].title;
-            this.mapLocation = this.JsonData.DATA[this.VP].mapLocation;
-            this.options = this.JsonData.DATA[this.VP].options;
-            //this is changed for STLMC only to show note from template
-            this.items = this.JsonData.TEMPLATE.vp0.note;
-          })
-          .catch((err) => {
-            console.log("ERROR:", err);
-            // alert(err);
-          });
+      async getJson() {
+        // Use Promise.all to wait for both fetch calls
+        try {
+          return await Promise.all([
+            fetch("./data.json", {})
+              .then((response) => response.json())
+              .then((json) => {
+                this.JsonData = json;
+                this.title = this.JsonData.DATA[this.VP].title;
+                this.mapLocation = this.JsonData.DATA[this.VP].mapLocation;
+                this.options = this.JsonData.DATA[this.VP].options;
+                this.items = this.JsonData.TEMPLATE.vp0.note;
+              }),
+            fetch("asset/visual_impact/folder_structure.json", {})
+              .then((response_1) => response_1.json())
+              .then((json_1) => {
+                this.folderStructure = json_1;
+              }),
+          ]);
+        } catch (err) {
+          console.log("ERROR:", err);
+        }
       },
       //showMapImage
       showMapImage() {
-        let mapImageSrc = beforeUrl + "maps" + "/" +  this.VP.toLowerCase() + ".png";
+        let mapImageSrc =
+          beforeUrl + "maps" + "/" + this.VP.toLowerCase() + ".png";
         this.mapImageSrc = mapImageSrc;
-        //assign mapImageSrc to img
         document.getElementById("mapImage").src = mapImageSrc;
       },
 
@@ -77,11 +83,7 @@ function vueDraw() {
           let tooltipList = document.querySelectorAll(".tooltip");
           tooltipList.forEach((element) => {
             element.style.display = "none";
-          }
-          );
-
-
-
+          });
         }
       },
       drawCompare(params) {
@@ -116,11 +118,12 @@ function vueDraw() {
         let optionTitle = this.JsonData.DATA[this.VP].options[index];
         let imgId;
         let anotherDropID;
+
         let imgUrl =
           beforeUrl +
           this.VP.toUpperCase() +
           "/" +
-          this.JsonData.DATA[this.VP].fileName[index];
+          this.folderStructure[this.VP][index];
 
         switch (isRight) {
           case false:
@@ -175,8 +178,6 @@ function vueDraw() {
         if (this.preClicked) {
           return;
         }
-        // console.log("preclick");
-
         let A_index = this.JsonData.DATA[this.VP].preSelect[0];
         let B_index = this.JsonData.DATA[this.VP].preSelect[1];
         // console.log(A_index, B_index);
@@ -207,21 +208,21 @@ function vueDraw() {
     },
     updated() {
       // console.log("updated");
-      this.preClick();
       // this.drawCompare();
     },
     mounted() {
-      //make sure elements are rendered
-      console.log("Developed by AECOM Digital");
+      // Wait for getJson to complete before proceeding
       this.getUrlPara();
-      this.showMapImage();
-      this.getJson();
-      //run drawTooltip after 1s
-      setTimeout(() => {
-        this.drawTooltip(true);
-      }, 500);
+      this.getJson().then(() => {
+        console.log("Developed by AECOM Digital");
+        console.log(this.folderStructure);
+        // this.showMapImage();
+        setTimeout(() => {
+          this.drawTooltip(true);
+        }, 500);
+      this.preClick();
 
-      // this.preClick();
+      });
     },
   }).mount("#app");
 }

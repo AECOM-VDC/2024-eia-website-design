@@ -55,12 +55,17 @@ let map = L.map("map", {
 //group
 let sr = L.layerGroup(SrArray);
 let vp = L.layerGroup(VPArray);
+let Lvi_Clickable = L.layerGroup(LVIArrayClickable);
+
 // let lvi = L.layerGroup(LVIArray);
 
 map.addLayer(HkSate);
 map.addLayer(sr);
 map.addLayer(vp);
+// map.addLayer(Lvi_Clickable);
+
 map.addLayer(markerCluster);
+
 
 
 // map.addLayer(lvi);
