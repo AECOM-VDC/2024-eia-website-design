@@ -147,15 +147,17 @@ function onVpClick() {
   //get marker name
   let markerName = this.options.title;
   // alert("You clicked the map at " + markerName);
-  console.log("entering ");
 
   console.log("entering " + markerName);
-
+  //send message to parent window
+  window.parent.postMessage("trigger" + "_" + markerName, "*");
   //trigger function in parent window
-  window.parent.tour
-    ._getRootPlayer()
-    .getComponentByName("trigger" + "_" + markerName)
-    .trigger("click");
+  try {
+    window.parent.tour
+      ._getRootPlayer()
+      .getComponentByName("trigger" + "_" + markerName)
+      .trigger("click");
+  } catch (error) {}
 }
 
 let VPArray = [VPA1, VPA2, VPA3, VPA4, VPA5, VPA6, VPA7, VPB1, VPB2, VPB3];
