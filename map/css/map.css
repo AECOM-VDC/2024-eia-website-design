@@ -1,6 +1,6 @@
 .leaflet-tile {
-  -webkit-filter: brightness(100%) saturate(110%) contrast(100%);
-  filter: brightness(100%) saturate(110%) contrast(100%);
+  -webkit-filter: brightness(130%) saturate(110%) contrast(100%);
+  filter: brightness(130%) saturate(110%) contrast(100%);
 }
 
 #map {
