@@ -282,25 +282,20 @@ L.control.layers(baseMaps, overlayMaps).addTo(map);
 //     offset: bottomOffset,
 //   });
 
-//>> function for 3D vista
+//>> function for 3Dvista
 function onVpClick() {
   //get marker name
   let markerName = this.options.title;
   // alert("You clicked the map at " + markerName);
-  console.log("entering ");
 
   console.log("entering " + markerName);
-
+  //post message to parent window
+  window.parent.postMessage("trigger" + "_" + markerName, "*");
   //trigger function in parent window
   window.parent.tour
     ._getRootPlayer()
     .getComponentByName("trigger" + "_" + markerName)
     .trigger("click");
-}
-
-function onVpClickTest() {
-  //get marker name
-  alert("You clicked the map");
 }
 
 //add text to map
@@ -412,8 +407,6 @@ legend.onAdd = function (map) {
 };
 
 legend.addTo(map);
-
-
 
 //>> Dev Mode Toggle
 let devMode = false;
