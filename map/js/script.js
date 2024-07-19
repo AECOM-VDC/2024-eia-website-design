@@ -66,8 +66,6 @@ map.addLayer(vp);
 
 map.addLayer(markerCluster);
 
-
-
 // map.addLayer(lvi);
 
 //>> map coordinate
@@ -415,32 +413,44 @@ legend.onAdd = function (map) {
 
 legend.addTo(map);
 
-//>> Dev Mode
 
-let devMode = true;
 
-if (devMode) {
-  //pop up coordinates when clicking on map
-  let popup = L.popup();
-  function onMapClick(e) {
-    popup
-      .setLatLng(e.latlng)
-      .setContent("You clicked the map at " + e.latlng.toString())
-      .openOn(map);
+//>> Dev Mode Toggle
+let devMode = false;
 
-    //copy coordinates to clipboard
-    let copyText = e.latlng.toString();
-    //extract only coordinates
-    copyText = copyText.replace("LatLng(", "");
-    copyText = copyText.replace(")", "");
-    navigator.clipboard
-      .writeText(copyText)
-      .then(() => {
-        // alert("Coordinates copied to clipboard: " + copyText);
-      })
-      .catch((error) => {
-        console.error("Failed to copy coordinates to clipboard: ", error);
-      });
-  }
-  map.on("click", onMapClick);
+let devPopup = L.popup();
+
+function onMapClick(e) {
+  devPopup
+    .setLatLng(e.latlng)
+    .setContent("You clicked the map at " + e.latlng.toString())
+    .openOn(map);
+
+  // Copy coordinates to clipboard
+  let copyText = e.latlng.toString().replace("LatLng(", "").replace(")", "");
+  navigator.clipboard
+    .writeText(copyText)
+    .then(() => {
+      // Optional: alert or console.log on success
+    })
+    .catch((error) => {
+      console.error("Failed to copy coordinates to clipboard: ", error);
+    });
 }
+
+function toggleDevMode() {
+  if (devMode) {
+    map.on("click", onMapClick);
+  } else {
+    map.off("click", onMapClick);
+  }
+}
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "I" || event.key === "i") {
+    // Assuming devMode is a global variable; toggle its value
+    devMode = !devMode;
+    toggleDevMode(); // Apply changes immediately
+    console.log("devMode: " + devMode);
+  }
+});
