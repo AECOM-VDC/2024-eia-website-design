@@ -64,6 +64,15 @@ map.addLayer(sr);
 map.addLayer(vp);
 // map.addLayer(Lvi_Clickable);
 
+//LVI on off
+window.addEventListener("message", (event) => {
+  if (event.data === "LVIon") {
+    map.addLayer(markerCluster);
+  } else if (event.data === "LVIoff") {
+    map.removeLayer(markerCluster);
+  }
+});
+
 map.addLayer(markerCluster);
 
 // map.addLayer(lvi);
@@ -120,225 +129,6 @@ map.attributionControl
 // create an orange rectangle
 // L.rectangle(latLngBounds, { color: "#ff7800", weight: 1 }).addTo(map);
 
-let baseMaps = {
-  "Satellite Map": HkSate,
-  "Base Map": HkBase,
-};
-let overlayMaps = {
-  // "Sensitive Receivers": sr,
-  "Image Overlay": imageOverlay,
-  "View Points": vp,
-  "Visual Impacts": markerCluster,
-};
-let imageOverlayMaps = {
-  "Image Overlay": imageOverlay,
-};
-
-L.control.layers(baseMaps, overlayMaps).addTo(map);
-
-// let VpIconPixelSize = [280, 279];
-// let VpIconScale = 0.18;
-// let VpIconSize = [
-//   VpIconPixelSize[0] * VpIconScale,
-//   VpIconPixelSize[1] * VpIconScale,
-// ];
-// let VpIconAnchor = [VpIconSize[0] / 2, VpIconSize[1] / 2];
-// let VPPopupAnchor = [0, VpIconSize[1] / 2];
-// let bottomOffset = [0, 16];
-
-// let VpIcon = L.icon({
-//   iconUrl: "./image/vp_marker.png",
-//   iconSize: VpIconSize,
-//   iconAnchor: VpIconAnchor,
-// });
-
-// let VPA1 = L.marker([22.267652, 114.264593], {
-//   icon: VpIcon,
-//   title: "VP-A1",
-// })
-//   .addTo(map)
-//   .on("click", onVpClick)
-//   .bindTooltip("VP-A1", {
-//     permanent: true,
-//     direction: "bottom",
-//     className: "vp-tooltip",
-//     offset: bottomOffset,
-//   });
-
-// let VPA2 = L.marker([22.267573, 114.272768], {
-//   icon: VpIcon,
-//   title: "VP-A2",
-// })
-//   .addTo(map)
-//   .on("click", onVpClick)
-//   .bindTooltip("VP-A2", {
-//     permanent: true,
-//     direction: "bottom",
-//     className: "vp-tooltip",
-//     offset: bottomOffset,
-//   });
-
-// let VPA3 = L.marker([22.272696, 114.270043], {
-//   icon: VpIcon,
-//   title: "VP-A3",
-// })
-//   .addTo(map)
-//   .on("click", onVpClick)
-//   .bindTooltip("VP-A3", {
-//     permanent: true,
-//     direction: "bottom",
-//     className: "vp-tooltip",
-//     offset: bottomOffset,
-//   });
-
-// let VPA4 = L.marker([22.276478, 114.271009], {
-//   icon: VpIcon,
-//   title: "VP-A4",
-// })
-//   .addTo(map)
-//   .on("click", onVpClick)
-//   .bindTooltip("VP-A4", {
-//     permanent: true,
-//     direction: "bottom",
-//     className: "vp-tooltip",
-//     offset: bottomOffset,
-//   });
-
-// let VPA5 = L.marker([22.274056, 114.273927], {
-//   icon: VpIcon,
-//   title: "VP-A5",
-// })
-//   .addTo(map)
-//   .on("click", onVpClick)
-//   .bindTooltip("VP-A5", {
-//     permanent: true,
-//     direction: "bottom",
-//     className: "vp-tooltip",
-//     offset: bottomOffset,
-//   });
-
-// let VPA6 = L.marker([22.270144, 114.274507], {
-//   icon: VpIcon,
-//   title: "VP-A6",
-// })
-//   .addTo(map)
-//   .on("click", onVpClick)
-//   .bindTooltip("VP-A6", {
-//     permanent: true,
-//     direction: "bottom",
-//     className: "vp-tooltip",
-//     offset: bottomOffset,
-//   });
-
-// let VPA7 = L.marker([22.265567, 114.276749], {
-//   icon: VpIcon,
-//   title: "VP-A7",
-// })
-//   .addTo(map)
-//   .on("click", onVpClick)
-//   .bindTooltip("VP-A7", {
-//     permanent: true,
-//     direction: "bottom",
-//     className: "vp-tooltip",
-//     offset: bottomOffset,
-//   });
-
-// let VPB1 = L.marker([22.291519, 114.25704], {
-//   icon: VpIcon,
-//   title: "VP-B1",
-// })
-//   .addTo(map)
-//   .on("click", onVpClick)
-//   .bindTooltip("VP-B1", {
-//     permanent: true,
-//     direction: "bottom",
-//     className: "vp-tooltip",
-//     offset: bottomOffset,
-//   });
-
-// let VPB2 = L.marker([22.297842, 114.256911], {
-//   icon: VpIcon,
-//   title: "VP-B2",
-// })
-//   .addTo(map)
-//   .on("click", onVpClick)
-//   .bindTooltip("VP-B2", {
-//     permanent: true,
-//     direction: "bottom",
-//     className: "vp-tooltip",
-//     offset: bottomOffset,
-//   });
-
-// let VPB3 = L.marker([22.290248, 114.246011], {
-//   icon: VpIcon,
-//   title: "VP-B3",
-// })
-//   .addTo(map)
-//   .on("click", onVpClick)
-//   .bindTooltip("VP-B3", {
-//     permanent: true,
-//     direction: "bottom",
-//     className: "vp-tooltip",
-//     offset: bottomOffset,
-//   });
-
-//add text to map
-// let text = L.divIcon({
-//   className: "divIcon",
-//   html: "Uptown",
-// });
-// L.marker([22.426537, 114.002385], { icon: text }).addTo(map);
-
-//pup-up
-let popup = L.popup();
-
-function onMapClick(e) {
-  popup.setLatLng(e.latlng).setContent(e.latlng.toString()).openOn(map);
-}
-
-// map.on("click", onMapClick);
-//
-
-// zoom the map to the rectangle bounds
-//delay 0.5s to call fitBounds
-// setTimeout(function () {
-//   setInitView();
-// }, 100);
-
-// function setInitView() {
-//   map.invalidateSize();
-//   map.fitBounds(siteBounds);
-// }
-// map.invalidateSize();
-// map.fitBounds(siteBounds);
-
-// function setDivSize(params) {
-//   //set div height and width when window resize
-//   let bodyDiv = document.getElementById("body");
-//   let mapDiv = document.getElementById("map");
-//   let mapDivWidth = bodyDiv.offsetWidth;
-//   let mapDivHeight = bodyDiv.offsetHeight;
-//   mapDiv.style.height = mapDivHeight + "px";
-//   mapDiv.style.width = mapDivWidth + "px";
-// }
-
-//run setDivSize when page onload
-// window.onload = function () {
-//   setDivSize();
-//   setInitView();
-//   console.log("onload");
-// };
-
-//add a logo to map at bottom right
-let logo = L.control({ position: "bottomright" });
-logo.onAdd = function (map) {
-  let div = L.DomUtil.create("div", "Maplogo");
-  div.innerHTML =
-    '<img id="map_logo" src="./image/landsdlogo.jpg" alt="logo" />';
-  return div;
-};
-logo.addTo(map);
-
 // >> Add legend
 
 let legend = L.control({ position: "bottomleft" });
@@ -389,8 +179,40 @@ legend.onAdd = function (map) {
 
   return divCon;
 };
-
 legend.addTo(map);
+
+let baseMaps = {
+  "Satellite Map": HkSate,
+  "Base Map": HkBase,
+};
+let overlayMaps = {
+  // "Sensitive Receivers": sr,
+  "Image Overlay": imageOverlay,
+  "View Points": vp,
+  "Visual Impacts": markerCluster,
+};
+let imageOverlayMaps = {
+  "Image Overlay": imageOverlay,
+};
+
+L.control.layers(baseMaps, overlayMaps, { position: "bottomleft" }).addTo(map);
+
+//pup-up
+let popup = L.popup();
+
+function onMapClick(e) {
+  popup.setLatLng(e.latlng).setContent(e.latlng.toString()).openOn(map);
+}
+
+//add a logo to map at bottom right
+let logo = L.control({ position: "bottomright" });
+logo.onAdd = function (map) {
+  let div = L.DomUtil.create("div", "Maplogo");
+  div.innerHTML =
+    '<img id="map_logo" src="./image/landsdlogo.jpg" alt="logo" />';
+  return div;
+};
+logo.addTo(map);
 
 //>> Dev Mode Toggle
 let devMode = false;

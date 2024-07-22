@@ -4,9 +4,9 @@
 }
 
 #map {
-background-color: #3e7480;
-width: 100%;
-height: 100%;
+  background-color: #3e7480;
+  width: 100%;
+  height: 100%;
 }
 
 body {
@@ -69,8 +69,6 @@ body {
   font-stretch: 50%;
   font-weight: bold;
 
-
-
   /* font-style: bold !important; */
   /* text-shadow: 0em 0em 0.2em black, 0em 0em 0.2em black, 0em 0em 0.3em black; */
 }
@@ -101,4 +99,29 @@ body {
   float: right !important;
   clear: none !important;
   background: rgba(255, 255, 255, 0.72) !important;
+}
+
+.leaflet-bottom.leaflet-left {
+  display: flex !important;
+  flex-direction: row;
+  align-items: end;
+  justify-content: flex-end;
+}
+
+.leaflet-left .leaflet-control {
+  /* display: inline-block;
+  float: none;
+  margin-top: auto; */
+}
+
+.leaflet-control .toggle-button {
+  box-sizing: border-box !important;
+  border-radius: 5px !important;
+  padding: 5px;
+  cursor: pointer;
+  /* width: 44px; */
+  height: 48px;
+  margin: 0;
+  /* showdow around button */
+  /* box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75); */
 }

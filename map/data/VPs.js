@@ -148,7 +148,7 @@ function onVpClick() {
   let markerName = this.options.title;
   // alert("You clicked the map at " + markerName);
 
-  console.log("entering " + markerName);
+  // console.log("entering " + markerName);
   //send message to parent window
   window.parent.postMessage("trigger" + "_" + markerName, "*");
   //trigger function in parent window
