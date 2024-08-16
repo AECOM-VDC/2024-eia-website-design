@@ -1,3 +1,4 @@
+<!-- 360x493 -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -116,7 +117,8 @@
         font-size: 5vw;
         padding-left: 11vw;
         padding-bottom: 11vw;
-        width: 100%;
+        padding-right: 6vw;
+        /* width: 100%; */
       }
 
       #legendTitle {
@@ -129,18 +131,37 @@
         align-items: center;
         margin-top: 2.7vw;
         /* margin-bottom: 2.7vw; */
+        /* width: 90vw; */
       }
+      .legendItems .blue {
+        font-size: 16px;
+        padding-left: 4vw;
+        width: 70%;
+      }
+
+      .legendItems label {
+        flex-grow: 1;
+        /* font-size: 16px; */
+        padding-left: 4vw;
+        /* background-color: #8af678; */
+      }
+
       .legendIcon {
-        display: inline-block;
-        width: 7vw;
+        /* display: block; */
+        width: 7vw !important;
         height: 7vw;
-        margin-right: 4vw;
+        /* margin-right: 4vw; */
+        /* padding-right: 4vw; */
       }
       .complied {
         background-color: #8af678; /* light green */
       }
       .exceeded {
         background-color: #ff0000; /* light red */
+      }
+
+      .na {
+        background-color: #0070c0; /* light red */
       }
 
       hr {
@@ -151,6 +172,11 @@
         background-color: #c5c5c5a8;
         border: none;
       }
+
+      .blue1 {
+        display: none;
+      }
+
     </style>
   </head>
   <body>
@@ -189,6 +215,13 @@
           <div class="legendItems">
             <span class="exceeded legendIcon"></span>
             <label>Exceeded the criteria</label>
+          </div>
+          <div class="legendItems blue1">
+            <span class="na legendIcon"></span>
+            <label class="blue"
+              >Not applicable due to provisioning of noise insulation with
+              air-conditioning</label
+            >
           </div>
         </div>
       </div>
@@ -234,6 +267,19 @@
           document.getElementById("title").style.fontSize = titleSize;
         }
       }
+
+      function changeLegend() {
+        // Get the parameter title from the url
+        const urlParams = new URLSearchParams(window.location.search);
+        let legend = urlParams.get("legend");
+        // If get legend=blue then add a legend with blue color
+        if (legend == "blue1") {
+          //make the blue legend visible
+          document.querySelector(".blue1").style.display = "flex";
+        }
+        console.log(legend);
+      }
+      changeLegend();
       changeTitle();
       setTitleSize();
       //>> 3dv
