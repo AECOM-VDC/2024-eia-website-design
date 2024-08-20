@@ -35,7 +35,7 @@
         padding: 0;
         align-items: center;
       }
-      #noiseTitle {
+      #panelTitle {
         padding: 0 0 0 5vw;
         font-size: 9vw;
         font-weight: bold;
@@ -179,7 +179,7 @@
   <body>
     <div class="container">
       <header>
-        <span id="noiseTitle">Noise</span>
+        <span id="panelTitle">Noise</span>
         <div id="closeCon" onclick="closePanel()">
           <span id="close">&times;</span>
         </div>
@@ -265,6 +265,21 @@
         }
       }
 
+      //>> function to change the Panel name
+      function changePanelName() {
+        // Get the parameter title from the url
+        const urlParams = new URLSearchParams(window.location.search);
+        let panelName = urlParams.get("panel");
+        // If title is not null then change the title of the page
+        if (panelName) {
+          // Replace ~ symbol with HTML line break
+          panelName = panelName;
+          document.getElementById("panelTitle").innerHTML = panelName;
+        }
+      }
+      changePanelName();
+
+      //>> function to change the legend
       function changeLegend() {
         // Get the parameter title from the url
         const urlParams = new URLSearchParams(window.location.search);
