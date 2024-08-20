@@ -78,8 +78,6 @@
         /* background-color: #8af678; */
       }
 
-      /* TODO use url params to change text size */
-
       #instruction {
         font-size: 5vw;
         margin: 0;
@@ -176,7 +174,6 @@
       .blue1 {
         display: none;
       }
-
     </style>
   </head>
   <body>
@@ -291,6 +288,12 @@
         document.getElementById("unmitigatedBtn").classList.remove("selected");
         MySetVizByTags(["Noise_Unmitigated"], false, 0);
         MySetVizByTags(["Noise_Mitigated"], true, 300);
+
+        //broadcast message to parent window
+        var iframes = window.parent.frames;
+        for (var i = 0; i < iframes.length; i++) {
+          iframes[i].postMessage("mitigated", "*");
+        }
       }
 
       function unmitigatedFunction() {
@@ -299,7 +302,33 @@
         document.getElementById("mitigatedBtn").classList.remove("selected");
         MySetVizByTags(["Noise_Mitigated"], false, 0);
         MySetVizByTags(["Noise_Unmitigated"], true, 300);
+
+        //broadcast message to parent window
+        var iframes = window.parent.frames;
+        for (var i = 0; i < iframes.length; i++) {
+          iframes[i].postMessage("unmitigated", "*");
+        }
       }
+
+      function autoSelectedBtn() {
+        //auto make the button selected when receiving message
+        window.addEventListener("message", function (event) {
+          if (event.data == "mitigated") {
+            //make the mitigated button with selected class
+            document.getElementById("mitigatedBtn").classList.add("selected");
+            document
+              .getElementById("unmitigatedBtn")
+              .classList.remove("selected");
+          } else if (event.data == "unmitigated") {
+            //make the unmitigated button with selected class
+            document.getElementById("unmitigatedBtn").classList.add("selected");
+            document
+              .getElementById("mitigatedBtn")
+              .classList.remove("selected");
+          }
+        });
+      }
+      autoSelectedBtn();
 
       function closePanel() {
         // var rp = window.parent.tour._getRootPlayer();
