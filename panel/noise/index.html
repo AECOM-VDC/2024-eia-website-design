@@ -225,6 +225,14 @@
     </div>
 
     <script>
+      // Get the parameter title from the url
+      let panelType = "";
+      const urlParams = new URLSearchParams(window.location.search);
+      let panelParams = urlParams.get("panel");
+      if (panelParams) {
+        panelType = panelParams;
+      }
+
       //function to toggle the button
       function toggleButton(btn) {
         //get the button element
@@ -301,8 +309,13 @@
         // var rp = window.parent.tour._getRootPlayer();
         document.getElementById("mitigatedBtn").classList.add("selected");
         document.getElementById("unmitigatedBtn").classList.remove("selected");
-        MySetVizByTags(["Noise_Unmitigated"], false, 0);
-        MySetVizByTags(["Noise_Mitigated"], true, 300);
+        if (panelType == "Marine Noise") {
+          MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
+          MySetVizByTags(["MarineNoise_Mitigated"], true, 300);
+        } else {
+          MySetVizByTags(["Noise_Unmitigated"], false, 0);
+          MySetVizByTags(["Noise_Mitigated"], true, 300);
+        }
 
         //broadcast message to parent window
         var iframes = window.parent.frames;
@@ -315,8 +328,16 @@
         // var rp = window.parent.tour._getRootPlayer();
         document.getElementById("unmitigatedBtn").classList.add("selected");
         document.getElementById("mitigatedBtn").classList.remove("selected");
-        MySetVizByTags(["Noise_Mitigated"], false, 0);
-        MySetVizByTags(["Noise_Unmitigated"], true, 300);
+
+        if (panelType == "Marine Noise") {
+          MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
+          MySetVizByTags(["MarineNoise_Unmitigated"], true, 300);
+        } else {
+          MySetVizByTags(["Noise_Mitigated"], false, 0);
+          MySetVizByTags(["Noise_Unmitigated"], true, 300);
+        }
+
+
 
         //broadcast message to parent window
         var iframes = window.parent.frames;
