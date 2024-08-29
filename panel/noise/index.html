@@ -27,6 +27,7 @@
         overflow: hidden;
       }
       header {
+        width: 100%;
         height: 13.75vw;
         display: flex;
         background-color: #005555; /* Dark green */
@@ -37,8 +38,15 @@
       }
       #panelTitle {
         padding: 0 0 0 5vw;
-        font-size: 9vw;
+        font-size: 8vw;
+        width: 100%;
+        height: 100%;
         font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: flex;
+        align-items: center;
       }
 
       #closeCon {
@@ -178,7 +186,7 @@
   </head>
   <body>
     <div class="container">
-      <header>
+      <header id="header">
         <span id="panelTitle">Noise</span>
         <div id="closeCon" onclick="closePanel()">
           <span id="close">&times;</span>
@@ -336,8 +344,6 @@
           MySetVizByTags(["Noise_Mitigated"], false, 0);
           MySetVizByTags(["Noise_Unmitigated"], true, 300);
         }
-
-
 
         //broadcast message to parent window
         var iframes = window.parent.frames;
