@@ -139,8 +139,13 @@
         /* margin-bottom: 2.7vw; */
         /* width: 90vw; */
       }
-      .legendItems .blue {
-        font-size: 16px;
+      .legendItems .blueLabel {
+        font-size: 4vw;
+        padding-left: 4vw;
+        width: 70%;
+      }
+      .legendItems .yellowLabel {
+        font-size: 4vw;
         padding-left: 4vw;
         width: 70%;
       }
@@ -166,8 +171,12 @@
         background-color: #ff0000; /* light red */
       }
 
-      .na {
+      .blue {
         background-color: #0070c0; /* light red */
+      }
+
+      .yellow {
+        background-color: #fffe42; /* light red */
       }
 
       hr {
@@ -180,6 +189,10 @@
       }
 
       .blue1 {
+        display: none;
+      }
+
+      .yellow1 {
         display: none;
       }
     </style>
@@ -222,10 +235,16 @@
             <label>Exceeded the criteria</label>
           </div>
           <div class="legendItems blue1">
-            <span class="na legendIcon"></span>
-            <label class="blue"
+            <span class="blue legendIcon"></span>
+            <label class="blueLabel"
               >Not applicable due to provisioning of noise insulation with
               air-conditioning</label
+            >
+          </div>
+          <div class="legendItems yellow1">
+            <span class="yellow legendIcon"></span>
+            <label class="yellowLabel"
+              >Low noise road surfacing materials</label
             >
           </div>
         </div>
@@ -304,6 +323,10 @@
         if (legend == "blue1") {
           //make the blue legend visible
           document.querySelector(".blue1").style.display = "flex";
+        }
+        if (legend == "yellow1") {
+          //make the yellow legend visible
+          document.querySelector(".yellow1").style.display = "flex";
         }
         console.log(legend);
       }
