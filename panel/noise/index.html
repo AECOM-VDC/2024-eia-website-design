@@ -294,7 +294,6 @@
         //get parameter from url and set the title size
         const urlParams = new URLSearchParams(window.location.search);
         const titleSize = urlParams.get("titleSize");
-        console.log(titleSize);
         if (titleSize) {
           document.getElementById("title").style.fontSize = titleSize;
         }
@@ -318,17 +317,23 @@
       function changeLegend() {
         // Get the parameter title from the url
         const urlParams = new URLSearchParams(window.location.search);
-        let legend = urlParams.get("legend");
-        // If get legend=blue then add a legend with blue color
-        if (legend == "blue1") {
-          //make the blue legend visible
-          document.querySelector(".blue1").style.display = "flex";
+        let legends = urlParams.get("legend");
+
+        // Split the legends string by commas to get an array
+        if (legends) {
+          legends = legends.split(",");
+
+          legends.forEach((legend) => {
+            if (legend === "blue1") {
+              // Make the blue legend visible
+              document.querySelector(".blue1").style.display = "flex";
+            }
+            if (legend === "yellow1") {
+              // Make the yellow legend visible
+              document.querySelector(".yellow1").style.display = "flex";
+            }
+          });
         }
-        if (legend == "yellow1") {
-          //make the yellow legend visible
-          document.querySelector(".yellow1").style.display = "flex";
-        }
-        console.log(legend);
       }
       changeLegend();
       changeTitle();
