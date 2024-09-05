@@ -226,13 +226,20 @@
         <hr />
         <div class="legend">
           <div id="legendTitle">Legend</div>
-          <div class="legendItems">
+          <div class="legendItems green">
             <span class="complied legendIcon"></span>
             <label>Complied with the criteria</label>
           </div>
-          <div class="legendItems">
+          <div class="legendItems red">
             <span class="exceeded legendIcon"></span>
             <label>Exceeded the criteria</label>
+          </div>
+          <div class="legendItems red1" style="display: none;">
+            <span class="exceeded legendIcon"></span>
+            <label style="font-size: 4vw; padding-left: 4vw; width: 70%"
+              >Mitigated with At-receiver Mitigation Measures, e.g., Acoustic
+              Window</label
+            >
           </div>
           <div class="legendItems blue1">
             <span class="blue legendIcon"></span>
@@ -334,6 +341,13 @@
             }
           });
         }
+
+        let panelName = urlParams.get("panel");
+        //if the panel name is Road Traffic Noise, then hide the red legend and display the red1 legend
+        if (panelName == "Road Traffic Noise") {
+          document.querySelector(".red").style.display = "none";
+          document.querySelector(".red1").style.display = "flex";
+        }
       }
       changeLegend();
       changeTitle();
@@ -342,6 +356,26 @@
 
       let rp = window.parent.tour._getRootPlayer();
       function mitigatedFunction() {
+        // var rp = window.parent.tour._getRootPlayer();
+        document.getElementById("mitigatedBtn").classList.add("selected");
+        document.getElementById("unmitigatedBtn").classList.remove("selected");
+        if (panelType == "Marine Noise") {
+          MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
+          MySetVizByTags(["MarineNoise_Mitigated"], true, 300);
+        } else {
+          MySetVizByTags(["Noise_Unmitigated"], false, 0);
+          MySetVizByTags(["Noise_Mitigated"], true, 300);
+        }
+
+        //broadcast message to parent window
+        var iframes = window.parent.frames;
+        for (var i = 0; i < iframes.length; i++) {
+          iframes[i].postMessage("mitigated", "*");
+        }
+      }
+
+      //>> todo
+      function prevailedFunction() {
         // var rp = window.parent.tour._getRootPlayer();
         document.getElementById("mitigatedBtn").classList.add("selected");
         document.getElementById("unmitigatedBtn").classList.remove("selected");
