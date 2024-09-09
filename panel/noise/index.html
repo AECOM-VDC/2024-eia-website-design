@@ -223,6 +223,14 @@
         >
           Unmitigated
         </button>
+        <button
+          id="PrevailingBtn"
+          class="button unmitigated"
+          onclick="prevailedFunction()"
+          style="display: none"
+        >
+          Prevailing
+        </button>
         <hr />
         <div class="legend">
           <div id="legendTitle">Legend</div>
@@ -342,7 +350,6 @@
             if (legend === "noRed") {
               // Hide the red legend
               document.querySelector(".red").style.display = "none";
-
             }
           });
         }
@@ -357,6 +364,23 @@
       changeLegend();
       changeTitle();
       setTitleSize();
+
+      //change scenario
+      function changeScenario() {
+        // Get the parameter title from the url
+        const urlParams = new URLSearchParams(window.location.search);
+        let scenario = urlParams.get("scenario");
+        if (scenario) {
+          //if scenario is prevailing, then make the prevailing button displayed, otherwise make the prevailing button hidden
+          if (scenario == "prevailed") {
+            document.getElementById("PrevailingBtn").style.display = "block";
+          } else {
+            document.getElementById("PrevailingBtn").style.display = "none";
+          }
+        }
+      }
+      changeScenario();
+
       //>> 3dv
 
       let rp = window.parent.tour._getRootPlayer();
@@ -364,30 +388,14 @@
         // var rp = window.parent.tour._getRootPlayer();
         document.getElementById("mitigatedBtn").classList.add("selected");
         document.getElementById("unmitigatedBtn").classList.remove("selected");
+        document.getElementById("PrevailingBtn").classList.remove("selected");
+
         if (panelType == "Marine Noise") {
+          MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Mitigated"], true, 300);
         } else {
-          MySetVizByTags(["Noise_Unmitigated"], false, 0);
-          MySetVizByTags(["Noise_Mitigated"], true, 300);
-        }
-
-        //broadcast message to parent window
-        var iframes = window.parent.frames;
-        for (var i = 0; i < iframes.length; i++) {
-          iframes[i].postMessage("mitigated", "*");
-        }
-      }
-
-      //>> todo
-      function prevailedFunction() {
-        // var rp = window.parent.tour._getRootPlayer();
-        document.getElementById("mitigatedBtn").classList.add("selected");
-        document.getElementById("unmitigatedBtn").classList.remove("selected");
-        if (panelType == "Marine Noise") {
-          MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
-          MySetVizByTags(["MarineNoise_Mitigated"], true, 300);
-        } else {
+          MySetVizByTags(["Noise_Mitigated"], false, 0);
           MySetVizByTags(["Noise_Unmitigated"], false, 0);
           MySetVizByTags(["Noise_Mitigated"], true, 300);
         }
@@ -403,11 +411,14 @@
         // var rp = window.parent.tour._getRootPlayer();
         document.getElementById("unmitigatedBtn").classList.add("selected");
         document.getElementById("mitigatedBtn").classList.remove("selected");
+        document.getElementById("PrevailingBtn").classList.remove("selected");
 
         if (panelType == "Marine Noise") {
+          MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Unmitigated"], true, 300);
         } else {
+          MySetVizByTags(["Noise_Unmitigated"], false, 0);
           MySetVizByTags(["Noise_Mitigated"], false, 0);
           MySetVizByTags(["Noise_Unmitigated"], true, 300);
         }
@@ -416,6 +427,29 @@
         var iframes = window.parent.frames;
         for (var i = 0; i < iframes.length; i++) {
           iframes[i].postMessage("unmitigated", "*");
+        }
+      }
+
+      //>> prevailedFunction
+      function prevailedFunction() {
+        // var rp = window.parent.tour._getRootPlayer();
+        document.getElementById("mitigatedBtn").classList.remove("selected");
+        document.getElementById("unmitigatedBtn").classList.remove("selected");
+        document.getElementById("PrevailingBtn").classList.add("selected");
+        if (panelType == "Marine Noise") {
+          MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
+          MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
+          MySetVizByTags(["MarineNoise_Mitigated"], true, 300);
+        } else {
+          MySetVizByTags(["Noise_Mitigated"], false, 0);
+          MySetVizByTags(["Noise_Unmitigated"], false, 0);
+          MySetVizByTags(["Noise_Mitigated"], true, 300);
+        }
+
+        //broadcast message to parent window
+        var iframes = window.parent.frames;
+        for (var i = 0; i < iframes.length; i++) {
+          iframes[i].postMessage("prevailed", "*");
         }
       }
 
@@ -428,11 +462,25 @@
             document
               .getElementById("unmitigatedBtn")
               .classList.remove("selected");
+            document
+              .getElementById("PrevailingBtn")
+              .classList.remove("selected");
           } else if (event.data == "unmitigated") {
             //make the unmitigated button with selected class
             document.getElementById("unmitigatedBtn").classList.add("selected");
             document
               .getElementById("mitigatedBtn")
+              .classList.remove("selected");
+            document
+              .getElementById("PrevailingBtn")
+              .classList.remove("selected");
+          } else if (event.data == "prevailed") {
+            document.getElementById("PrevailingBtn").classList.add("selected");
+            document
+              .getElementById("mitigatedBtn")
+              .classList.remove("selected");
+            document
+              .getElementById("unmitigatedBtn")
               .classList.remove("selected");
           }
         });
