@@ -324,6 +324,10 @@
           // Replace ~ symbol with HTML line break
           panelName = panelName;
           document.getElementById("panelTitle").innerHTML = panelName;
+          // Check if panelName is "Road Traffic Noise" and trigger unmitigatedFunction after 0.5 seconds
+          if (panelName === "Road Traffic Noise") {
+            setTimeout(unmitigatedFunction, 500);
+          }
         }
       }
       changePanelName();
