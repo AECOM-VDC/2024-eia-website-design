@@ -195,6 +195,13 @@
       .yellow1 {
         display: none;
       }
+
+      .red1LabelShowWhenMitigated {
+        display: none;
+      }
+      .red1LabelShowWhenUnmitigated {
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -244,10 +251,13 @@
           </div>
           <div class="legendItems red1" style="display: none">
             <span class="exceeded legendIcon"></span>
-            <label style="font-size: 4vw; padding-left: 4vw; width: 70%"
+            <label class="red1LabelShowWhenMitigated" style="font-size: 4vw; padding-left: 4vw; width: 70%"
               >Mitigated with At-receiver Mitigation Measures, e.g., Acoustic
               Window</label
             >
+            <label class="red1LabelShowWhenUnmitigated" style=""
+            >Exceeded the Criteria</label
+          >
           </div>
           <div class="legendItems blue1">
             <span class="blue legendIcon"></span>
@@ -271,9 +281,11 @@
       let panelType = "";
       const urlParams = new URLSearchParams(window.location.search);
       let panelParams = urlParams.get("panel");
+      let legend;
       if (panelParams) {
         panelType = panelParams;
       }
+      console.log("panelType", panelType);
 
       //function to toggle the button
       function toggleButton(btn) {
@@ -336,7 +348,7 @@
       function changeLegend() {
         // Get the parameter title from the url
         const urlParams = new URLSearchParams(window.location.search);
-        let legends = urlParams.get("legend");
+        legends = urlParams.get("legend");
 
         // Split the legends string by commas to get an array
         if (legends) {
@@ -394,7 +406,8 @@
         document.getElementById("unmitigatedBtn").classList.remove("selected");
         document.getElementById("PrevailingBtn").classList.remove("selected");
 
-        if (panelType == "Marine Noise") {
+        if (panelType == "Marine Traffic Noise") {
+
           MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Mitigated"], true, 300);
@@ -409,6 +422,15 @@
         for (var i = 0; i < iframes.length; i++) {
           iframes[i].postMessage("mitigated", "*");
         }
+
+        // Show/hide labels
+        document.querySelector('.red1LabelShowWhenMitigated').style.display = 'block';
+        document.querySelector('.red1LabelShowWhenUnmitigated').style.display = 'none';
+
+        // Show yellow1 legend if it exists in URL params
+        if (legends && legends.includes('yellow1')) {
+          document.querySelector('.yellow1').style.display = 'flex';
+        }
       }
 
       function unmitigatedFunction() {
@@ -417,7 +439,7 @@
         document.getElementById("mitigatedBtn").classList.remove("selected");
         document.getElementById("PrevailingBtn").classList.remove("selected");
 
-        if (panelType == "Marine Noise") {
+        if (panelType == "Marine Traffic Noise") {
           MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Unmitigated"], true, 300);
@@ -432,6 +454,13 @@
         for (var i = 0; i < iframes.length; i++) {
           iframes[i].postMessage("unmitigated", "*");
         }
+
+        // Show/hide labels
+        document.querySelector('.red1LabelShowWhenMitigated').style.display = 'none';
+        document.querySelector('.red1LabelShowWhenUnmitigated').style.display = 'block';
+
+        // Hide yellow1 legend
+        document.querySelector('.yellow1').style.display = 'none';
       }
 
       //>> prevailedFunction
@@ -440,7 +469,7 @@
         document.getElementById("mitigatedBtn").classList.remove("selected");
         document.getElementById("unmitigatedBtn").classList.remove("selected");
         document.getElementById("PrevailingBtn").classList.add("selected");
-        if (panelType == "Marine Noise") {
+        if (panelType == "Marine Traffic Noise") {
           MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Mitigated"], true, 300);
@@ -469,6 +498,13 @@
             document
               .getElementById("PrevailingBtn")
               .classList.remove("selected");
+              //red1
+            document.querySelector('.red1LabelShowWhenMitigated').style.display = 'block';
+            document.querySelector('.red1LabelShowWhenUnmitigated').style.display = 'none';
+            // Show yellow1 legend if it exists in URL params
+            if (legends && legends.includes('yellow1')) {
+              document.querySelector('.yellow1').style.display = 'flex';
+            }
           } else if (event.data == "unmitigated") {
             //make the unmitigated button with selected class
             document.getElementById("unmitigatedBtn").classList.add("selected");
@@ -478,6 +514,11 @@
             document
               .getElementById("PrevailingBtn")
               .classList.remove("selected");
+              //red1
+            document.querySelector('.red1LabelShowWhenMitigated').style.display = 'none';
+            document.querySelector('.red1LabelShowWhenUnmitigated').style.display = 'block';
+            // Hide yellow1 legend
+            document.querySelector('.yellow1').style.display = 'none';
           } else if (event.data == "prevailed") {
             document.getElementById("PrevailingBtn").classList.add("selected");
             document
