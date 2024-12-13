@@ -127,12 +127,13 @@
       }
 
       #airItems {
-        font-size: 5.6vw;
+        font-size: 5vw;
         /* margin: 0 auto; */
         display: flex;
         justify-content: flex-start;
         flex-direction: column;
         text-align: start;
+        line-height: 1;
         /* margin-top: 2.5vw; */
       }
 
@@ -147,7 +148,6 @@
         height: 1px;
         background-color: #c5c5c5a8;
         border: none;
-
       }
     </style>
   </head>
@@ -166,14 +166,35 @@
       <div id="bottomContainer">
         <div id="airItemsCon">
           <div id="airItems">
-            <p style="text-align: left; margin: 0%">For scenario:</p>
+            <p style="text-align: left; margin: 0%">For pollutants:</p>
             <div>i. 19<sup>th</sup> Highest Hourly NO2;</div>
-            <div>ii. Annual NO2;</div>
-            <div>iii. 10<sup>th</sup> Highest Daily RSP;</div>
-            <div>iv. Annual RSP;</div>
-            <div>v. 19<sup>th</sup> Highest Daily FSP;</div>
-            <div>vi. Annual FSP</div>
+            <div>ii. 10<sup>th</sup> Highest Daily NO2;</div>
+            <div>iii. Annual NO2;</div>
+            <div>iv. 10<sup>th</sup> Highest Daily RSP;</div>
+            <div>v. Annual RSP;</div>
+            <div>vi. 19<sup>th</sup> Highest Daily FSP;</div>
+            <div>vii. Annual FSP</div>
+            <div>viii. 5-seconds average Odour Unit;</div>
+            <div>ix. 4<sup>th</sup> Highest 10 min SO2;</div>
+            <div>x. 4<sup>th</sup> Highest Daily SO2;</div>
           </div>
+        </div>
+        <div id="remark" style="width: 100%">
+          <p
+            style="
+              text-align: justify;
+              padding: 0 16px 0 16px;
+              font-size: 11.5px;
+              width: calc(100% - 32px);
+
+            "
+          >
+            The predicted CO concentrations were well below the current AQOs and
+            the potential updated AQOs. The predicted methane, HCl, HF,
+            Formaldehyde, Vinyl Chloride, Benzene, Acetaldehyde concentrations
+            were well below the corresponding air quality standards. The
+            detailed results are presented in the EIA report
+          </p>
         </div>
         <hr />
         <div class="legend">
