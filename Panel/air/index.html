@@ -1,87 +1,276 @@
-<!-- Air -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Air</title>
     <style>
+      * {
+        user-select: none;
+        background-color: none;
+      }
+
       body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: transparent;
+        overflow: hidden !important;
+      }
+      .container {
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0.85);
+        border-radius: 2.5vw 2.5vw 2.5vw 2.5vw;
+        padding: 0px;
+        text-align: center;
+        overflow: hidden !important;
+      }
+      header {
+        height: 13.75vw;
         display: flex;
-        flex-direction: column;
+        background-color: #005555; /* Dark green */
+        color: white;
+        text-align: left;
+        padding: 0;
+        align-items: center;
+      }
+      #noiseTitle {
+        padding: 0 0 0 5vw;
+        font-size: 9vw;
+        font-weight: bold;
+      }
+
+      #closeCon {
+        display: flex;
+        height: 100%;
+        width: 13.75vw;
+        cursor: pointer;
+        margin: 0px 0px 0px auto;
+        padding: 0px;
+        background-color: #005555;
+        align-items: center;
+        justify-content: center;
+      }
+      #closeCon:hover {
+        background-color: #003838;
+      }
+
+      #close {
+        font-size: 17vw !important;
+        padding: 0 !important;
+      }
+
+      #titleCon {
+        display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        margin: 0;
-        padding: 0 2vw 0 2vw;
+        min-height: 22vw;
+        padding: 4vw 4vw 4vw 4vw;
         overflow: hidden;
-      }
-
-      .highlighted {
-        background-color: yellow;
-      }
-
-      button {
-        /* padding: 10px; */
-        /* margin: 30px; */
-        font-size: 12vw;
-        width: 100%;
-        overflow: hidden;
-        /* transform: scaleX(1.8); */
-        outline: 5px solid black;
-        /* use hand cursor */
-        cursor: pointer;
       }
 
       #title {
-        font-size: 16vw;
+        font-size: 9vw;
+        text-align: center;
+        vertical-align: middle;
         margin: 0;
-        padding: 0;
-        /* transform: scaleX(1.8); */
+      }
+      .button {
+      }
+      .selected {
+        /* background-color: #004d40; 
+        border: #004d40 solid 3px;
+        color: white !important; */
+      }
+      #bottomContainer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+      }
+      .legend {
+        text-align: left;
+        /* margin-top: 2vw; */
+        font-size: 5vw;
+        padding-left: 11vw;
+        padding-bottom: 4vw;
+        width: 100%;
+      }
+      #legendTitle {
+        font-weight: 600;
+        margin-top: 3vw;
+        margin-bottom: 3vw !important;
+      }
+      .legendItems {
+        display: flex;
+        align-items: center;
+        margin-top: 2.7vw;
+        margin-bottom: 2.7vw;
+      }
+      .legendIcon {
+        display: inline-block;
+        width: 7vw;
+        height: 7vw;
+        margin-right: 4vw;
+      }
+      .complied {
+        background-color: #42ff00; /* light green */
+      }
+      .exceeded {
+        background-color: #ff0000; /* light red */
+      }
+
+      #airItemsCon {
+        display: flex;
+        justify-content: center;
+      }
+
+      #airItems {
+        font-size: 5vw;
+        /* margin: 0 auto; */
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        text-align: start;
+        line-height: 1;
+        /* margin-top: 2.5vw; */
+      }
+
+      #airItems div {
+        padding: 1vw 0 0.7vw 0;
+      }
+
+      hr {
+        width: 80%;
+        margin-top: 3.2vw;
+        margin-bottom: 3.2vw;
+        height: 1px;
+        background-color: #c5c5c5a8;
+        border: none;
       }
     </style>
   </head>
   <body>
-    <p id="title">Title</p>
-    <!-- <button id="mitigated" class="highlighted" onclick="mitigatedFunction()">
-      Mitigated
-    </button>
-    <button id="unmitigated" onclick="unmitigatedFunction()">
-      Unmitigated
-    </button> -->
-    <button
-      id="closeBtn"
-      onclick="closePanel()"
-      style="position: fixed; top: 0"
-    >
-      Close
-    </button>
-    <button id="testBtn" onclick="testApi()" style="position: fixed; bottom: 0">
-      test(don't click)
-    </button>
+    <div class="container">
+      <header>
+        <span id="noiseTitle">Air Quality</span>
+        <div id="closeCon" onclick="closePanel()">
+          <span id="close">&times;</span>
+        </div>
+      </header>
+      <div id="titleCon">
+        <h2 id="title">Title</h2>
+      </div>
+
+      <div id="bottomContainer">
+        <div id="airItemsCon">
+          <div id="airItems">
+            <p style="text-align: left; margin: 0%">For pollutants:</p>
+            <div>i. 19<sup>th</sup> Highest Hourly Ave. NO<sub>2</sub>;</div>
+            <div>ii. 10<sup>th</sup> Highest Daily Ave. NO<sub>2</sub>;</div>
+            <div>iii. Annual Ave. NO<sub>2</sub>;</div>
+            <div>iv. 10<sup>th</sup> Highest Daily Ave. RSP;</div>
+            <div>v. Annual Ave. RSP;</div>
+            <div>vi. 19<sup>th</sup> Highest Daily Ave. FSP;</div>
+            <div>vii. Annual Ave. FSP</div>
+            <!-- <div>viii. 5-Seconds Average Odour Unit;</div> -->
+            <div>viii. 4<sup>th</sup> Highest 10 min Ave. SO<sub>2</sub>;</div>
+            <div>ix. 4<sup>th</sup> Highest Daily Ave. SO<sub>2</sub>;</div>
+          </div>
+        </div>
+        <div id="remark" style="width: 100%">
+          <p
+            style="
+              text-align: justify;
+              padding: 0 16px 0 16px;
+              font-size: 11.5px;
+              width: calc(100% - 32px);
+            "
+          >
+            The predicted CO concentrations were well below the current AQOs and
+            the potential updated AQOs. The predicted methane, HCl, HF,
+            Formaldehyde, Vinyl Chloride, Benzene, Acetaldehyde concentrations
+            were well below the corresponding air quality standards. The
+            detailed results are presented in the EIA report
+          </p>
+        </div>
+        <hr />
+        <div class="legend">
+          <div>
+            <div id="legendTitle">Legend</div>
+            <div class="legendItems">
+              <span class="complied legendIcon"></span>
+              <label
+                >In compliance with Hong Kong<br />Air Quality Objectives
+                (AQOs)</label
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script>
-      let rp = window.parent.tour._getRootPlayer();
-      //function to change the title according to the parameter passed in url as ?title=YourTitle
-      function changeTitle() {
-        // Get the parameter title from the url
-        const urlParams = new URLSearchParams(window.location.search);
-        const title = urlParams.get("title");
-        // If title is not null then change the title of the page
-        if (title) {
-          document.getElementById("title").textContent = title;
+      //function to toggle the button
+      function toggleButton(btn) {
+        //get the button element
+        var button = document.getElementById(btn + "Btn");
+        //check if the button is selected
+        if (button.classList.contains("selected")) {
+          //remove the selected class
+          // button.classList.remove("selected");
+        } else {
+          //remove the selected class from all buttons
+          document.querySelectorAll(".button").forEach((btn) => {
+            btn.classList.remove("selected");
+          });
+          //add the selected class to the button
+          button.classList.add("selected");
         }
       }
 
+      changeTitle();
+      setTitleSize();
+
+      function changeTitle() {
+        // Get the parameter title from the url
+        const urlParams = new URLSearchParams(window.location.search);
+        let title = urlParams.get("title");
+        // If title is not null then change the title of the page
+        if (title) {
+          // Replace ~ symbol with HTML line break
+          title = title.replace(/~/g, "<br>");
+          document.getElementById("title").innerHTML = title;
+        }
+        console.log(title);
+      }
+
+      function setTitleSize() {
+        //get parameter from url and set the title size
+        const urlParams = new URLSearchParams(window.location.search);
+        const titleSize = urlParams.get("titleSize");
+        if (titleSize) {
+          document.getElementById("title").style.fontSize = titleSize;
+        }
+        console.log(titleSize);
+      }
+      //>> 3dv
+
+      let rp = window.parent.tour._getRootPlayer();
+
       function mitigatedFunction() {
         // var rp = window.parent.tour._getRootPlayer();
-        document.getElementById("mitigated").classList.add("highlighted");
-        document.getElementById("unmitigated").classList.remove("highlighted");
+        document.getElementById("mitigatedBtn").classList.add("selected");
+        document.getElementById("unmitigatedBtn").classList.remove("selected");
         MySetVizByTags(["Noise_Unmitigated"], false, 0);
         MySetVizByTags(["Noise_Mitigated"], true, 300);
       }
 
       function unmitigatedFunction() {
         // var rp = window.parent.tour._getRootPlayer();
-        document.getElementById("unmitigated").classList.add("highlighted");
-        document.getElementById("mitigated").classList.remove("highlighted");
+        document.getElementById("unmitigatedBtn").classList.add("selected");
+        document.getElementById("mitigatedBtn").classList.remove("selected");
         MySetVizByTags(["Noise_Mitigated"], false, 0);
         MySetVizByTags(["Noise_Unmitigated"], true, 300);
       }
@@ -90,6 +279,8 @@
         // var rp = window.parent.tour._getRootPlayer();
         MySetVizByTags(["switch_state_noise"], false, 0);
         MySetVizByTags(["switch_state_air"], false), 0;
+        rp.getComponentByName("NoiseStateSwitch").set("visible", false);
+        rp.getComponentByName("AirStateSwitch").set("visible", false);
         console.log("closePanel");
       }
 
@@ -103,15 +294,6 @@
           delay
         );
       }
-
-      function testApi() {
-        // var rp = window.parent.tour._getRootPlayer();
-        rp.getComponentByName("NB_button").set("visible", false);
-        // rp.setComponentsVisibilityByTags("Noise_Barrier", false, 0);
-        // rp.getComponentsByTags("Noise_Barrier", "or").set("pressed", true);
-      }
-
-      changeTitle();
     </script>
   </body>
 </html>

@@ -1,0 +1,1 @@
+function t(){MySetVizByTags(["switch_state_noise"],!1,0),MySetVizByTags(["switch_state_air"],!1),rp.getComponentByName("NoiseStateSwitch").set("visible",!1),rp.getComponentByName("AirStateSwitch").set("visible",!1)}
