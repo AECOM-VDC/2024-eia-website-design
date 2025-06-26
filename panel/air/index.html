@@ -83,12 +83,6 @@
         border: #004d40 solid 3px;
         color: white !important; */
       }
-      #bottomContainer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-      }
       .legend {
         text-align: left;
         /* margin-top: 2vw; */
@@ -127,13 +121,12 @@
       }
 
       #airItems {
-        font-size: 5vw;
+        font-size: 5.6vw;
         /* margin: 0 auto; */
         display: flex;
         justify-content: flex-start;
         flex-direction: column;
         text-align: start;
-        line-height: 1;
         /* margin-top: 2.5vw; */
       }
 
@@ -148,6 +141,22 @@
         height: 1px;
         background-color: #c5c5c5a8;
         border: none;
+
+      }
+
+      .index-list {
+          list-style: none;
+          padding-left: 0;
+      }
+      .index-list div {
+          margin-bottom: 0px;
+      }
+      .index-list div::before {
+          content: attr(data-index);
+          display: inline-block;
+          width: 2em;
+          text-align: left;
+          margin-right: 0.5em;
       }
     </style>
   </head>
@@ -163,38 +172,20 @@
         <h2 id="title">Title</h2>
       </div>
 
-      <div id="bottomContainer">
+      <div id="bodyContainer">
         <div id="airItemsCon">
           <div id="airItems">
-            <p style="text-align: left; margin: 0%">For pollutants:</p>
-            <div>i. 19<sup>th</sup> Highest Hourly NO2;</div>
-            <div>ii. 10<sup>th</sup> Highest Daily NO2;</div>
-            <div>iii. Annual NO2;</div>
-            <div>iv. 10<sup>th</sup> Highest Daily RSP;</div>
-            <div>v. Annual RSP;</div>
-            <div>vi. 19<sup>th</sup> Highest Daily FSP;</div>
-            <div>vii. Annual FSP</div>
-            <div>viii. 5-seconds average Odour Unit;</div>
-            <div>ix. 4<sup>th</sup> Highest 10 min SO2;</div>
-            <div>x. 4<sup>th</sup> Highest Daily SO2;</div>
+            <p style="text-align: left; margin: 0%">For scenario:</p>
+            <div class="index-list">
+              <div data-index="i.">19th Daily Average Highest FSP</div>
+              <div data-index="ii.">Annual Average FSP</div>
+              <div data-index="iii.">10th Daily Average Highest RSP</div>
+              <div data-index="iv.">Annual Average RSP</div>
+              <div data-index="v.">19th Highest Hourly Average NO2</div>
+              <div data-index="vi.">10th Highest Daily Average NO2</div>
+              <div data-index="vii.">Annual Average NO2</div>
           </div>
-        </div>
-        <div id="remark" style="width: 100%">
-          <p
-            style="
-              text-align: justify;
-              padding: 0 16px 0 16px;
-              font-size: 11.5px;
-              width: calc(100% - 32px);
-
-            "
-          >
-            The predicted CO concentrations were well below the current AQOs and
-            the potential updated AQOs. The predicted methane, HCl, HF,
-            Formaldehyde, Vinyl Chloride, Benzene, Acetaldehyde concentrations
-            were well below the corresponding air quality standards. The
-            detailed results are presented in the EIA report
-          </p>
+          </div>
         </div>
         <hr />
         <div class="legend">

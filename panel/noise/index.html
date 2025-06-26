@@ -25,13 +25,15 @@
         padding: 0px;
         text-align: center;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
       }
       header {
         width: 100%;
         height: 13.75vw;
         display: flex;
         background-color: #005555; /* Dark green */
-        color: white;
+        color: white !important;
         text-align: left;
         padding: 0;
         align-items: center;
@@ -112,10 +114,11 @@
       }
 
       #bottomContainer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
         width: 100%;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
 
       .legend {
@@ -181,8 +184,7 @@
 
       hr {
         width: 80%;
-        margin-top: 5vw;
-        margin-bottom: 4vw;
+        margin: 5vw auto 4vw;
         height: 1px;
         background-color: #c5c5c5a8;
         border: none;
@@ -216,13 +218,14 @@
 
       <div id="bottomContainer">
         <p id="instruction">Click below to select a scenario</p>
-        <button
+        <!-- <button
           id="mitigatedBtn"
           class="button mitigated selected"
           onclick="mitigatedFunction()"
+          style="display: none"
         >
           Mitigated
-        </button>
+        </button> -->
         <button
           id="unmitigatedBtn"
           class="button unmitigated"
@@ -251,13 +254,15 @@
           </div>
           <div class="legendItems red1" style="display: none">
             <span class="exceeded legendIcon"></span>
-            <label class="red1LabelShowWhenMitigated" style="font-size: 4vw; padding-left: 4vw; width: 70%"
+            <label
+              class="red1LabelShowWhenMitigated"
+              style="font-size: 4vw; padding-left: 4vw; width: 70%"
               >Mitigated with At-receiver Mitigation Measures, e.g., Acoustic
               Window</label
             >
             <label class="red1LabelShowWhenUnmitigated" style=""
-            >Exceeded the Criteria</label
-          >
+              >Exceeded the Criteria</label
+            >
           </div>
           <div class="legendItems blue1">
             <span class="blue legendIcon"></span>
@@ -400,14 +405,14 @@
       //>> 3dv
 
       let rp = window.parent.tour._getRootPlayer();
+
       function mitigatedFunction() {
         // var rp = window.parent.tour._getRootPlayer();
-        document.getElementById("mitigatedBtn").classList.add("selected");
-        document.getElementById("unmitigatedBtn").classList.remove("selected");
-        document.getElementById("PrevailingBtn").classList.remove("selected");
+        document.getElementById("mitigatedBtn")?.classList.add("selected");
+        document.getElementById("unmitigatedBtn")?.classList.remove("selected");
+        document.getElementById("PrevailingBtn")?.classList.remove("selected");
 
         if (panelType == "Marine Traffic Noise") {
-
           MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Mitigated"], true, 300);
@@ -424,20 +429,22 @@
         }
 
         // Show/hide labels
-        document.querySelector('.red1LabelShowWhenMitigated').style.display = 'block';
-        document.querySelector('.red1LabelShowWhenUnmitigated').style.display = 'none';
+        document.querySelector(".red1LabelShowWhenMitigated").style.display =
+          "block";
+        document.querySelector(".red1LabelShowWhenUnmitigated").style.display =
+          "none";
 
         // Show yellow1 legend if it exists in URL params
-        if (legends && legends.includes('yellow1')) {
-          document.querySelector('.yellow1').style.display = 'flex';
+        if (legends && legends.includes("yellow1")) {
+          document.querySelector(".yellow1").style.display = "flex";
         }
       }
 
       function unmitigatedFunction() {
         // var rp = window.parent.tour._getRootPlayer();
-        document.getElementById("unmitigatedBtn").classList.add("selected");
-        document.getElementById("mitigatedBtn").classList.remove("selected");
-        document.getElementById("PrevailingBtn").classList.remove("selected");
+        document.getElementById("unmitigatedBtn")?.classList.add("selected");
+        document.getElementById("mitigatedBtn")?.classList.remove("selected");
+        document.getElementById("PrevailingBtn")?.classList.remove("selected");
 
         if (panelType == "Marine Traffic Noise") {
           MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
@@ -456,19 +463,21 @@
         }
 
         // Show/hide labels
-        document.querySelector('.red1LabelShowWhenMitigated').style.display = 'none';
-        document.querySelector('.red1LabelShowWhenUnmitigated').style.display = 'block';
+        document.querySelector(".red1LabelShowWhenMitigated").style.display =
+          "none";
+        document.querySelector(".red1LabelShowWhenUnmitigated").style.display =
+          "block";
 
         // Hide yellow1 legend
-        document.querySelector('.yellow1').style.display = 'none';
+        document.querySelector(".yellow1").style.display = "none";
       }
 
       //>> prevailedFunction
       function prevailedFunction() {
         // var rp = window.parent.tour._getRootPlayer();
-        document.getElementById("mitigatedBtn").classList.remove("selected");
-        document.getElementById("unmitigatedBtn").classList.remove("selected");
-        document.getElementById("PrevailingBtn").classList.add("selected");
+        document.getElementById("mitigatedBtn")?.classList.remove("selected");
+        document.getElementById("unmitigatedBtn")?.classList.remove("selected");
+        document.getElementById("PrevailingBtn")?.classList.add("selected");
         if (panelType == "Marine Traffic Noise") {
           MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
@@ -491,42 +500,50 @@
         window.addEventListener("message", function (event) {
           if (event.data == "mitigated") {
             //make the mitigated button with selected class
-            document.getElementById("mitigatedBtn").classList.add("selected");
+            document.getElementById("mitigatedBtn")?.classList.add("selected");
             document
               .getElementById("unmitigatedBtn")
-              .classList.remove("selected");
+              ?.classList.remove("selected");
             document
               .getElementById("PrevailingBtn")
-              .classList.remove("selected");
-              //red1
-            document.querySelector('.red1LabelShowWhenMitigated').style.display = 'block';
-            document.querySelector('.red1LabelShowWhenUnmitigated').style.display = 'none';
+              ?.classList.remove("selected");
+            //red1
+            document.querySelector(
+              ".red1LabelShowWhenMitigated"
+            ).style.display = "block";
+            document.querySelector(
+              ".red1LabelShowWhenUnmitigated"
+            ).style.display = "none";
             // Show yellow1 legend if it exists in URL params
-            if (legends && legends.includes('yellow1')) {
-              document.querySelector('.yellow1').style.display = 'flex';
+            if (legends && legends.includes("yellow1")) {
+              document.querySelector(".yellow1").style.display = "flex";
             }
           } else if (event.data == "unmitigated") {
             //make the unmitigated button with selected class
-            document.getElementById("unmitigatedBtn").classList.add("selected");
+            document.getElementById("unmitigatedBtn")?.classList.add("selected");
             document
               .getElementById("mitigatedBtn")
-              .classList.remove("selected");
+              ?.classList.remove("selected");
             document
               .getElementById("PrevailingBtn")
-              .classList.remove("selected");
-              //red1
-            document.querySelector('.red1LabelShowWhenMitigated').style.display = 'none';
-            document.querySelector('.red1LabelShowWhenUnmitigated').style.display = 'block';
+              ?.classList.remove("selected");
+            //red1
+            document.querySelector(
+              ".red1LabelShowWhenMitigated"
+            ).style.display = "none";
+            document.querySelector(
+              ".red1LabelShowWhenUnmitigated"
+            ).style.display = "block";
             // Hide yellow1 legend
-            document.querySelector('.yellow1').style.display = 'none';
+            document.querySelector(".yellow1").style.display = "none";
           } else if (event.data == "prevailed") {
-            document.getElementById("PrevailingBtn").classList.add("selected");
+            document.getElementById("PrevailingBtn")?.classList.add("selected");
             document
               .getElementById("mitigatedBtn")
-              .classList.remove("selected");
+              ?.classList.remove("selected");
             document
               .getElementById("unmitigatedBtn")
-              .classList.remove("selected");
+              ?.classList.remove("selected");
           }
         });
       }
