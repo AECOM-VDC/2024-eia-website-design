@@ -285,7 +285,6 @@
       if (panelParams) {
         panelType = panelParams;
       }
-      console.log("panelType", panelType);
 
       //function to toggle the button
       function toggleButton(btn) {
@@ -309,6 +308,19 @@
         // Get the parameter title from the url
         const urlParams = new URLSearchParams(window.location.search);
         let title = urlParams.get("title");
+        let scenario = urlParams.get("scenario");
+        
+        // If scenario is "prevailed", use prevailTitle parameter instead
+        if (scenario === "prevailed") {
+          let prevailTitle = urlParams.get("prevailTitle");
+          if (prevailTitle) {
+            // Replace ~ symbol with HTML line break
+            prevailTitle = prevailTitle.replace(/~/g, "<br>");
+            document.getElementById("title").innerHTML = prevailTitle;
+            return;
+          }
+        }
+        
         // If title is not null then change the title of the page
         if (title) {
           // Replace ~ symbol with HTML line break
@@ -476,7 +488,7 @@
         } else {
           MySetVizByTags(["Noise_Mitigated"], false, 0);
           MySetVizByTags(["Noise_Unmitigated"], false, 0);
-          MySetVizByTags(["Noise_Mitigated"], true, 300);
+          MySetVizByTags(["state_prevailing_noise"], true, 300);
         }
 
         //broadcast message to parent window
