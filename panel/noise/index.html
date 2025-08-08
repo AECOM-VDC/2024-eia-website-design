@@ -266,10 +266,16 @@
               air-conditioning</label
             >
           </div>
+          <div class="legendItems lightGreen">
+            <span class="lightGreen legendIcon"></span>
+            <label class="lightGreenLabel"
+              >Existing Low Noise Road Surfacing</label
+            >
+          </div>
           <div class="legendItems yellow1">
             <span class="yellow legendIcon"></span>
             <label class="yellowLabel"
-              >Low noise road surfacing materials</label
+              >Proposed Low Noise Road Surfacing </label
             >
           </div>
         </div>
@@ -282,6 +288,7 @@
       const urlParams = new URLSearchParams(window.location.search);
       let panelParams = urlParams.get("panel");
       let legend;
+      let originalTitle = ""; // Variable to store the original title
       if (panelParams) {
         panelType = panelParams;
       }
@@ -310,22 +317,15 @@
         let title = urlParams.get("title");
         let scenario = urlParams.get("scenario");
         
-        // If scenario is "prevailed", use prevailTitle parameter instead
-        if (scenario === "prevailed") {
-          let prevailTitle = urlParams.get("prevailTitle");
-          if (prevailTitle) {
-            // Replace ~ symbol with HTML line break
-            prevailTitle = prevailTitle.replace(/~/g, "<br>");
-            document.getElementById("title").innerHTML = prevailTitle;
-            return;
-          }
-        }
+
         
         // If title is not null then change the title of the page
         if (title) {
           // Replace ~ symbol with HTML line break
           title = title.replace(/~/g, "<br>");
           document.getElementById("title").innerHTML = title;
+          // Store the original title for later use
+          originalTitle = title;
         }
       }
 
@@ -379,6 +379,10 @@
               // Hide the red legend
               document.querySelector(".red").style.display = "none";
             }
+            if (legend === "lightGreen") {
+              // Make the light green legend visible
+              document.querySelector(".lightGreen").style.display = "flex";
+            }
           });
         }
 
@@ -418,6 +422,11 @@
         document.getElementById("unmitigatedBtn").classList.remove("selected");
         document.getElementById("PrevailingBtn").classList.remove("selected");
 
+        // Restore original title
+        if (originalTitle) {
+          document.getElementById("title").innerHTML = originalTitle;
+        }
+
         if (panelType == "Marine Traffic Noise") {
 
           MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
@@ -451,6 +460,11 @@
         document.getElementById("mitigatedBtn").classList.remove("selected");
         document.getElementById("PrevailingBtn").classList.remove("selected");
 
+        // Restore original title
+        if (originalTitle) {
+          document.getElementById("title").innerHTML = originalTitle;
+        }
+
         if (panelType == "Marine Traffic Noise") {
           MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
@@ -481,6 +495,16 @@
         document.getElementById("mitigatedBtn").classList.remove("selected");
         document.getElementById("unmitigatedBtn").classList.remove("selected");
         document.getElementById("PrevailingBtn").classList.add("selected");
+        
+        // Change title to prevailTitle if it exists
+        const urlParams = new URLSearchParams(window.location.search);
+        let prevailTitle = urlParams.get("prevailTitle");
+        if (prevailTitle) {
+          // Replace ~ symbol with HTML line break
+          prevailTitle = prevailTitle.replace(/~/g, "<br>");
+          document.getElementById("title").innerHTML = prevailTitle;
+        }
+        
         if (panelType == "Marine Traffic Noise") {
           MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
@@ -517,6 +541,10 @@
             if (legends && legends.includes('yellow1')) {
               document.querySelector('.yellow1').style.display = 'flex';
             }
+            // Restore original title
+            if (originalTitle) {
+              document.getElementById("title").innerHTML = originalTitle;
+            }
           } else if (event.data == "unmitigated") {
             //make the unmitigated button with selected class
             document.getElementById("unmitigatedBtn").classList.add("selected");
@@ -531,6 +559,10 @@
             document.querySelector('.red1LabelShowWhenUnmitigated').style.display = 'block';
             // Hide yellow1 legend
             document.querySelector('.yellow1').style.display = 'none';
+            // Restore original title
+            if (originalTitle) {
+              document.getElementById("title").innerHTML = originalTitle;
+            }
           } else if (event.data == "prevailed") {
             document.getElementById("PrevailingBtn").classList.add("selected");
             document
@@ -539,6 +571,14 @@
             document
               .getElementById("unmitigatedBtn")
               .classList.remove("selected");
+            // Change title to prevailTitle if it exists
+            const urlParams = new URLSearchParams(window.location.search);
+            let prevailTitle = urlParams.get("prevailTitle");
+            if (prevailTitle) {
+              // Replace ~ symbol with HTML line break
+              prevailTitle = prevailTitle.replace(/~/g, "<br>");
+              document.getElementById("title").innerHTML = prevailTitle;
+            }
           }
         });
       }
