@@ -403,11 +403,23 @@
         const urlParams = new URLSearchParams(window.location.search);
         let scenario = urlParams.get("scenario");
         if (scenario) {
-          //if scenario is prevailing, then make the prevailing button displayed, otherwise make the prevailing button hidden
-          if (scenario == "prevailed") {
+          // Split the scenario string by commas to handle multiple values
+          let scenarios = scenario.split(",");
+          
+          // Check if "prevailed" is in the scenarios array
+          if (scenarios.includes("prevailed")) {
             document.getElementById("PrevailingBtn").style.display = "block";
           } else {
             document.getElementById("PrevailingBtn").style.display = "none";
+          }
+          
+          // Check if "nomiti" is in the scenarios array
+          if (scenarios.includes("nomiti")) {
+            document.getElementById("mitigatedBtn").style.display = "none";
+            document.getElementById("unmitigatedBtn").style.display = "none";
+          } else {
+            document.getElementById("mitigatedBtn").style.display = "block";
+            document.getElementById("unmitigatedBtn").style.display = "block";
           }
         }
       }
