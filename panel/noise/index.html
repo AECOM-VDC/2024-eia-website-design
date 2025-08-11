@@ -338,22 +338,24 @@
         }
       }
 
-      //>> function to change the Panel name
-      function changePanelName() {
-        // Get the parameter title from the url
-        const urlParams = new URLSearchParams(window.location.search);
-        let panelName = urlParams.get("panel");
-        // If title is not null then change the title of the page
-        if (panelName) {
-          // Replace ~ symbol with HTML line break
-          panelName = panelName;
-          document.getElementById("panelTitle").innerHTML = panelName;
-          // Check if panelName is "Road Traffic Noise" and trigger unmitigatedFunction after 0.5 seconds
-          if (panelName === "Road Traffic Noise") {
-            setTimeout(unmitigatedFunction, 500);
-          }
-        }
-      }
+             //>> function to change the Panel name
+       function changePanelName() {
+         // Get the parameter title from the url
+         const urlParams = new URLSearchParams(window.location.search);
+         let panelName = urlParams.get("panel");
+         let scenario = urlParams.get("scenario");
+         // If title is not null then change the title of the page
+         if (panelName) {
+           // Replace ~ symbol with HTML line break
+           panelName = panelName;
+           document.getElementById("panelTitle").innerHTML = panelName;
+           // Check if panelName is "Road Traffic Noise" and trigger unmitigatedFunction after 0.5 seconds
+           // But only if "nomiti" is not in the scenario parameter to avoid conflicts
+           if (panelName === "Road Traffic Noise" && (!scenario || !scenario.includes("nomiti"))) {
+             setTimeout(unmitigatedFunction, 500);
+           }
+         }
+       }
       changePanelName();
 
       //>> function to change the legend
@@ -417,6 +419,13 @@
           if (scenarios.includes("nomiti")) {
             document.getElementById("mitigatedBtn").style.display = "none";
             document.getElementById("unmitigatedBtn").style.display = "none";
+            
+            // Auto-click the Prevailing button if it's visible
+            if (scenarios.includes("prevailed")) {
+              setTimeout(() => {
+                prevailedFunction();
+              }, 100);
+            }
           } else {
             document.getElementById("mitigatedBtn").style.display = "block";
             document.getElementById("unmitigatedBtn").style.display = "block";
