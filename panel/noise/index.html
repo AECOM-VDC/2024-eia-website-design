@@ -19,12 +19,15 @@
       }
       .container {
         width: 100vw;
-        height: 100vh;
+        min-height: fit-content;
+        max-height: 90vh;
         background-color: rgba(255, 255, 255, 0.85);
         border-radius: 2.5vw 2.5vw 2.5vw 2.5vw;
         padding: 0px;
         text-align: center;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
       }
       header {
         width: 100%;
@@ -95,7 +98,7 @@
       .button {
         display: block;
         width: 80%;
-        margin: 4vw auto;
+        margin: 1.5vw auto;
         padding: 2.7vw;
         text-align: center;
         font-size: 7vw;
@@ -112,9 +115,11 @@
       }
 
       #bottomContainer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-bottom: 8vw;
         width: 100%;
       }
 
@@ -122,8 +127,8 @@
         text-align: left;
         font-size: 5vw;
         padding-left: 11vw;
-        padding-bottom: 11vw;
         padding-right: 6vw;
+        margin-top: 2vw;
         /* width: 100%; */
       }
 
@@ -165,31 +170,35 @@
         /* padding-right: 4vw; */
       }
       .complied {
-        background-color: #8af678; /* light green */
+        background-color: #92d050; /* light green */
       }
       .exceeded {
         background-color: #ff0000; /* light red */
       }
 
       .blue {
-        background-color: #0070c0; /* light red */
+        background-color: #00b0f0; /* light red */
       }
 
       .yellow {
-        background-color: #f0f00a; /* light red */
+        background-color: #ffd700; /* light red */
+      }
+
+      .lightGreen {
+        background-color: #98fb98; /* light green */
       }
 
       hr {
         width: 80%;
-        margin-top: 5vw;
-        margin-bottom: 4vw;
+        margin-top: 4vw;
+        margin-bottom: 3vw;
         height: 1px;
         background-color: #c5c5c5a8;
         border: none;
       }
 
       .blue1 {
-        display: none;
+        /* display: none; */
       }
 
       .yellow1 {
@@ -251,13 +260,15 @@
           </div>
           <div class="legendItems red1" style="display: none">
             <span class="exceeded legendIcon"></span>
-            <label class="red1LabelShowWhenMitigated" style="font-size: 4vw; padding-left: 4vw; width: 70%"
+            <label
+              class="red1LabelShowWhenMitigated"
+              style="font-size: 4vw; padding-left: 4vw; width: 70%"
               >Mitigated with At-receiver Mitigation Measures, e.g., Acoustic
               Window</label
             >
             <label class="red1LabelShowWhenUnmitigated" style=""
-            >Exceeded the Criteria</label
-          >
+              >Exceeded the Criteria</label
+            >
           </div>
           <div class="legendItems blue1">
             <span class="blue legendIcon"></span>
@@ -265,17 +276,19 @@
               >Complied with the criteria (with acoustic windows/balconies)</label
             >
           </div>
-          <div class="legendItems lightGreen">
+          <div class="legendItems lightGreen1">
             <span class="lightGreen legendIcon"></span>
-            <label class="lightGreenLabel"
+            <label
+              class="lightGreenLabel"
+              style="font-size: 4vw; padding-left: 4vw; width: 70%"
               >Existing Low Noise Road Surfacing</label
             >
           </div>
           <div class="legendItems yellow1">
             <span class="yellow legendIcon"></span>
             <label class="yellowLabel"
-              >Proposed Low Noise Road Surfacing </label
-            >
+              >Proposed Low Noise Road Surfacing
+            </label>
           </div>
         </div>
       </div>
@@ -315,9 +328,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         let title = urlParams.get("title");
         let scenario = urlParams.get("scenario");
-        
 
-        
         // If title is not null then change the title of the page
         if (title) {
           // Replace ~ symbol with HTML line break
@@ -380,9 +391,11 @@
               // Hide the red legend
               document.querySelector(".red").style.display = "none";
             }
-            if (legend === "lightGreen") {
-              // Make the light green legend visible
-              document.querySelector(".lightGreen").style.display = "flex";
+
+            if (legend === "yellow_green") {
+              // Show both lightGreen and yellow1 legends
+              document.querySelector(".lightGreen1").style.display = "flex";
+              document.querySelector(".yellow1").style.display = "flex";
             }
           });
         }
@@ -448,7 +461,6 @@
         }
 
         if (panelType == "Marine Traffic Noise") {
-
           MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Mitigated"], true, 300);
@@ -456,6 +468,7 @@
           MySetVizByTags(["Noise_Mitigated"], false, 0);
           MySetVizByTags(["Noise_Unmitigated"], false, 0);
           MySetVizByTags(["Noise_Mitigated"], true, 300);
+          MySetVizByTags(["state_noise"], true, 300);
         }
 
         //broadcast message to parent window
@@ -465,13 +478,19 @@
         }
 
         // Show/hide labels
-        document.querySelector('.red1LabelShowWhenMitigated').style.display = 'block';
-        document.querySelector('.red1LabelShowWhenUnmitigated').style.display = 'none';
+        document.querySelector(".red1LabelShowWhenMitigated").style.display =
+          "block";
+        document.querySelector(".red1LabelShowWhenUnmitigated").style.display =
+          "none";
 
         // Show yellow1 legend if it exists in URL params
-        if (legends && legends.includes('yellow1')) {
-          document.querySelector('.yellow1').style.display = 'flex';
+        if (legends && legends.includes("yellow_green")) {
+          document.querySelector(".yellow1").style.display = "flex";
+          document.querySelector(".lightGreen1").style.display = "flex";
         }
+
+        // Show blue1 legend
+        document.querySelector(".blue1").style.display = "flex";
       }
 
       function unmitigatedFunction() {
@@ -493,6 +512,7 @@
           MySetVizByTags(["Noise_Unmitigated"], false, 0);
           MySetVizByTags(["Noise_Mitigated"], false, 0);
           MySetVizByTags(["Noise_Unmitigated"], true, 300);
+          MySetVizByTags(["state_noise"], true, 300);
         }
 
         //broadcast message to parent window
@@ -502,11 +522,17 @@
         }
 
         // Show/hide labels
-        document.querySelector('.red1LabelShowWhenMitigated').style.display = 'none';
-        document.querySelector('.red1LabelShowWhenUnmitigated').style.display = 'block';
+        document.querySelector(".red1LabelShowWhenMitigated").style.display =
+          "none";
+        document.querySelector(".red1LabelShowWhenUnmitigated").style.display =
+          "block";
 
         // Hide yellow1 legend
-        document.querySelector('.yellow1').style.display = 'none';
+        document.querySelector(".yellow1").style.display = "none";
+        document.querySelector(".lightGreen1").style.display = "none";
+
+        // Hide blue1 legend
+        document.querySelector(".blue1").style.display = "none";
       }
 
       //>> prevailedFunction
@@ -515,7 +541,7 @@
         document.getElementById("mitigatedBtn").classList.remove("selected");
         document.getElementById("unmitigatedBtn").classList.remove("selected");
         document.getElementById("PrevailingBtn").classList.add("selected");
-        
+
         // Change title to prevailTitle if it exists
         const urlParams = new URLSearchParams(window.location.search);
         let prevailTitle = urlParams.get("prevailTitle");
@@ -524,7 +550,7 @@
           prevailTitle = prevailTitle.replace(/~/g, "<br>");
           document.getElementById("title").innerHTML = prevailTitle;
         }
-        
+
         if (panelType == "Marine Traffic Noise") {
           MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
@@ -532,6 +558,7 @@
         } else {
           MySetVizByTags(["Noise_Mitigated"], false, 0);
           MySetVizByTags(["Noise_Unmitigated"], false, 0);
+          MySetVizByTags(["state_noise"], false, 0);
           MySetVizByTags(["state_prevailing_noise"], true, 300);
         }
 
@@ -540,6 +567,9 @@
         for (var i = 0; i < iframes.length; i++) {
           iframes[i].postMessage("prevailed", "*");
         }
+
+        // Hide blue1 legend
+        document.querySelector(".blue1").style.display = "none";
       }
 
       function autoSelectedBtn() {
@@ -554,13 +584,19 @@
             document
               .getElementById("PrevailingBtn")
               .classList.remove("selected");
-              //red1
-            document.querySelector('.red1LabelShowWhenMitigated').style.display = 'block';
-            document.querySelector('.red1LabelShowWhenUnmitigated').style.display = 'none';
+            //red1
+            document.querySelector(
+              ".red1LabelShowWhenMitigated"
+            ).style.display = "block";
+            document.querySelector(
+              ".red1LabelShowWhenUnmitigated"
+            ).style.display = "none";
             // Show yellow1 legend if it exists in URL params
-            if (legends && legends.includes('yellow1')) {
-              document.querySelector('.yellow1').style.display = 'flex';
+            if (legends && legends.includes("yellow1")) {
+              document.querySelector(".yellow1").style.display = "flex";
             }
+            // Show blue1 legend
+            document.querySelector(".blue1").style.display = "flex";
             // Restore original title
             if (originalTitle) {
               document.getElementById("title").innerHTML = originalTitle;
@@ -574,11 +610,17 @@
             document
               .getElementById("PrevailingBtn")
               .classList.remove("selected");
-              //red1
-            document.querySelector('.red1LabelShowWhenMitigated').style.display = 'none';
-            document.querySelector('.red1LabelShowWhenUnmitigated').style.display = 'block';
+            //red1
+            document.querySelector(
+              ".red1LabelShowWhenMitigated"
+            ).style.display = "none";
+            document.querySelector(
+              ".red1LabelShowWhenUnmitigated"
+            ).style.display = "block";
             // Hide yellow1 legend
-            document.querySelector('.yellow1').style.display = 'none';
+            document.querySelector(".yellow1").style.display = "none";
+            // Hide blue1 legend
+            document.querySelector(".blue1").style.display = "none";
             // Restore original title
             if (originalTitle) {
               document.getElementById("title").innerHTML = originalTitle;
@@ -591,6 +633,8 @@
             document
               .getElementById("unmitigatedBtn")
               .classList.remove("selected");
+            // Hide blue1 legend
+            document.querySelector(".blue1").style.display = "none";
             // Change title to prevailTitle if it exists
             const urlParams = new URLSearchParams(window.location.search);
             let prevailTitle = urlParams.get("prevailTitle");
