@@ -19,12 +19,15 @@
       }
       .container {
         width: 100vw;
-        height: 100vh;
+        min-height: fit-content;
+        max-height: 90vh;
         background-color: rgba(255, 255, 255, 0.85);
         border-radius: 2.5vw 2.5vw 2.5vw 2.5vw;
         padding: 0px;
         text-align: center;
         overflow: hidden !important;
+        display: flex;
+        flex-direction: column;
       }
       header {
         height: 13.75vw;
@@ -84,10 +87,13 @@
         color: white !important; */
       }
       #bottomContainer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
         width: 100%;
+        margin-top: auto;
+        padding-bottom: 4vw;
       }
       .legend {
         text-align: left;
@@ -176,7 +182,7 @@
             <div>vii. Annual NO<sub>2</sub></div>
           </div>
         </div>
-        <div id="remark" style="width: 100%">
+        <!-- <div id="remark" style="width: 100%">
           <p
             style="
               text-align: justify;
@@ -191,7 +197,7 @@
             were well below the corresponding air quality standards. The
             detailed results are presented in the EIA report
           </p>
-        </div>
+        </div> -->
         <hr />
         <div class="legend">
           <div>
