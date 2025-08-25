@@ -170,14 +170,14 @@
         /* padding-right: 4vw; */
       }
       .complied {
-        background-color: #92d050; /* light green */
+        background-color: #3eff50; /* light green */
       }
       .exceeded {
         background-color: #ff0000; /* light red */
       }
 
       .blue {
-        background-color: #00b0f0; /* light red */
+        background-color: #005aff; /* light red */
       }
 
       .yellow {
@@ -186,6 +186,10 @@
 
       .lightGreen {
         background-color: #98fb98; /* light green */
+      }
+
+      .noiseBarrier .legendIcon {
+        background-color: #b636ff; /* purple for noise barrier */
       }
 
       hr {
@@ -210,6 +214,12 @@
       }
       .red1LabelShowWhenUnmitigated {
         display: none;
+      }
+
+      .noiseBarrierLabel {
+        font-size: 4vw;
+        padding-left: 4vw;
+        width: 70%;
       }
     </style>
   </head>
@@ -260,23 +270,28 @@
           </div>
           <div class="legendItems red1" style="display: none">
             <span class="exceeded legendIcon"></span>
-            <label
-              class="red1LabelShowWhenMitigated"
-              style="font-size: 4vw; padding-left: 4vw; width: 70%"
-              >Mitigated with At-receiver Mitigation Measures, e.g., Acoustic
-              Window</label
+            <label class="red1LabelShowWhenMitigated"
+              >Exceeded the Criteria</label
             >
-            <label class="red1LabelShowWhenUnmitigated" style=""
+            <label class="red1LabelShowWhenUnmitigated"
               >Exceeded the Criteria</label
             >
           </div>
           <div class="legendItems blue1">
             <span class="blue legendIcon"></span>
             <label class="blueLabel"
-              >Complied with the criteria (with acoustic windows/balconies)</label
+              >Complied with the criteria (with acoustic
+              windows/balconies)</label
             >
           </div>
-          <div class="legendItems lightGreen1">
+          <div class="legendItems noiseBarrier" style="display: none">
+            <span class="legendIcon"></span>
+            <label class="noiseBarrierLabel"
+              >Complied with the criteria (with acoustic windows/balconies lined
+              with sound absorptive material)</label
+            >
+          </div>
+          <div class="legendItems lightGreen1" style="display: none">
             <span class="lightGreen legendIcon"></span>
             <label
               class="lightGreenLabel"
@@ -348,24 +363,27 @@
         }
       }
 
-             //>> function to change the Panel name
-       function changePanelName() {
-         // Get the parameter title from the url
-         const urlParams = new URLSearchParams(window.location.search);
-         let panelName = urlParams.get("panel");
-         let scenario = urlParams.get("scenario");
-         // If title is not null then change the title of the page
-         if (panelName) {
-           // Replace ~ symbol with HTML line break
-           panelName = panelName;
-           document.getElementById("panelTitle").innerHTML = panelName;
-           // Check if panelName is "Road Traffic Noise" and trigger unmitigatedFunction after 0.5 seconds
-           // But only if "nomiti" is not in the scenario parameter to avoid conflicts
-           if (panelName === "Road Traffic Noise" && (!scenario || !scenario.includes("nomiti"))) {
-             setTimeout(unmitigatedFunction, 500);
-           }
-         }
-       }
+      //>> function to change the Panel name
+      function changePanelName() {
+        // Get the parameter title from the url
+        const urlParams = new URLSearchParams(window.location.search);
+        let panelName = urlParams.get("panel");
+        let scenario = urlParams.get("scenario");
+        // If title is not null then change the title of the page
+        if (panelName) {
+          // Replace ~ symbol with HTML line break
+          panelName = panelName;
+          document.getElementById("panelTitle").innerHTML = panelName;
+          // Check if panelName is "Road Traffic Noise" and trigger unmitigatedFunction after 0.5 seconds
+          // But only if "nomiti" is not in the scenario parameter to avoid conflicts
+          if (
+            panelName === "Road Traffic Noise" &&
+            (!scenario || !scenario.includes("nomiti"))
+          ) {
+            setTimeout(unmitigatedFunction, 500);
+          }
+        }
+      }
       changePanelName();
 
       //>> function to change the legend
@@ -402,10 +420,6 @@
 
         let panelName = urlParams.get("panel");
         //if the panel name is Road Traffic Noise, then hide the red legend and display the red1 legend
-        if (panelName == "Road Traffic Noise") {
-          document.querySelector(".red").style.display = "none";
-          document.querySelector(".red1").style.display = "flex";
-        }
       }
       changeLegend();
       changeTitle();
@@ -419,19 +433,19 @@
         if (scenario) {
           // Split the scenario string by commas to handle multiple values
           let scenarios = scenario.split(",");
-          
+
           // Check if "prevailed" is in the scenarios array
           if (scenarios.includes("prevailed")) {
             document.getElementById("PrevailingBtn").style.display = "block";
           } else {
             document.getElementById("PrevailingBtn").style.display = "none";
           }
-          
+
           // Check if "nomiti" is in the scenarios array
           if (scenarios.includes("nomiti")) {
             document.getElementById("mitigatedBtn").style.display = "none";
             document.getElementById("unmitigatedBtn").style.display = "none";
-            
+
             // Auto-click the Prevailing button if it's visible
             if (scenarios.includes("prevailed")) {
               setTimeout(() => {
@@ -465,6 +479,7 @@
           MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Mitigated"], true, 300);
         } else {
+          MySetVizByTags(["state_prevailing_noise"], false, 0);
           MySetVizByTags(["Noise_Mitigated"], false, 0);
           MySetVizByTags(["Noise_Unmitigated"], false, 0);
           MySetVizByTags(["Noise_Mitigated"], true, 300);
@@ -491,6 +506,9 @@
 
         // Show blue1 legend
         document.querySelector(".blue1").style.display = "flex";
+        
+        // Show noise barrier legend
+        document.querySelector(".noiseBarrier").style.display = "flex";
       }
 
       function unmitigatedFunction() {
@@ -509,6 +527,7 @@
           MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
           MySetVizByTags(["MarineNoise_Unmitigated"], true, 300);
         } else {
+          MySetVizByTags(["state_prevailing_noise"], false, 0);
           MySetVizByTags(["Noise_Unmitigated"], false, 0);
           MySetVizByTags(["Noise_Mitigated"], false, 0);
           MySetVizByTags(["Noise_Unmitigated"], true, 300);
@@ -533,6 +552,9 @@
 
         // Hide blue1 legend
         document.querySelector(".blue1").style.display = "none";
+        
+        // Hide noise barrier legend
+        document.querySelector(".noiseBarrier").style.display = "none";
       }
 
       //>> prevailedFunction
@@ -552,14 +574,15 @@
         }
 
         if (panelType == "Marine Traffic Noise") {
-          MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
-          MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
-          MySetVizByTags(["MarineNoise_Mitigated"], true, 300);
-        } else {
           MySetVizByTags(["Noise_Mitigated"], false, 0);
           MySetVizByTags(["Noise_Unmitigated"], false, 0);
           MySetVizByTags(["state_noise"], false, 0);
           MySetVizByTags(["state_prevailing_noise"], true, 300);
+        } else {
+          MySetVizByTags(["Noise_Mitigated"], false, 0);
+          MySetVizByTags(["Noise_Unmitigated"], false, 0);
+          MySetVizByTags(["state_noise"], false, 0);
+          MySetVizByTags(["state_prevailing_noise"], true, 400);
         }
 
         //broadcast message to parent window
@@ -570,6 +593,9 @@
 
         // Hide blue1 legend
         document.querySelector(".blue1").style.display = "none";
+        
+        // Hide noise barrier legend
+        document.querySelector(".noiseBarrier").style.display = "none";
       }
 
       function autoSelectedBtn() {
@@ -597,6 +623,8 @@
             }
             // Show blue1 legend
             document.querySelector(".blue1").style.display = "flex";
+            // Show noise barrier legend
+            document.querySelector(".noiseBarrier").style.display = "flex";
             // Restore original title
             if (originalTitle) {
               document.getElementById("title").innerHTML = originalTitle;
@@ -621,6 +649,8 @@
             document.querySelector(".yellow1").style.display = "none";
             // Hide blue1 legend
             document.querySelector(".blue1").style.display = "none";
+            // Hide noise barrier legend
+            document.querySelector(".noiseBarrier").style.display = "none";
             // Restore original title
             if (originalTitle) {
               document.getElementById("title").innerHTML = originalTitle;
@@ -635,6 +665,8 @@
               .classList.remove("selected");
             // Hide blue1 legend
             document.querySelector(".blue1").style.display = "none";
+            // Hide noise barrier legend
+            document.querySelector(".noiseBarrier").style.display = "none";
             // Change title to prevailTitle if it exists
             const urlParams = new URLSearchParams(window.location.search);
             let prevailTitle = urlParams.get("prevailTitle");
