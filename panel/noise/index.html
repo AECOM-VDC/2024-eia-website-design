@@ -125,7 +125,7 @@
 
       .legend {
         text-align: left;
-        font-size: 5vw;
+        font-size: 4.5vw;
         padding-left: 11vw;
         padding-right: 6vw;
         margin-top: 2vw;
@@ -145,12 +145,12 @@
         /* width: 90vw; */
       }
       .legendItems .blueLabel {
-        font-size: 4vw;
+        font-size: 4.5vw;
         padding-left: 4vw;
         width: 70%;
       }
       .legendItems .yellowLabel {
-        font-size: 4vw;
+        font-size: 4.5vw;
         padding-left: 4vw;
         width: 70%;
       }
@@ -217,7 +217,7 @@
       }
 
       .noiseBarrierLabel {
-        font-size: 4vw;
+        font-size: 4.5vw;
         padding-left: 4vw;
         width: 70%;
       }
@@ -262,32 +262,32 @@
           <div id="legendTitle">Legend</div>
           <div class="legendItems green">
             <span class="complied legendIcon"></span>
-            <label>Complied with the criteria</label>
+            <label>Complied with the criteria*</label>
           </div>
           <div class="legendItems red">
             <span class="exceeded legendIcon"></span>
-            <label>Exceeded the criteria</label>
+            <label>Exceeded the criteria*</label>
           </div>
           <div class="legendItems red1" style="display: none">
             <span class="exceeded legendIcon"></span>
             <label class="red1LabelShowWhenMitigated"
-              >Exceeded the Criteria</label
+              >Exceeded the criteria*</label
             >
             <label class="red1LabelShowWhenUnmitigated"
-              >Exceeded the Criteria</label
+              >Exceeded the criteria*</label
             >
           </div>
           <div class="legendItems blue1">
             <span class="blue legendIcon"></span>
             <label class="blueLabel"
-              >Complied with the criteria (with acoustic
+              >Complied with the criteria# (with acoustic
               windows/balconies)</label
             >
           </div>
           <div class="legendItems noiseBarrier" style="display: none">
             <span class="legendIcon"></span>
             <label class="noiseBarrierLabel"
-              >Complied with the criteria (with acoustic windows/balconies lined
+              >Complied with the criteria# (with acoustic windows/balconies lined
               with sound absorptive material)</label
             >
           </div>
@@ -296,13 +296,20 @@
             <label
               class="lightGreenLabel"
               style="font-size: 4vw; padding-left: 4vw; width: 70%"
-              >Existing Low Noise Road Surfacing</label
+              >Existing low noise road surfacing</label
             >
           </div>
           <div class="legendItems yellow1">
             <span class="yellow legendIcon"></span>
             <label class="yellowLabel"
-              >Proposed Low Noise Road Surfacing
+              >Proposed low noise road surfacing
+            </label>
+          </div>
+          <div class="remark" style="font-size: 3vw; margin-top: 2vw">
+            <label
+              >Remarks : <br />
+              *L10 (1 hour): 70 dB(A) for residential; 65 dB(A) for educational
+              institution <br> #Project roads contribute less than 1dB(A) to the overall noise level
             </label>
           </div>
         </div>
@@ -506,7 +513,7 @@
 
         // Show blue1 legend
         document.querySelector(".blue1").style.display = "flex";
-        
+
         // Show noise barrier legend
         document.querySelector(".noiseBarrier").style.display = "flex";
       }
@@ -552,7 +559,7 @@
 
         // Hide blue1 legend
         document.querySelector(".blue1").style.display = "none";
-        
+
         // Hide noise barrier legend
         document.querySelector(".noiseBarrier").style.display = "none";
       }
@@ -593,7 +600,7 @@
 
         // Hide blue1 legend
         document.querySelector(".blue1").style.display = "none";
-        
+
         // Hide noise barrier legend
         document.querySelector(".noiseBarrier").style.display = "none";
       }
@@ -681,6 +688,8 @@
       autoSelectedBtn();
 
       function closePanel() {
+        MySetVizByTags(["btm_map"], false, 0);
+
         // var rp = window.parent.tour._getRootPlayer();
         MySetVizByTags(["switch_state_noise"], false, 0);
         MySetVizByTags(["switch_state_air"], false), 0;
