@@ -1,0 +1,22 @@
+{
+    "noise": [
+      {
+        "id": "CBS-1",
+        "scenarios": {
+          "prevailing": [0, 1, 1, 1, 2, 2],
+          "mitigated": [0, 0, 0,0 ,0],
+          "unmitigated": [1, 1, 1]
+        }
+      }
+      ,
+      {
+        "id": "CBS-2",
+        "scenarios": {
+          "prevailing": [0, 1, 2],
+          "mitigated": [0, 0, 0],
+          "unmitigated": [1, 1, 1]
+        }
+      }
+    ]
+  }
+  
