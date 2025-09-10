@@ -1,22 +1,489 @@
 {
-    "noise": [
-      {
-        "id": "CBS-1",
-        "scenarios": {
-          "prevailing": [0, 1, 1, 1, 2, 2],
-          "mitigated": [0, 0, 0,0 ,0],
-          "unmitigated": [1, 1, 1]
-        }
+  "noise": [
+    {
+      "id": "MTLR1",
+      "scenarios": {
+        "unmitigated": [
+          1
+        ],
+        "mitigated": [
+          1
+        ]
       }
-      ,
-      {
-        "id": "CBS-2",
-        "scenarios": {
-          "prevailing": [0, 1, 2],
-          "mitigated": [0, 0, 0],
-          "unmitigated": [1, 1, 1]
-        }
+    },
+    {
+      "id": "MTLRLPR1",
+      "scenarios": {
+        "unmitigated": [
+          1
+        ],
+        "mitigated": [
+          1
+        ]
       }
-    ]
-  }
-  
+    },
+    {
+      "id": "MTLRLPR2",
+      "scenarios": {
+        "unmitigated": [
+          1
+        ],
+        "mitigated": [
+          1
+        ]
+      }
+    },
+    {
+      "id": "MTLSYST1",
+      "scenarios": {
+        "unmitigated": [
+          1,
+          1
+        ],
+        "mitigated": [
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "MTLSYST2",
+      "scenarios": {
+        "unmitigated": [
+          1
+        ],
+        "mitigated": [
+          1
+        ]
+      }
+    },
+    {
+      "id": "MTLSYST3",
+      "scenarios": {
+        "unmitigated": [
+          1
+        ],
+        "mitigated": [
+          1
+        ]
+      }
+    },
+    {
+      "id": "MTLSYST4",
+      "scenarios": {
+        "unmitigated": [
+          1
+        ],
+        "mitigated": [
+          1
+        ]
+      }
+    },
+    {
+      "id": "MTLSYST5",
+      "scenarios": {
+        "unmitigated": [
+          1
+        ],
+        "mitigated": [
+          1
+        ]
+      }
+    },
+    {
+      "id": "MTLSYST6",
+      "scenarios": {
+        "unmitigated": [
+          1,
+          1
+        ],
+        "mitigated": [
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "MTLSYST7",
+      "scenarios": {
+        "unmitigated": [
+          1
+        ],
+        "mitigated": [
+          1
+        ]
+      }
+    },
+    {
+      "id": "MTLSYST8",
+      "scenarios": {
+        "unmitigated": [
+          1
+        ],
+        "mitigated": [
+          1
+        ]
+      }
+    },
+    {
+      "id": "MTLSYST9",
+      "scenarios": {
+        "unmitigated": [
+          1,
+          1
+        ],
+        "mitigated": [
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "MTL_Res6_R01",
+      "scenarios": {
+        "unmitigated": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "mitigated": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "id": "MTL_Res6_R02",
+      "scenarios": {
+        "unmitigated": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "mitigated": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "id": "MTL_Res6_R03",
+      "scenarios": {
+        "unmitigated": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "mitigated": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "id": "PH1",
+      "scenarios": {
+        "unmitigated": [
+          1
+        ],
+        "mitigated": [
+          1
+        ]
+      }
+    },
+    {
+      "id": "TKH1",
+      "scenarios": {
+        "unmitigated": [
+          1,
+          1
+        ],
+        "mitigated": [
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "TKH2",
+      "scenarios": {
+        "unmitigated": [
+          1,
+          1
+        ],
+        "mitigated": [
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "TKH3",
+      "scenarios": {
+        "unmitigated": [
+          1,
+          1
+        ],
+        "mitigated": [
+          1,
+          1
+        ]
+      }
+    }
+  ]
+}
