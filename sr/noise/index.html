@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noise Legend</title>
+    <link rel="preload" href="../../data/noise/noise.json" as="fetch" crossorigin>
     <style>
         body {
             margin: 0;
@@ -32,7 +33,6 @@
         .legend-cell {
             width: 100%;
             border: 1px solid #333;
-            transition: all 0.1s ease;
             box-sizing: border-box;
         }
         
@@ -67,13 +67,14 @@
     </div>
 
     <script>
-        // Cache DOM elements
+        // Cache DOM elements and parse URL immediately
         const legendGrid = document.getElementById('legend-grid');
         const errorMessage = document.getElementById('error-message');
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentId = urlParams.get('id');
         
         // Global variables
         let noiseData = null;
-        let currentId = null;
         let currentScenario = 'unmitigated'; // default
         
         // Color mapping
@@ -83,14 +84,13 @@
             2: 'color-2'  // Blue
         };
         
-        // Get URL parameters
-        function getUrlParameter(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
-        
-        // Load JSON data
+        // Load JSON data with early validation
         async function loadNoiseData() {
+            if (!currentId) {
+                showError('No ID parameter provided in URL. Please add ?id=YOUR_ID to the URL.');
+                return false;
+            }
+            
             try {
                 const response = await fetch('../../data/noise/noise.json');
                 if (!response.ok) {
@@ -126,13 +126,8 @@
             return noiseData.noise.find(item => item.id === id);
         }
         
-        // Render legend grid
+        // Render legend grid with optimized DOM operations
         function renderLegend() {
-            if (!currentId) {
-                showError('No ID parameter provided in URL');
-                return;
-            }
-            
             const data = findNoiseDataById(currentId);
             if (!data) {
                 showError(`No data found for ID: ${currentId}`);
@@ -147,23 +142,26 @@
             
             hideError();
             
-            // Clear existing grid
-            legendGrid.innerHTML = '';
-            
-            // Create grid cells from bottom to top (reverse order)
+            // Use DocumentFragment for efficient DOM updates
+            const fragment = document.createDocumentFragment();
             const reversedScenarios = [...scenarios].reverse();
             
             // Set grid template rows to distribute height equally
             const gridRows = reversedScenarios.map(() => '1fr').join(' ');
             legendGrid.style.gridTemplateRows = gridRows;
             
+            // Create all cells in memory first
             reversedScenarios.forEach((colorCode, index) => {
                 const cell = document.createElement('div');
                 cell.className = `legend-cell ${colorClasses[colorCode] || ''}`;
                 cell.setAttribute('data-index', scenarios.length - 1 - index);
                 cell.setAttribute('data-color', colorCode);
-                legendGrid.appendChild(cell);
+                fragment.appendChild(cell);
             });
+            
+            // Single DOM update - much faster than individual appendChild calls
+            legendGrid.innerHTML = '';
+            legendGrid.appendChild(fragment);
         }
         
         // Handle scenario change events
@@ -181,17 +179,9 @@
             }
         });
         
-        // Initialize the application
-        async function init() {
-            // Get ID from URL parameters
-            currentId = getUrlParameter('id');
-            
-            if (!currentId) {
-                showError('No ID parameter provided in URL. Please add ?id=YOUR_ID to the URL.');
-                return;
-            }
-            
-            // Load noise data
+        // Initialize immediately - no need to wait for DOMContentLoaded
+        (async function init() {
+            // Load noise data (includes ID validation)
             const dataLoaded = await loadNoiseData();
             if (!dataLoaded) {
                 return;
@@ -199,14 +189,7 @@
             
             // Initial render
             renderLegend();
-        }
-        
-        // Start the application when DOM is loaded
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
+        })();
     </script>
 </body>
 </html>
