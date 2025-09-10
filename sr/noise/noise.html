@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noise Legend</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            font-family: Arial, sans-serif;
+        }
+        
+        .legend-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+        }
+        
+        .legend-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2px;
+            width: 30px;
+            min-height: 100px;
+        }
+        
+        .legend-cell {
+            width: 30px;
+            height: 20px;
+            border: 1px solid #333;
+            transition: all 0.1s ease;
+        }
+        
+        .color-0 {
+            background-color: #ff0000; /* Red */
+        }
+        
+        .color-1 {
+            background-color: #00ff00; /* Green */
+        }
+        
+        .color-2 {
+            background-color: #0000ff; /* Blue */
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .error {
+            color: red;
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="legend-container">
+        <div id="legend-grid" class="legend-grid"></div>
+        <div id="error-message" class="error hidden"></div>
+    </div>
+
+    <script>
+        // Cache DOM elements
+        const legendGrid = document.getElementById('legend-grid');
+        const errorMessage = document.getElementById('error-message');
+        
+        // Global variables
+        let noiseData = null;
+        let currentId = null;
+        let currentScenario = 'unmitigated'; // default
+        
+        // Color mapping
+        const colorClasses = {
+            0: 'color-0', // Red
+            1: 'color-1', // Green
+            2: 'color-2'  // Blue
+        };
+        
+        // Get URL parameters
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+        
+        // Load JSON data
+        async function loadNoiseData() {
+            try {
+                const response = await fetch('../../data/noise/noise.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                noiseData = await response.json();
+                return true;
+            } catch (error) {
+                console.error('Error loading noise data:', error);
+                showError('Failed to load noise data');
+                return false;
+            }
+        }
+        
+        // Show error message
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.remove('hidden');
+            legendGrid.classList.add('hidden');
+        }
+        
+        // Hide error message
+        function hideError() {
+            errorMessage.classList.add('hidden');
+            legendGrid.classList.remove('hidden');
+        }
+        
+        // Find noise data by ID
+        function findNoiseDataById(id) {
+            if (!noiseData || !noiseData.noise) {
+                return null;
+            }
+            return noiseData.noise.find(item => item.id === id);
+        }
+        
+        // Render legend grid
+        function renderLegend() {
+            if (!currentId) {
+                showError('No ID parameter provided in URL');
+                return;
+            }
+            
+            const data = findNoiseDataById(currentId);
+            if (!data) {
+                showError(`No data found for ID: ${currentId}`);
+                return;
+            }
+            
+            const scenarios = data.scenarios[currentScenario];
+            if (!scenarios) {
+                showError(`No ${currentScenario} scenario found for ID: ${currentId}`);
+                return;
+            }
+            
+            hideError();
+            
+            // Clear existing grid
+            legendGrid.innerHTML = '';
+            
+            // Create grid cells from bottom to top (reverse order)
+            const reversedScenarios = [...scenarios].reverse();
+            
+            reversedScenarios.forEach((colorCode, index) => {
+                const cell = document.createElement('div');
+                cell.className = `legend-cell ${colorClasses[colorCode] || ''}`;
+                cell.setAttribute('data-index', scenarios.length - 1 - index);
+                cell.setAttribute('data-color', colorCode);
+                legendGrid.appendChild(cell);
+            });
+        }
+        
+        // Handle scenario change events
+        function handleScenarioChange(scenario) {
+            if (scenario === 'mitigated' || scenario === 'unmitigated') {
+                currentScenario = scenario;
+                renderLegend();
+            }
+        }
+        
+        // Listen for messages from parent window
+        window.addEventListener('message', function(event) {
+            if (event.data === 'mitigated' || event.data === 'unmitigated') {
+                handleScenarioChange(event.data);
+            }
+        });
+        
+        // Initialize the application
+        async function init() {
+            // Get ID from URL parameters
+            currentId = getUrlParameter('id');
+            
+            if (!currentId) {
+                showError('No ID parameter provided in URL. Please add ?id=YOUR_ID to the URL.');
+                return;
+            }
+            
+            // Load noise data
+            const dataLoaded = await loadNoiseData();
+            if (!dataLoaded) {
+                return;
+            }
+            
+            // Initial render
+            renderLegend();
+        }
+        
+        // Start the application when DOM is loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
+</body>
+</html>
