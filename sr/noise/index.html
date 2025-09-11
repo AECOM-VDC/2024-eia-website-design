@@ -28,6 +28,16 @@
             gap: 0;
             width: 100%;
             height: 100%;
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .legend-grid.fading-out {
+            opacity: 0;
+        }
+        
+        .legend-grid.fading-in {
+            opacity: 1;
         }
         
         .legend-cell {
@@ -75,7 +85,8 @@
         
         // Global variables
         let noiseData = null;
-        let currentScenario = 'unmitigated'; // default
+        let currentScenario = 'mitigated'; // default
+        let isTransitioning = false; // Prevent multiple simultaneous transitions
         
         // Color mapping
         const colorClasses = {
@@ -164,11 +175,46 @@
             legendGrid.appendChild(fragment);
         }
         
-        // Handle scenario change events
-        function handleScenarioChange(scenario) {
-            if (scenario === 'mitigated' || scenario === 'unmitigated') {
-                currentScenario = scenario;
+        // Handle scenario change events with fade transition
+        async function handleScenarioChange(scenario) {
+            if (scenario !== 'mitigated' && scenario !== 'unmitigated') {
+                return;
+            }
+            
+            // Prevent multiple simultaneous transitions
+            if (isTransitioning) {
+                return;
+            }
+            
+            // If scenario hasn't changed, still do the fade effect for visual feedback
+            const scenarioChanged = currentScenario !== scenario;
+            currentScenario = scenario;
+            
+            isTransitioning = true;
+            
+            try {
+                // Phase 1: Fade out current legend
+                legendGrid.classList.add('fading-out');
+                legendGrid.classList.remove('fading-in');
+                
+                // Wait for fade out to complete
+                await new Promise(resolve => setTimeout(resolve, 300));
+                
+                // Phase 2: Update legend content while invisible
                 renderLegend();
+                
+                // Phase 3: Fade in new legend
+                legendGrid.classList.remove('fading-out');
+                legendGrid.classList.add('fading-in');
+                
+                // Wait for fade in to complete
+                await new Promise(resolve => setTimeout(resolve, 300));
+                
+                // Clean up classes
+                legendGrid.classList.remove('fading-in');
+                
+            } finally {
+                isTransitioning = false;
             }
         }
         

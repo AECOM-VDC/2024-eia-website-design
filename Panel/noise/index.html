@@ -145,7 +145,7 @@
         height: 7vw !important;
         /* margin-right: 4vw; */
         /* padding-right: 4vw; */
-        flex-shrink: 0;  /* Prevents the icon from shrinking */
+        flex-shrink: 0; /* Prevents the icon from shrinking */
       }
       .complied {
         background-color: #8af678; /* light green */
@@ -193,7 +193,15 @@
           <span id="close">&times;</span>
         </div>
       </header>
-      <div id="titleCon"><h2 id="title" v-html="titleHtml" :style="titleFontSize ? { fontSize: titleFontSize } : {}">Title</h2></div>
+      <div id="titleCon">
+        <h2
+          id="title"
+          v-html="titleHtml"
+          :style="titleFontSize ? { fontSize: titleFontSize } : {}"
+        >
+          Title
+        </h2>
+      </div>
 
       <div id="btnContainer" style="">
         <p id="instruction">Click below to select a scenario</p>
@@ -259,16 +267,24 @@
           <label>Exceeded the criteria</label>
         </div>
         <div class="legendItems red1" v-show="showRed1Legend">
-          <span class="exceededRed1 legendIcon" v-show="!red1ShowsMitigated"></span>
+          <span
+            class="exceededRed1 legendIcon"
+            v-show="!red1ShowsMitigated"
+          ></span>
           <span
             class="mitigatedAccousticWindow legendIcon"
             v-show="red1ShowsMitigated"
           ></span>
 
-          <label class="red1LabelShowWhenMitigated" v-show="red1ShowsMitigated" style="font-size: 4.3vw;"
+          <label
+            class="red1LabelShowWhenMitigated"
+            v-show="red1ShowsMitigated"
+            style="font-size: 4.3vw"
             >Complied with the criteria (with Acoustic Window)</label
           >
-          <label class="red1LabelShowWhenUnmitigated" v-show="!red1ShowsMitigated"
+          <label
+            class="red1LabelShowWhenUnmitigated"
+            v-show="!red1ShowsMitigated"
             >Exceeded the Criteria</label
           >
         </div>
@@ -312,12 +328,16 @@
           const red1ShowsMitigated = ref(true);
           const yellowVisible = ref(false);
 
-          const isRoadTrafficNoise = computed(() => panelType.value === "Road Traffic Noise");
-          const isMarineTrafficNoise = computed(() => panelType.value === "Marine Traffic Noise");
+          const isRoadTrafficNoise = computed(
+            () => panelType.value === "Road Traffic Noise"
+          );
+          const isMarineTrafficNoise = computed(
+            () => panelType.value === "Marine Traffic Noise"
+          );
 
           const showPrevailing = ref(false);
           const showMitigatedButton = computed(() => {
-            if (paramParam.value === "nomiti") return false;
+            // if (paramParam.value === "nomiti") return false;
             if (isMarineTrafficNoise.value) return false;
             return true;
           });
@@ -358,14 +378,14 @@
             red1ShowsMitigated.value = true;
 
             if (isMarineTrafficNoise.value) {
-          MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
-          MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
-          MySetVizByTags(["MarineNoise_Mitigated"], true, 300);
-        } else {
-          MySetVizByTags(["Noise_Mitigated"], false, 0);
-          MySetVizByTags(["Noise_Unmitigated"], false, 0);
-          MySetVizByTags(["Noise_Mitigated"], true, 300);
-        }
+              MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
+              MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
+              MySetVizByTags(["MarineNoise_Mitigated"], true, 300);
+            } else {
+              MySetVizByTags(["Noise_Mitigated"], false, 0);
+              MySetVizByTags(["Noise_Unmitigated"], false, 0);
+              MySetVizByTags(["Noise_Mitigated"], true, 300);
+            }
 
             broadcast("mitigated");
 
@@ -379,14 +399,14 @@
             red1ShowsMitigated.value = false;
 
             if (isMarineTrafficNoise.value) {
-          MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
-          MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
-          MySetVizByTags(["MarineNoise_Unmitigated"], true, 300);
-        } else {
-          MySetVizByTags(["Noise_Unmitigated"], false, 0);
-          MySetVizByTags(["Noise_Mitigated"], false, 0);
-          MySetVizByTags(["Noise_Unmitigated"], true, 300);
-        }
+              MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
+              MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
+              MySetVizByTags(["MarineNoise_Unmitigated"], true, 300);
+            } else {
+              MySetVizByTags(["Noise_Unmitigated"], false, 0);
+              MySetVizByTags(["Noise_Mitigated"], false, 0);
+              MySetVizByTags(["Noise_Unmitigated"], true, 300);
+            }
 
             broadcast("unmitigated");
             yellowVisible.value = false;
@@ -396,25 +416,28 @@
             selectedState.value = "prevailing";
 
             if (isMarineTrafficNoise.value) {
-          MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
-          MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
-          MySetVizByTags(["MarineNoise_Mitigated"], true, 300);
-        } else {
-          MySetVizByTags(["Noise_Mitigated"], false, 0);
-          MySetVizByTags(["Noise_Unmitigated"], false, 0);
-          MySetVizByTags(["Noise_Mitigated"], true, 300);
-        }
+              MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
+              MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
+              MySetVizByTags(["MarineNoise_Mitigated"], true, 300);
+            } else {
+              MySetVizByTags(["Noise_Mitigated"], false, 0);
+              MySetVizByTags(["Noise_Unmitigated"], false, 0);
+              MySetVizByTags(["Noise_Mitigated"], true, 300);
+            }
 
             broadcast("prevailed");
           }
 
-      function closePanel() {
-        MySetVizByTags(["switch_state_noise"], false, 0);
+          function closePanel() {
+            MySetVizByTags(["switch_state_noise"], false, 0);
             MySetVizByTags(["switch_state_air"], false, 0);
-        rp.getComponentByName("NoiseStateSwitch").set("visible", false);
-        rp.getComponentByName("AirStateSwitch").set("visible", false);
-        rp.getComponentByName("MarineNoiseStateSwitch").set("visible", false);
-        console.log("closePanel");
+            rp.getComponentByName("NoiseStateSwitch").set("visible", false);
+            rp.getComponentByName("AirStateSwitch").set("visible", false);
+            rp.getComponentByName("MarineNoiseStateSwitch").set(
+              "visible",
+              false
+            );
+            console.log("closePanel");
           }
 
           onMounted(() => {
@@ -503,7 +526,7 @@
         },
       });
 
-      const vm = app.mount('.container');
+      const vm = app.mount(".container");
       // Expose globals for compatibility
       window.mitigatedFunction = vm.onMitigated;
       window.unmitigatedFunction = vm.onUnmitigated;
