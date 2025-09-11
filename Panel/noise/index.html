@@ -169,10 +169,6 @@
         background-color: #f0f00a; /* light red */
       }
 
-      .blue1 {
-        display: none;
-      }
-
       .yellow1 {
         display: none;
       }
@@ -288,11 +284,10 @@
             >Exceeded the Criteria</label
           >
         </div>
-        <div class="legendItems blue1" v-show="includesBlue1">
+        <div class="legendItems blue1" v-show="showBlue1Legend">
           <span class="blue legendIcon"></span>
           <label class="blueLabel"
-            >Not applicable due to provisioning of noise insulation with
-            air-conditioning</label
+            >Comply with the criteria (with Acoustic Window)</label
           >
         </div>
         <div class="legendItems yellow1" v-show="yellowVisible">
@@ -318,7 +313,7 @@
           const titleFontSize = ref(undefined);
 
           const legendParams = ref([]);
-          const includesBlue1 = ref(false);
+          const includesBlue1 = ref(true);
           const includesYellow1 = ref(false);
           const includesNoRed = ref(false);
           const scenarioParam = ref(null);
@@ -352,6 +347,11 @@
           const showRed1Legend = computed(() => {
             if (paramParam.value === "nomiti") return false;
             return isRoadTrafficNoise.value;
+          });
+
+          const showBlue1Legend = computed(() => {
+            // return includesBlue1.value && selectedState.value === "mitigated";
+            return selectedState.value === "mitigated";
           });
 
           let rp;
@@ -520,6 +520,7 @@
             showRedLegend,
             showRed1Legend,
             includesBlue1,
+            showBlue1Legend,
             yellowVisible,
             red1ShowsMitigated,
           };
