@@ -1,0 +1,541 @@
+<!-- 360x493 -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noise Selection</title>
+    <style>
+      * {
+        user-select: none;
+        box-sizing: border-box !important;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: transparent;
+        overflow: hidden;
+      }
+      .container {
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0.85);
+        border-radius: 2.5vw 2.5vw 2.5vw 2.5vw;
+        padding: 0px;
+        text-align: center;
+        overflow: hidden;
+      }
+      header {
+        width: 100%;
+        height: 13.75vw;
+        display: flex;
+        background-color: #005555; /* Dark green */
+        color: white;
+        text-align: left;
+        padding: 0;
+        align-items: center;
+      }
+      #panelTitle {
+        padding: 0 0 0 5vw;
+        font-size: 8vw;
+        width: 100%;
+        height: 100%;
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: flex;
+        align-items: center;
+      }
+
+      #closeCon {
+        display: flex;
+        height: 100%;
+        width: 13.75vw;
+        cursor: pointer;
+        margin: 0px 0px 0px auto;
+        padding: 0px;
+        background-color: #005555;
+        align-items: center;
+        justify-content: center;
+      }
+      #closeCon:hover {
+        background-color: #003838;
+      }
+
+      #close {
+        font-size: 17vw !important;
+        padding: 0 !important;
+      }
+      #titleCon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 22vw;
+        padding: 4vw 4vw 4vw 4vw;
+        overflow: hidden;
+      }
+
+      #title {
+        font-size: 9vw;
+        text-align: center;
+        vertical-align: middle;
+        margin: 0;
+
+        /* background-color: #8af678; */
+      }
+
+      #instruction {
+        font-size: 5vw;
+        margin: 0;
+        padding-top: 0;
+      }
+
+      .button {
+        display: block;
+        width: 80%;
+        margin: 4vw auto;
+        padding: 2.7vw;
+        text-align: center;
+        font-size: 7vw;
+        font-weight: bold;
+        cursor: pointer;
+        color: rgb(0, 0, 0);
+        border: #004d40 solid 3px;
+        background: none;
+      }
+      .selected {
+        background-color: #004d40; /* Dark green */
+        border: #004d40 solid 3px;
+        color: white !important;
+      }
+
+      #legendTitle {
+        font-weight: 600;
+        margin-bottom: 5.5vw !important;
+      }
+
+      .legendItems {
+        display: flex;
+        align-items: center;
+        margin-top: 2.7vw;
+        /* margin-bottom: 2.7vw; */
+        /* width: 90vw; */
+      }
+      .legendItems .blueLabel {
+        font-size: 4vw;
+        padding-left: 4vw;
+        width: 70%;
+      }
+      .legendItems .yellowLabel {
+      }
+
+      .legendItems label {
+        flex-grow: 1;
+        /* font-size: 16px; */
+        padding-left: 4vw;
+        /* background-color: #8af678; */
+      }
+
+      .legendIcon {
+        /* display: block; */
+        width: 7vw !important;
+        height: 7vw !important;
+        /* margin-right: 4vw; */
+        /* padding-right: 4vw; */
+        flex-shrink: 0; /* Prevents the icon from shrinking */
+      }
+      .complied {
+        background-color: #8af678; /* light green */
+      }
+      .exceeded {
+        background-color: #ff0000; /* light red */
+      }
+      .exceededRed1 {
+        background-color: #ff0000; /* light red */
+      }
+
+      .mitigatedAccousticWindow {
+        background-color: #94dcf8; /* light red */
+      }
+
+      .blue {
+        background-color: #0070c0; /* light red */
+      }
+
+      .yellow {
+        background-color: #f0f00a; /* light red */
+      }
+
+      .yellow1 {
+        display: none;
+      }
+
+      .red1LabelShowWhenMitigated {
+        display: none;
+      }
+      .red1LabelShowWhenUnmitigated {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header id="header">
+        <span id="panelTitle">{{ panelTitle }}</span>
+        <div id="closeCon" @click="closePanel">
+          <span id="close">&times;</span>
+        </div>
+      </header>
+      <div id="titleCon">
+        <h2
+          id="title"
+          v-html="titleHtml"
+          :style="titleFontSize ? { fontSize: titleFontSize } : {}"
+        >
+          Title
+        </h2>
+      </div>
+
+      <div id="btnContainer" style="">
+        <p id="instruction">Click below to select a scenario</p>
+        <button
+          id="mitigatedBtn"
+          class="button mitigated"
+          :class="{ selected: selectedState === 'mitigated' }"
+          @click="onMitigated"
+          v-show="showMitigatedButton"
+        >
+          Mitigated
+        </button>
+        <button
+          id="unmitigatedBtn"
+          class="button unmitigated"
+          :class="{ selected: selectedState === 'unmitigated' }"
+          @click="onUnmitigated"
+        >
+          Unmitigated
+        </button>
+        <button
+          id="PrevailingBtn"
+          class="button unmitigated"
+          :class="{ selected: selectedState === 'prevailing' }"
+          @click="onPrevailing"
+          v-show="showPrevailing"
+        >
+          Prevailing
+        </button>
+      </div>
+      <div
+        class="legend"
+        style="
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          text-align: left;
+          font-size: 5vw;
+          padding-left: 11vw;
+          padding-bottom: 11vw;
+          padding-right: 6vw;
+          /* width: 100%; */
+        "
+      >
+        <hr
+          style="
+            width: 100%;
+            margin-top: 5vw;
+            margin-bottom: 4vw;
+            height: 2px;
+            background-color: #c5c5c5a8;
+            border: none;
+          "
+        />
+        <div id="legendTitle">Legend</div>
+        <div class="legendItems green">
+          <span class="complied legendIcon"></span>
+          <label>Complied with the criteria</label>
+        </div>
+        <div class="legendItems red" v-show="showRedLegend">
+          <span class="exceeded legendIcon"></span>
+          <label>Exceeded the criteria</label>
+        </div>
+        <div class="legendItems red1" v-show="showRed1Legend">
+          <span
+            class="exceededRed1 legendIcon"
+            v-show="!red1ShowsMitigated"
+          ></span>
+          <span
+            class="mitigatedAccousticWindow legendIcon"
+            v-show="red1ShowsMitigated"
+          ></span>
+
+          <label
+            class="red1LabelShowWhenMitigated"
+            v-show="red1ShowsMitigated"
+            style="font-size: 4.3vw"
+            >Complied with the criteria (with Acoustic Window)</label
+          >
+          <label
+            class="red1LabelShowWhenUnmitigated"
+            v-show="!red1ShowsMitigated"
+            >Exceeded the Criteria</label
+          >
+        </div>
+        <div class="legendItems blue1" v-show="showBlue1Legend">
+          <span class="blue legendIcon"></span>
+          <label class="blueLabel"
+            >Comply with the criteria (with Acoustic Window)</label
+          >
+        </div>
+        <div class="legendItems yellow1" v-show="yellowVisible">
+          <span class="yellow legendIcon"></span>
+          <label class="yellowLabel" style="font-size: 4.5vw"
+            >Low noise road surfacing materials</label
+          >
+        </div>
+      </div>
+    </div>
+
+    <script src="../../lib/vue.global.js"></script>
+    <script>
+      const { createApp, ref, computed, onMounted } = Vue;
+
+      const app = createApp({
+        setup() {
+          const urlParams = new URLSearchParams(window.location.search);
+
+          const panelTitle = ref("Noise");
+          const panelType = ref("");
+          const titleHtml = ref("Title");
+          const titleFontSize = ref(undefined);
+
+          const legendParams = ref([]);
+          const includesBlue1 = ref(true);
+          const includesYellow1 = ref(false);
+          const includesNoRed = ref(false);
+          const scenarioParam = ref(null);
+          const paramParam = ref(null);
+
+          const selectedState = ref("mitigated"); // 'mitigated' | 'unmitigated' | 'prevailing'
+          const red1ShowsMitigated = ref(true);
+          const yellowVisible = ref(false);
+
+          const isRoadTrafficNoise = computed(
+            () => panelType.value === "Road Traffic Noise"
+          );
+          const isMarineTrafficNoise = computed(
+            () => panelType.value === "Marine Traffic Noise"
+          );
+
+          const showPrevailing = ref(false);
+          const showMitigatedButton = computed(() => {
+            // if (paramParam.value === "nomiti") return false;
+            if (isMarineTrafficNoise.value) return false;
+            return true;
+          });
+
+          const showRedLegend = computed(() => {
+            if (paramParam.value === "nomiti") return false;
+            if (isRoadTrafficNoise.value) return false;
+            if (includesNoRed.value) return false;
+            return true;
+          });
+
+          const showRed1Legend = computed(() => {
+            if (paramParam.value === "nomiti") return false;
+            return isRoadTrafficNoise.value;
+          });
+
+          const showBlue1Legend = computed(() => {
+            // return includesBlue1.value && selectedState.value === "mitigated";
+            return selectedState.value === "mitigated";
+          });
+
+          let rp;
+
+          function MySetVizByTags(tags, visibility, delay) {
+            rp.setOverlaysVisibilityByTags(
+              tags,
+              visibility,
+              rp.getMediaByName(),
+              "or",
+              delay
+            );
+          }
+
+          function broadcast(message) {
+            var iframes = window.parent.frames;
+            for (var i = 0; i < iframes.length; i++) {
+              iframes[i].postMessage(message, "*");
+            }
+          }
+
+          function onMitigated() {
+            selectedState.value = "mitigated";
+            red1ShowsMitigated.value = true;
+
+            if (isMarineTrafficNoise.value) {
+              MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
+              MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
+              MySetVizByTags(["MarineNoise_Mitigated"], true, 300);
+            } else {
+              MySetVizByTags(["Noise_Mitigated"], false, 0);
+              MySetVizByTags(["Noise_Unmitigated"], false, 0);
+              MySetVizByTags(["Noise_Mitigated"], true, 300);
+            }
+
+            broadcast("mitigated");
+
+            if (includesYellow1.value) {
+              yellowVisible.value = true;
+            }
+          }
+
+          function onUnmitigated() {
+            selectedState.value = "unmitigated";
+            red1ShowsMitigated.value = false;
+
+            if (isMarineTrafficNoise.value) {
+              MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
+              MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
+              MySetVizByTags(["MarineNoise_Unmitigated"], true, 300);
+            } else {
+              MySetVizByTags(["Noise_Unmitigated"], false, 0);
+              MySetVizByTags(["Noise_Mitigated"], false, 0);
+              MySetVizByTags(["Noise_Unmitigated"], true, 300);
+            }
+
+            broadcast("unmitigated");
+            yellowVisible.value = false;
+          }
+
+          function onPrevailing() {
+            selectedState.value = "prevailing";
+
+            if (isMarineTrafficNoise.value) {
+              MySetVizByTags(["MarineNoise_Mitigated"], false, 0);
+              MySetVizByTags(["MarineNoise_Unmitigated"], false, 0);
+              MySetVizByTags(["MarineNoise_Mitigated"], true, 300);
+            } else {
+              MySetVizByTags(["Noise_Mitigated"], false, 0);
+              MySetVizByTags(["Noise_Unmitigated"], false, 0);
+              MySetVizByTags(["Noise_Mitigated"], true, 300);
+            }
+
+            broadcast("prevailed");
+          }
+
+          function closePanel() {
+            MySetVizByTags(["switch_state_noise"], false, 0);
+            MySetVizByTags(["switch_state_air"], false, 0);
+            rp.getComponentByName("NoiseStateSwitch").set("visible", false);
+            rp.getComponentByName("AirStateSwitch").set("visible", false);
+            rp.getComponentByName("MarineNoiseStateSwitch").set(
+              "visible",
+              false
+            );
+            console.log("closePanel");
+          }
+
+          onMounted(() => {
+            rp = window.parent.tour._getRootPlayer();
+
+            const title = urlParams.get("title");
+            if (title) {
+              titleHtml.value = title.replace(/~/g, "<br>");
+            }
+
+            const titleSize = urlParams.get("titleSize");
+            if (titleSize) {
+              titleFontSize.value = titleSize;
+            }
+
+            const panel = urlParams.get("panel");
+            if (panel) {
+              panelType.value = panel;
+              panelTitle.value = panel;
+            }
+
+            const legendsRaw = urlParams.get("legend");
+            if (legendsRaw) {
+              legendParams.value = legendsRaw.split(",");
+              includesBlue1.value = legendParams.value.includes("blue1");
+              includesYellow1.value = legendParams.value.includes("yellow1");
+              includesNoRed.value = legendParams.value.includes("nored");
+            }
+
+            scenarioParam.value = urlParams.get("scenario");
+            paramParam.value = urlParams.get("param");
+
+            // Initial legend visibility like original changeLegend()
+            yellowVisible.value = includesYellow1.value;
+
+            // Prevailing button visibility
+            showPrevailing.value = scenarioParam.value === "prevailed";
+
+            // Default selected for Marine Traffic Noise
+            if (isMarineTrafficNoise.value) {
+              selectedState.value = "unmitigated";
+            }
+
+            // If Road Traffic Noise and nomiti, trigger unmitigated after 0.5s
+            if (isRoadTrafficNoise.value && paramParam.value == "nomiti") {
+              setTimeout(() => {
+                onUnmitigated();
+              }, 500);
+            }
+
+            // Auto-select via postMessage
+            window.addEventListener("message", function (event) {
+              if (event.data == "mitigated") {
+                selectedState.value = "mitigated";
+                red1ShowsMitigated.value = true;
+                if (includesYellow1.value) {
+                  yellowVisible.value = true;
+                }
+              } else if (event.data == "unmitigated") {
+                selectedState.value = "unmitigated";
+                red1ShowsMitigated.value = false;
+                yellowVisible.value = false;
+              } else if (event.data == "prevailed") {
+                selectedState.value = "prevailing";
+              }
+            });
+          });
+
+          return {
+            panelTitle,
+            titleHtml,
+            titleFontSize,
+            selectedState,
+            onMitigated,
+            onUnmitigated,
+            onPrevailing,
+            closePanel,
+            showPrevailing,
+            showMitigatedButton,
+            showRedLegend,
+            showRed1Legend,
+            includesBlue1,
+            showBlue1Legend,
+            yellowVisible,
+            red1ShowsMitigated,
+          };
+        },
+      });
+
+      const vm = app.mount(".container");
+      // Expose globals for compatibility
+      window.mitigatedFunction = vm.onMitigated;
+      window.unmitigatedFunction = vm.onUnmitigated;
+      window.prevailedFunction = vm.onPrevailing;
+      window.closePanel = vm.closePanel;
+    </script>
+  </body>
+</html>
+
+
+//test
