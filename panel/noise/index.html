@@ -498,6 +498,8 @@
         for (var i = 0; i < iframes.length; i++) {
           iframes[i].postMessage("mitigated", "*");
         }
+        // also notify parent (tour page) directly
+        try { window.parent.postMessage("mitigated", "*"); } catch (e) {}
 
         // Show/hide labels
         document.querySelector(".red1LabelShowWhenMitigated").style.display =
@@ -546,6 +548,8 @@
         for (var i = 0; i < iframes.length; i++) {
           iframes[i].postMessage("unmitigated", "*");
         }
+        // also notify parent (tour page) directly
+        try { window.parent.postMessage("unmitigated", "*"); } catch (e) {}
 
         // Show/hide labels
         document.querySelector(".red1LabelShowWhenMitigated").style.display =
@@ -597,6 +601,8 @@
         for (var i = 0; i < iframes.length; i++) {
           iframes[i].postMessage("prevailed", "*");
         }
+        // also notify parent (tour page) directly
+        try { window.parent.postMessage("prevailed", "*"); } catch (e) {}
 
         // Hide blue1 legend
         document.querySelector(".blue1").style.display = "none";
