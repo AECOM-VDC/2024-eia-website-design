@@ -464,6 +464,11 @@
             document.getElementById("unmitigatedBtn").style.display = "block";
           }
         }
+
+        // Broadcast legend flags to parent so the EIA page can mirror conditional rows
+        try {
+          window.parent.postMessage({ type: 'noiseLegendFlags', flags: legends || [] }, '*');
+        } catch (e) {}
       }
       changeScenario();
 
