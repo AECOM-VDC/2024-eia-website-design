@@ -10,6 +10,9 @@
         user-select: none;
         box-sizing: border-box !important;
       }
+      [v-cloak] {
+        visibility: hidden;
+      }
 
       body {
         font-family: Arial, sans-serif;
@@ -36,7 +39,6 @@
         text-align: left;
         padding: 0;
         align-items: center;
-        border-radius: 2.5vw 2.5vw 0 0;
       }
       #panelTitle {
         padding: 0 0 0 5vw;
@@ -192,7 +194,7 @@
   <body>
     <div class="container">
       <header id="header">
-        <span id="panelTitle">{{ panelTitle }}</span>
+        <span id="panelTitle" v-cloak>{{ panelTitle }}</span>
         <div id="closeCon" @click="closePanel">
           <span id="close">&times;</span>
         </div>
@@ -278,13 +280,13 @@
             >Exceeded the Criteria</label
           >
         </div>
-        <div class="legendItems blue1" v-show="showBlue1Legend">
+        <div class="legendItems blue1" v-show="showBlue1Legend" v-cloak>
           <span class="blue legendIcon"></span>
           <label class="blueLabel"
             >Comply with the criteria (with Acoustic Window)</label
           >
         </div>
-        <div class="legendItems yellow1" v-show="yellowVisible">
+        <div class="legendItems yellow1" v-show="yellowVisible" v-cloak>
           <span class="yellow legendIcon"></span>
           <label class="yellowLabel" style="font-size: 4.5vw"
             >Low noise road surfacing materials</label
@@ -313,7 +315,7 @@
           const scenarioParam = ref(null);
           const paramParam = ref(null);
 
-          const selectedState = ref("mitigated"); // 'mitigated' | 'unmitigated' | 'prevailing'
+          const selectedState = ref(null); // 'mitigated' | 'unmitigated' | 'prevailing'
           const red1ShowsMitigated = ref(true);
           const yellowVisible = ref(false);
 
@@ -470,9 +472,11 @@
             // Prevailing button visibility
             showPrevailing.value = scenarioParam.value === "prevailed";
 
-            // Default selected for Marine Traffic Noise
+            // Default selected state
             if (isMarineTrafficNoise.value) {
               selectedState.value = "unmitigated";
+            } else {
+              selectedState.value = "mitigated";
             }
 
             // If Road Traffic Noise and nomiti, trigger unmitigated after 0.5s
