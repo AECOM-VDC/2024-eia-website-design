@@ -711,6 +711,11 @@
         console.log("closePanel");
 
         // document.getElementsByClassName("container")[0].style.display = "none";
+        window.parent.postMessage({
+          type: "hideTag",
+          tag: "state_0_air",
+          delay: 100
+        }, "*");
       }
 
       function MySetVizByTags(tags, visibility, delay) {
