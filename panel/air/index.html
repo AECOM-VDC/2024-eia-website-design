@@ -285,9 +285,24 @@
         // var rp = window.parent.tour._getRootPlayer();
         MySetVizByTags(["switch_state_noise"], false, 0);
         MySetVizByTags(["switch_state_air"], false), 0;
-        rp.getComponentByName("NoiseStateSwitch").set("visible", false);
-        rp.getComponentByName("AirStateSwitch").set("visible", false);
+        
+        // Try to hide components directly, but don't fail if they don't exist
+        try {
+          rp.getComponentByName("NoiseStateSwitch").set("visible", false);
+          rp.getComponentByName("AirStateSwitch").set("visible", false);
+        } catch (error) {
+          console.warn("Could not hide components directly:", error);
+        }
+        
         console.log("closePanel");
+        
+        // Send message to parent to hide state_0_noise tag
+        // This will go: air/index.html -> tour/index.html -> tour.vue
+        window.parent.postMessage({
+          type: "hideTag",
+          tag: "state_0_noise",
+          delay: 100
+        }, "*");
       }
 
       function MySetVizByTags(tags, visibility, delay) {
