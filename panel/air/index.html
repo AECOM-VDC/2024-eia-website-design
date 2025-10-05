@@ -249,7 +249,6 @@
           title = title.replace(/~/g, "<br>");
           document.getElementById("title").innerHTML = title;
         }
-        console.log(title);
       }
 
       function setTitleSize() {
@@ -259,7 +258,6 @@
         if (titleSize) {
           document.getElementById("title").style.fontSize = titleSize;
         }
-        console.log(titleSize);
       }
       //>> 3dv
 
@@ -291,22 +289,17 @@
           rp.getComponentByName("NoiseStateSwitch").set("visible", false);
           rp.getComponentByName("AirStateSwitch").set("visible", false);
         } catch (error) {
-          console.warn("Could not hide components directly:", error);
+          // Silent fail
         }
-        
-        console.log("[air/index.html] closePanel called");
         
         // Directly call the function in tour.vue to hide state_0_noise tag
         // This bypasses the middle iframe: air/index.html -> tour.vue
         try {
           if (window.parent && window.parent.parent && typeof window.parent.parent.hideTagFromPanel === 'function') {
-            console.log("[air/index.html] Calling hideTagFromPanel in tour.vue");
             window.parent.parent.hideTagFromPanel("state_0_noise");
-          } else {
-            console.error("[air/index.html] hideTagFromPanel function not found on window.parent.parent");
           }
         } catch (error) {
-          console.error("[air/index.html] Error calling hideTagFromPanel:", error);
+          // Silent fail
         }
       }
 

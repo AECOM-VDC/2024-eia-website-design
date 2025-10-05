@@ -708,19 +708,15 @@
         rp.getComponentByName("NoiseStateSwitch").set("visible", false);
         rp.getComponentByName("AirStateSwitch").set("visible", false);
         rp.getComponentByName("MarineNoiseStateSwitch").set("visible", false);
-        console.log("[noise/index.html] closePanel called");
 
         // Directly call the function in tour.vue to hide state_0_air tag
         // This bypasses the middle iframe: noise/index.html -> tour.vue
         try {
           if (window.parent && window.parent.parent && typeof window.parent.parent.hideTagFromPanel === 'function') {
-            console.log("[noise/index.html] Calling hideTagFromPanel in tour.vue");
             window.parent.parent.hideTagFromPanel("state_0_air");
-          } else {
-            console.error("[noise/index.html] hideTagFromPanel function not found on window.parent.parent");
           }
         } catch (error) {
-          console.error("[noise/index.html] Error calling hideTagFromPanel:", error);
+          // Silent fail
         }
       }
 
