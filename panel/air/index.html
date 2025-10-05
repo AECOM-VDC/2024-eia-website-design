@@ -294,15 +294,20 @@
           console.warn("Could not hide components directly:", error);
         }
         
-        console.log("closePanel");
+        console.log("[air/index.html] closePanel called");
         
-        // Send message to parent to hide state_0_noise tag
-        // This will go: air/index.html -> tour/index.html -> tour.vue
-        window.parent.postMessage({
-          type: "hideTag",
-          tag: "state_0_noise",
-          delay: 100
-        }, "*");
+        // Directly call the function in tour.vue to hide state_0_noise tag
+        // This bypasses the middle iframe: air/index.html -> tour.vue
+        try {
+          if (window.parent && window.parent.parent && typeof window.parent.parent.hideTagFromPanel === 'function') {
+            console.log("[air/index.html] Calling hideTagFromPanel in tour.vue");
+            window.parent.parent.hideTagFromPanel("state_0_noise");
+          } else {
+            console.error("[air/index.html] hideTagFromPanel function not found on window.parent.parent");
+          }
+        } catch (error) {
+          console.error("[air/index.html] Error calling hideTagFromPanel:", error);
+        }
       }
 
       function MySetVizByTags(tags, visibility, delay) {
