@@ -179,10 +179,6 @@
         background-color: #f0f00a; /* light red */
       }
 
-      .yellow1 {
-        display: none;
-      }
-
       .red1LabelShowWhenMitigated {
         display: none;
       }
@@ -204,8 +200,7 @@
           id="title"
           v-html="titleHtml"
           :style="titleFontSize ? { fontSize: titleFontSize } : {}"
-        >
-        </h2>
+        ></h2>
       </div>
 
       <div id="btnContainer">
@@ -298,6 +293,11 @@
     <script>
       const { createApp, ref, computed, onMounted } = Vue;
 
+      // ========================================
+      // DEBUG MODE - Set to false to disable console logs
+      // ========================================
+      const DEBUG_MODE = false;
+
       const app = createApp({
         setup() {
           const urlParams = new URLSearchParams(window.location.search);
@@ -319,10 +319,10 @@
           const yellowVisible = ref(false);
 
           const isRoadTrafficNoise = computed(
-            () => panelType.value === "Road Traffic Noise"
+            () => panelType.value === "Road Traffic Noise",
           );
           const isMarineTrafficNoise = computed(
-            () => panelType.value === "Marine Traffic Noise"
+            () => panelType.value === "Marine Traffic Noise",
           );
 
           const showPrevailing = ref(false);
@@ -357,7 +357,7 @@
               visibility,
               rp.getMediaByName(),
               "or",
-              delay
+              delay,
             );
           }
 
@@ -430,7 +430,7 @@
             rp.getComponentByName("AirStateSwitch").set("visible", false);
             rp.getComponentByName("MarineNoiseStateSwitch").set(
               "visible",
-              false
+              false,
             );
             console.log("closePanel");
           }
@@ -455,11 +455,28 @@
             }
 
             const legendsRaw = urlParams.get("legend");
+            if (DEBUG_MODE) {
+              console.log("=== Legend Debug Info ===");
+              console.log("Full URL:", window.location.href);
+              console.log("Legend Param (raw):", legendsRaw);
+            }
+
             if (legendsRaw) {
               legendParams.value = legendsRaw.split(",");
               includesBlue1.value = legendParams.value.includes("blue1");
-              includesYellow1.value = legendParams.value.includes("yellow1");
+              includesYellow1.value = legendParams.value.includes("yellow");
               includesNoRed.value = legendParams.value.includes("nored");
+
+              if (DEBUG_MODE) {
+                console.log("Legend Array:", legendParams.value);
+                console.log("includesBlue1:", includesBlue1.value);
+                console.log("includesYellow1:", includesYellow1.value);
+                console.log("includesNoRed:", includesNoRed.value);
+              }
+            } else {
+              if (DEBUG_MODE) {
+                console.log("No legend parameter found in URL");
+              }
             }
 
             scenarioParam.value = urlParams.get("scenario");
@@ -467,6 +484,10 @@
 
             // Initial legend visibility like original changeLegend()
             yellowVisible.value = includesYellow1.value;
+            if (DEBUG_MODE) {
+              console.log("yellowVisible (initial):", yellowVisible.value);
+              console.log("========================\n");
+            }
 
             // Prevailing button visibility
             showPrevailing.value = scenarioParam.value === "prevailed";
@@ -517,6 +538,7 @@
             showRedLegend,
             showRed1Legend,
             includesBlue1,
+            includesYellow1,
             showBlue1Legend,
             yellowVisible,
             red1ShowsMitigated,
@@ -533,4 +555,3 @@
     </script>
   </body>
 </html>
-
