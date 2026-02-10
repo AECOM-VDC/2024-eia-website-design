@@ -434,7 +434,13 @@
 
       //>> 3dv
 
-      let rp = window.parent.tour._getRootPlayer();
+      let rp;
+      try {
+        rp = window.parent.tour._getRootPlayer();
+      } catch (e) {
+        console.warn("rp not found ");
+        rp = null;
+      }
 
       // All noise tags — each button maps 1-to-1 to one of these
       const allNoiseTags = [
@@ -632,8 +638,10 @@
 
         MySetVizByTags(["switch_state_noise"], false, 0);
         MySetVizByTags(["switch_state_air"], false, 0);
-        rp.getComponentByName("NoiseStateSwitch").set("visible", false);
-        rp.getComponentByName("AirStateSwitch").set("visible", false);
+        try {
+          rp.getComponentByName("NoiseStateSwitch").set("visible", false);
+          rp.getComponentByName("AirStateSwitch").set("visible", false);
+        } catch (e) {}
 
         // Directly call the function in tour.vue to hide state_0_air tag
         try {
@@ -650,7 +658,7 @@
       }
 
       function MySetVizByTags(tags, visibility, delay) {
-        // var rp = window.parent.tour._getRootPlayer();
+        if (!rp) return; // Skip in local preview mode
         rp.setOverlaysVisibilityByTags(
           tags,
           visibility,
