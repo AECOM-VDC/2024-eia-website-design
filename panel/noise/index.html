@@ -297,6 +297,7 @@
 
     <script>
       // Get the parameter title from the url
+      const ENABLE_LEGEND = false;
       let panelType = "";
       const urlParams = new URLSearchParams(window.location.search);
       let panelParams = urlParams.get("panel");
@@ -393,6 +394,9 @@
        * Reads from legendConfig — the single source of truth.
        */
       function updateLegend(scenario) {
+        if (!ENABLE_LEGEND) {
+          return;
+        }
         // Show the legend container
         document.querySelector(".legend").style.display = "block";
 
