@@ -173,15 +173,13 @@
         <div id="airItemsCon">
           <div id="airItems">
             <p style="text-align: left; margin: 0%">For pollutants:</p>
-            <div>i. 19<sup>th</sup> Highest Hourly NO<sub>2</sub>;</div>
-            <div>ii. 10<sup>th</sup> Highest Daily NO<sub>2</sub>;</div>
-            <div>iii. Annual NO<sub>2</sub>;</div>
-            <div>iv. 10<sup>th</sup> Highest Daily RSP;</div>
-            <div>v. Annual RSP;</div>
-            <div>vi. 19<sup>th</sup> Highest Daily FSP;</div>
-            <div>vii. Annual FSP</div>
-            <div>viii. 4<sup>th</sup> Highest 10-min SO<sub>2</sub>;</div>
-            <div>ix. 4<sup>th</sup> Highest Daily SO<sub>2</sub>;</div>
+            <div>i. 19<sup>th</sup> Highest Hourly Average NO<sub>2</sub>;</div>
+            <div>ii. 10<sup>th</sup> Highest Daily Average NO<sub>2</sub>;</div>
+            <div>iii. Annual Average NO<sub>2</sub>;</div>
+            <div>iv. 10<sup>th</sup> Highest Daily Average RSP;</div>
+            <div>v. Annual Average RSP;</div>
+            <div>vi. 19<sup>th</sup> Highest Daily Average FSP;</div>
+            <div>vii. Annual Average FSP</div>
           </div>
         </div>
         <!-- <div id="remark" style="width: 100%">
@@ -283,7 +281,7 @@
         // var rp = window.parent.tour._getRootPlayer();
         MySetVizByTags(["switch_state_noise"], false, 0);
         MySetVizByTags(["switch_state_air"], false), 0;
-        
+
         // Try to hide components directly, but don't fail if they don't exist
         try {
           rp.getComponentByName("NoiseStateSwitch").set("visible", false);
@@ -291,11 +289,15 @@
         } catch (error) {
           // Silent fail
         }
-        
+
         // Directly call the function in tour.vue to hide state_0_noise tag
         // This bypasses the middle iframe: air/index.html -> tour.vue
         try {
-          if (window.parent && window.parent.parent && typeof window.parent.parent.hideTagFromPanel === 'function') {
+          if (
+            window.parent &&
+            window.parent.parent &&
+            typeof window.parent.parent.hideTagFromPanel === "function"
+          ) {
             window.parent.parent.hideTagFromPanel("state_0_noise");
           }
         } catch (error) {
@@ -310,7 +312,7 @@
           visibility,
           rp.getMediaByName(),
           "or",
-          delay
+          delay,
         );
       }
     </script>
