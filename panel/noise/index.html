@@ -307,6 +307,34 @@
         panelType = panelParams;
       }
 
+      const noPrevailList = [
+        "NSW293_5a",
+        "NSW293_6a",
+        "LSPS1a",
+        "LSPS1b",
+        "SP1",
+        "SP2a",
+        "SP5",
+        "SP6",
+        "NSW9_3b",
+        "NSW8_1b",
+        "NSW8_2b",
+      ];
+
+      // Hide PrevailingBtn if title contains any item in the noPrevailList
+      let initialTitle = urlParams.get("title");
+      if (initialTitle) {
+        let shouldHidePrevail = noPrevailList.some((item) =>
+          initialTitle.includes(item),
+        );
+        if (shouldHidePrevail) {
+          let prevailingBtn = document.getElementById("PrevailingBtn");
+          if (prevailingBtn) {
+            prevailingBtn.style.display = "none";
+          }
+        }
+      }
+
       //function to toggle the button
       function toggleButton(btn) {
         //get the button element
