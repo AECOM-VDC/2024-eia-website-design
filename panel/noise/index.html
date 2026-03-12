@@ -465,7 +465,7 @@
         "Noise_Unmitigated",
         "Noise_prevailing",
         "Noise_WPAY",
-        "state_noise"        
+        "state_noise",
       ];
 
       const allBtnIds = [
@@ -540,7 +540,7 @@
 
       function prevailedFunction(broadcast = true) {
         switchScenario(
-          ["Noise_prevailing"],
+          ["Noise_prevailing","state_prevailing_noise"],
           "PrevailingBtn",
           "prevailed",
           broadcast,
