@@ -540,7 +540,7 @@
 
       function prevailedFunction(broadcast = true) {
         switchScenario(
-          ["Noise_prevailing","state_prevailing_noise"],
+          ["Noise_prevailing", "state_prevailing_noise"],
           "PrevailingBtn",
           "prevailed",
           broadcast,
@@ -556,7 +556,12 @@
       }
 
       function wpayFunction(broadcast = true) {
-        switchScenario(["Noise_WPAY"], "WPAYBtn", "wpay", broadcast);
+        switchScenario(
+          ["Noise_WPAY", "state_noise"],
+          "WPAYBtn",
+          "wpay",
+          broadcast,
+        );
         if (originalTitle) {
           document.getElementById("title").innerHTML = originalTitle;
         }
