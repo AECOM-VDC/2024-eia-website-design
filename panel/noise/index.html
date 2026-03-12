@@ -480,7 +480,7 @@
        * Also updates button selection and broadcasts the state.
        */
       function switchScenario(
-        activeTag,
+        activeTags,
         activeBtnId,
         messageKey,
         broadcast = true,
@@ -493,8 +493,10 @@
 
         // Hide all noise tags first
         allNoiseTags.forEach((tag) => MySetVizByTags([tag], false, 0));
-        // Show only the active tag
-        MySetVizByTags([activeTag], true, 300);
+
+        // Show active tag(s)
+        let tagsToShow = Array.isArray(activeTags) ? activeTags : [activeTags];
+        MySetVizByTags(tagsToShow, true, 300);
 
         // Update legend display
         updateLegend(messageKey);
@@ -514,7 +516,7 @@
 
       function mitigatedFunction(broadcast = true) {
         switchScenario(
-          "Noise_Mitigated",
+          ["Noise_Mitigated", "state_noise"],
           "mitigatedBtn",
           "mitigated",
           broadcast,
@@ -526,7 +528,7 @@
 
       function unmitigatedFunction(broadcast = true) {
         switchScenario(
-          "Noise_Unmitigated",
+          ["Noise_Unmitigated", "state_noise"],
           "unmitigatedBtn",
           "unmitigated",
           broadcast,
@@ -538,7 +540,7 @@
 
       function prevailedFunction(broadcast = true) {
         switchScenario(
-          "Noise_prevailing",
+          ["Noise_prevailing"],
           "PrevailingBtn",
           "prevailed",
           broadcast,
@@ -554,7 +556,7 @@
       }
 
       function wpayFunction(broadcast = true) {
-        switchScenario("Noise_WPAY", "WPAYBtn", "wpay", broadcast);
+        switchScenario(["Noise_WPAY"], "WPAYBtn", "wpay", broadcast);
         if (originalTitle) {
           document.getElementById("title").innerHTML = originalTitle;
         }
