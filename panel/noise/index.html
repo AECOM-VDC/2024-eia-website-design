@@ -599,6 +599,8 @@
         MySetVizByTags(["switch_state_noise"], false, 0);
         MySetVizByTags(["switch_state_air"], false, 0);
         try {
+          // MySetVizByTags(["noise_panel"], false, 0);
+          // MySetVizByTags(["state_0"], true, 0);
           rp.getComponentByName("NoiseStateSwitch").set("visible", false);
           rp.getComponentByName("AirStateSwitch").set("visible", false);
         } catch (e) {}
