@@ -281,6 +281,7 @@
         // var rp = window.parent.tour._getRootPlayer();
         MySetVizByTags(["switch_state_noise"], false, 0);
         MySetVizByTags(["switch_state_air"], false), 0;
+        MySetVizByTags(["state_0_air"], true, 0);
 
         // Try to hide components directly, but don't fail if they don't exist
         try {
@@ -315,6 +316,7 @@
           delay,
         );
       }
+      MySetVizByTags(["state_0_air"], false, 0);
     </script>
   </body>
 </html>

@@ -340,6 +340,9 @@
         }
       }
 
+       
+
+
       //function to toggle the button
       function toggleButton(btn) {
         //get the button element
@@ -598,6 +601,7 @@
 
         MySetVizByTags(["switch_state_noise"], false, 0);
         MySetVizByTags(["switch_state_air"], false, 0);
+        MySetVizByTags(["state_0_noise"], true, 0);
         try {
           // MySetVizByTags(["noise_panel"], false, 0);
           // MySetVizByTags(["state_0"], true, 0);
@@ -619,6 +623,8 @@
         }
       }
 
+       
+
       function MySetVizByTags(tags, visibility, delay) {
         if (!rp) return; // Skip in local preview mode
         rp.setOverlaysVisibilityByTags(
@@ -629,6 +635,9 @@
           delay,
         );
       }
+
+      // Run on page load
+      MySetVizByTags(["state_0_noise"], false, 0);
     </script>
   </body>
 </html>
