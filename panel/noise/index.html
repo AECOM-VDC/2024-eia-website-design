@@ -41,6 +41,7 @@
       }
       #panelTitle {
         padding: 0 0 0 5vw;
+        padding-right: 2vw;
         font-size: 8vw;
         width: 100%;
         height: 100%;
@@ -200,6 +201,7 @@
         height: 1px;
         background-color: #c5c5c5a8;
         border: none;
+        display: none;
       }
 
       /* Legend item visibility is controlled by updateLegend() */
@@ -222,7 +224,7 @@
       <div id="titleCon"><h2 id="title">Title</h2></div>
 
       <div id="bottomContainer">
-        <p id="instruction">Click below to select a scenario</p>
+        <!-- <p id="instruction">Click below to select a scenario</p> -->
         <button
           id="mitigatedBtn"
           class="button selected"
@@ -235,7 +237,7 @@
           class="button"
           onclick="unmitigatedFunction()"
         >
-          Unmitigated
+          Base Case Scenario
         </button>
         <button id="PrevailingBtn" class="button" onclick="prevailedFunction()">
           Prevailing
@@ -340,7 +342,16 @@
         }
       }
 
-       
+
+      // Hide mitigated/prevailing/WPAY buttons when only_unmiti is set
+      if (urlParams.has("only_unmiti")) {
+        ["mitigatedBtn", "PrevailingBtn", "WPAYBtn"].forEach((id) => {
+          let btn = document.getElementById(id);
+          if (btn) {
+            btn.style.display = "none";
+          }
+        });
+      }
 
 
       //function to toggle the button
@@ -391,7 +402,15 @@
         const urlParams = new URLSearchParams(window.location.search);
         let panelName = urlParams.get("panel");
         if (panelName) {
-          document.getElementById("panelTitle").innerHTML = panelName;
+          const panelTitleEl = document.getElementById("panelTitle");
+          panelTitleEl.innerHTML = panelName;
+
+          // Shrink font size for long titles so they fit without being cut off
+          if (panelName.length > 18) {
+            panelTitleEl.style.fontSize = "6.8vw";
+          } else if (panelName.length > 12) {
+            panelTitleEl.style.fontSize = "6.5vw";
+          }
         }
       }
       changePanelName();
@@ -593,6 +612,11 @@
 
       // Show legend for the default scenario (Mitigated) on page load
       updateLegend("mitigated");
+
+      // Preselect Unmitigated when only_unmiti is set
+      if (urlParams.has("only_unmiti")) {
+        unmitigatedFunction();
+      }
 
       function closePanel() {
         // Hide all noise-related overlays
