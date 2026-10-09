@@ -7,6 +7,7 @@
     <style>
       * {
         user-select: none;
+        box-sizing: border-box;
         background-color: none;
       }
 
@@ -20,14 +21,17 @@
       .container {
         width: 100vw;
         height: 100vh;
+        display: flex;
+        flex-direction: column;
         background-color: rgba(255, 255, 255, 0.85);
         border-radius: 2.5vw 2.5vw 2.5vw 2.5vw;
         padding: 0px;
         text-align: center;
-        overflow: hidden !important;
+        overflow: hidden;
       }
       header {
         height: 13.75vw;
+        flex: 0 0 auto;
         display: flex;
         background-color: #005555; /* Dark green */
         color: white;
@@ -62,16 +66,18 @@
       }
 
       #titleCon {
+        flex: 0 0 auto;
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 22vw;
-        padding: 4vw 4vw 4vw 4vw;
+        min-height: 18vw;
+        padding: 2vw 4vw;
         overflow: hidden;
       }
 
       #title {
         font-size: 9vw;
+        line-height: 1.1;
         text-align: center;
         vertical-align: middle;
         margin: 0;
@@ -84,35 +90,40 @@
         color: white !important; */
       }
       #bottomContainer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
+        /* 用 flex:0 0 auto 而非 1 1 auto：这样 bottom.scrollHeight 反映内容真实高度。
+           若用 flex:1，该块会被拉伸填满剩余空间，scrollHeight 随之等于拉伸后的高度，
+           使 fitTitle() 里 titleEl.scrollHeight + bottom.scrollHeight 恒等于视口高度，
+           判定退化为取整误差的假阳性，标题会被无谓缩小。 */
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
         width: 100%;
+        padding-bottom: 3vw;
       }
       .legend {
         text-align: left;
         /* margin-top: 2vw; */
-        font-size: 5vw;
-        padding-left: 11vw;
-        padding-bottom: 4vw;
+        font-size: 4.5vw;
+        padding-left: 9vw;
+        padding-right: 4vw;
+        padding-bottom: 2vw;
         width: 100%;
       }
       #legendTitle {
         font-weight: 600;
-        margin-top: 3vw;
-        margin-bottom: 3vw !important;
+        margin: 1.5vw 0;
       }
       .legendItems {
         display: flex;
         align-items: center;
-        margin-top: 2.7vw;
-        margin-bottom: 2.7vw;
+        margin: 1.5vw 0 0;
       }
       .legendIcon {
         display: inline-block;
         width: 7vw;
         height: 7vw;
-        margin-right: 4vw;
+        margin-right: 3vw;
       }
       .complied {
         background-color: #42ff00; /* light green */
@@ -133,18 +144,17 @@
         justify-content: flex-start;
         flex-direction: column;
         text-align: start;
-        line-height: 1;
+        line-height: 1.1;
         /* margin-top: 2.5vw; */
       }
 
       #airItems div {
-        padding: 1vw 0 0.7vw 0;
+        padding: 0.4vw 0 0.3vw 0;
       }
 
       hr {
         width: 80%;
-        margin-top: 3.2vw;
-        margin-bottom: 3.2vw;
+        margin: 1.5vw auto;
         height: 1px;
         background-color: #c5c5c5a8;
         border: none;
@@ -183,9 +193,10 @@
           <p
             style="
               text-align: justify;
-              padding: 0 16px 0 16px;
+              padding: 0 3vw 0 3vw;
+              margin: 0;
               font-size: 11.5px;
-              width: calc(100% - 32px);
+              width: 100%;
             "
           >
             The predicted CO concentrations were well below the current AQOs and
@@ -232,6 +243,35 @@
 
       changeTitle();
       setTitleSize();
+      fitTitle();
+      window.addEventListener("resize", fitTitle);
+
+      // 标题自适应：从 URL 的 titleSize 起，若整屏放不下则逐步缩小 #title 字号（下限 3vw）
+      function fitTitle() {
+        const titleEl = document.getElementById("title");
+        const header = document.querySelector("header");
+        const titleCon = document.getElementById("titleCon");
+        const bottom = document.getElementById("bottomContainer");
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlSize = urlParams.get("titleSize") || "9vw";
+        titleEl.style.fontSize = urlSize; // 每次都从 URL 指定字号重来
+
+        const cs = getComputedStyle(titleCon);
+        const padV = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+        const minPx = window.innerWidth * 0.03; // 下限 3vw
+        let guard = 0;
+        for (;;) {
+          const need =
+            header.offsetHeight +
+            padV +
+            titleEl.scrollHeight +
+            bottom.scrollHeight;
+          if (need <= window.innerHeight || guard++ > 100) break;
+          const cur = parseFloat(getComputedStyle(titleEl).fontSize);
+          if (cur <= minPx) break;
+          titleEl.style.fontSize = (cur * 0.96).toFixed(2) + "px";
+        }
+      }
 
       function changeTitle() {
         // Get the parameter title from the url
@@ -257,7 +297,13 @@
       }
       //>> 3dv
 
-      let rp = window.parent.tour._getRootPlayer();
+      let rp = null;
+      try {
+        rp = window.parent.tour._getRootPlayer();
+      } catch (e) {
+        console.warn("rp not found");
+        rp = null;
+      }
 
       function mitigatedFunction() {
         // var rp = window.parent.tour._getRootPlayer();
@@ -278,14 +324,19 @@
       function closePanel() {
         // var rp = window.parent.tour._getRootPlayer();
         MySetVizByTags(["switch_state_noise"], false, 0);
-        MySetVizByTags(["switch_state_air"], false), 0;
-        rp.getComponentByName("NoiseStateSwitch").set("visible", false);
-        rp.getComponentByName("AirStateSwitch").set("visible", false);
+        MySetVizByTags(["switch_state_air"], false, 0);
+        if (rp) {
+          try {
+            rp.getComponentByName("NoiseStateSwitch").set("visible", false);
+            rp.getComponentByName("AirStateSwitch").set("visible", false);
+          } catch (e) {}
+        }
         console.log("closePanel");
       }
 
       function MySetVizByTags(tags, visibility, delay) {
         // var rp = window.parent.tour._getRootPlayer();
+        if (!rp) return; // 本地预览模式直接跳过
         rp.setOverlaysVisibilityByTags(
           tags,
           visibility,
